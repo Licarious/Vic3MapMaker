@@ -115,22 +115,14 @@ namespace Vic3MapMaker
                     statePanel.Visible = true;
                     //update itemComboBox to show all states in each r in regionSet and sort by name
                     itemComboBox.DataSource = regionSet.SelectMany(r => r.states).OrderBy(s => s.name).ToList();
-                    //highlight each s in the map
-                    foreach (State state in regionSet.SelectMany(r => r.states)) {
-                        HighlightState(state, state.color);
-                    }
+                    RefreshMap();
 
                     break;
                 case "Region":
                     regionPannel.Visible = true;
                     //update itemComboBox to show the regions in the regionSet
                     itemComboBox.DataSource = regionSet.OrderBy(r => r.name).ToList();
-                    //highlight each r in the map
-                    foreach (Region region in regionSet) {
-                        foreach (State state in region.states) {
-                            HighlightState(state, region.color);
-                        }
-                    }
+                    RefreshMap();
                     break;
                 case "PrimeLand":
                     ColorPrimeLand();
@@ -155,8 +147,10 @@ namespace Vic3MapMaker
                     //clear the dropdown box
                     itemComboBox.DataSource = null;
                     break;
+                
 
             }
+            
         }
 
         private void ItemComboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -731,12 +725,22 @@ namespace Vic3MapMaker
                 //if s is selected from the dropdown box
                 case "State":
                     //find the s in text box
-                    State state = (State)categoryComboBox.SelectedItem;
+                    State state = null;
+                    foreach (var s in regionSet.SelectMany(r => r.states.Where(s => s.name == textBoxCurrentlySelectedMapArea.Text))) {
+                        state = s;
+                        break;
+                    }
+
                     RefreshHubTextBoxes(state);
                     break;
                 case "Region":
                     //find the r in text box
-                    Region region = (Region)categoryComboBox.SelectedItem;
+                    Region region = null;
+                    foreach (var r in regionSet.Where(r => r.name == textBoxCurrentlySelectedMapArea.Text)) {
+                        region = r;
+                        break;
+                    }
+
                     RefreshRegionTextBoxes(region);
                     break;
             }
@@ -797,7 +801,7 @@ namespace Vic3MapMaker
                     foreach (Region r in regionSet) {
                         foreach (State s in r.states) {
                             count++;
-                            HighlightState(s, s.color, false);
+                            HighlightState(s, s.color, (r.states.Last() == s && s.provDict.Count > 1));
                         }
                     }
                     break;
@@ -805,7 +809,7 @@ namespace Vic3MapMaker
                     //highlight all regions
                     foreach (Region r in regionSet) {
                         foreach (State s in r.states) {
-                            HighlightState(s, r.color, false);
+                            HighlightState(s, r.color, (r.states.Last() == s && s.provDict.Count>1));
                         }
                     }
                     break;

@@ -16,21 +16,32 @@ namespace Vic3MapMaker
         /// </summary>
         [STAThread]
         static void Main() {
-            bool useGameFolder = false;
-
-            string defaultGameFolder = "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\_Input";
-            if (useGameFolder) {
-                defaultGameFolder = "E:\\Steam\\steamapps\\common\\Victoria 3\\game";
-            }
+            bool autorun = false;
+            string defaultGameFolder = "";
             string defaultModFolder = "--Not Implemented--";
-            string defaultOutputFolder = "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\_Output";
-            bool autorun = true;
+            string defaultOutputFolder = "";
             
+
+            //get directory of the executable
+            string executablePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            //check if autorun.txt exists in the same directory as the executable
+            if (File.Exists(Path.Combine(Path.GetDirectoryName(executablePath), "autorun.cfg"))) {
+                //read the autorun.txt file
+                string[] autorunLines = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(executablePath), "autorun.cfg"));
+                //if there are 3 lines, use the first 3 lines as the game folder, mod folder, and output folder
+                if (autorunLines.Length >= 4) {
+                    defaultGameFolder = autorunLines[0];
+                    defaultModFolder = autorunLines[1];
+                    defaultOutputFolder = autorunLines[2];
+                    autorun = bool.Parse(autorunLines[3]);
+                }
+            }
+
 
             //open the mainStarted form
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartForm(defaultGameFolder, defaultModFolder, defaultOutputFolder, autorun));
+            Application.Run(new StartForm(defaultGameFolder, defaultModFolder, defaultOutputFolder, autorun, Path.GetDirectoryName(executablePath)));
 
             
 

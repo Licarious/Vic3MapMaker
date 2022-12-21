@@ -13,9 +13,11 @@ namespace Vic3MapMaker
     public partial class StartForm : Form
     {
         readonly bool needsModFolder = false;
+        string directory = "";
 
-        public StartForm(string gameInput, string modInput, string output, bool autorun) {
-            
+        public StartForm(string gameInput, string modInput, string output, bool autorun, string directory) { 
+
+
             InitializeComponent();
             gameFolderTextBox.Text = gameInput;
             modFolderTextBox.Text = modInput;
@@ -23,6 +25,7 @@ namespace Vic3MapMaker
             if (autorun) {
                 startButton_Click(null, null);
             }
+            this.directory = directory;
 
         }
 
@@ -85,7 +88,7 @@ namespace Vic3MapMaker
             }
 
             //vic3FileParser
-            Vic3FileParser vic3FileParser = new Vic3FileParser(gameFolderTextBox.Text, modFolderTextBox.Text);
+            Vic3FileParser vic3FileParser = new Vic3FileParser(gameFolderTextBox.Text, modFolderTextBox.Text, outputFolderTextBox.Text);
 
             //open the main form with the vic3FileParser as input and the output folder as output folder and show this form as the owner of the main form (so it will be on top of this form) and close this form
             MainPage mainForm = new MainPage(vic3FileParser.GetData(), outputFolderTextBox.Text) {
@@ -94,6 +97,22 @@ namespace Vic3MapMaker
             mainForm.Show();
             this.Hide();
             
+        }
+
+        private void SaveSettingsButton_Click(object sender, EventArgs e) {
+            //if autorun.cgf does not exist, create it and write setting to it line by line
+            if (!System.IO.File.Exists(directory + "\\autorun.cfg")) {
+                System.IO.File.Create(directory + "\\autorun.cfg").Close();
+            }
+
+            //write the settings to the autorun.cfg file line by line
+            System.IO.File.WriteAllLines(directory + "\\autorun.cfg", new string[] {
+                gameFolderTextBox.Text,
+                modFolderTextBox.Text,
+                outputFolderTextBox.Text,
+                autoRunCheckBox.Checked.ToString()
+            });
+
         }
     }
 

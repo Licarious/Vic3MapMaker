@@ -35,6 +35,8 @@
             this.selectModFolderButton = new System.Windows.Forms.Button();
             this.selectOutputFolderButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
+            this.autoRunCheckBox = new System.Windows.Forms.CheckBox();
+            this.saveSettingsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gameFolderTextBox
@@ -130,11 +132,33 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
+            // autoRunCheckBox
+            // 
+            this.autoRunCheckBox.AutoSize = true;
+            this.autoRunCheckBox.Location = new System.Drawing.Point(12, 152);
+            this.autoRunCheckBox.Name = "autoRunCheckBox";
+            this.autoRunCheckBox.Size = new System.Drawing.Size(103, 24);
+            this.autoRunCheckBox.TabIndex = 8;
+            this.autoRunCheckBox.Text = "Auto Run";
+            this.autoRunCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // saveSettingsButton
+            // 
+            this.saveSettingsButton.Location = new System.Drawing.Point(141, 147);
+            this.saveSettingsButton.Name = "saveSettingsButton";
+            this.saveSettingsButton.Size = new System.Drawing.Size(149, 33);
+            this.saveSettingsButton.TabIndex = 9;
+            this.saveSettingsButton.Text = "Save Settings";
+            this.saveSettingsButton.UseVisualStyleBackColor = true;
+            this.saveSettingsButton.Click += new System.EventHandler(this.SaveSettingsButton_Click);
+            // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 199);
+            this.Controls.Add(this.saveSettingsButton);
+            this.Controls.Add(this.autoRunCheckBox);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.selectOutputFolderButton);
             this.Controls.Add(this.selectModFolderButton);
@@ -164,5 +188,7 @@
         private System.Windows.Forms.Button selectModFolderButton;
         private System.Windows.Forms.Button selectOutputFolderButton;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.CheckBox autoRunCheckBox;
+        private System.Windows.Forms.Button saveSettingsButton;
     }
 }

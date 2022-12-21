@@ -14,3 +14,4 @@ C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3Map
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.Forms.EditRegion.resources
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.MainPage.resources
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.Forms.EditCountry.resources
+C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.DataFiles.EditPop.resources

@@ -22,15 +22,18 @@ namespace Vic3MapMaker
 
         string gameDirectory;
         string modDirectory; //Not used yet
+        string outDirectory;
 
-        public Vic3FileParser(string gameDirectory, string modDirectory) {
+        public Vic3FileParser(string gameDirectory, string modDirectory, string outDirectory) {
             this.gameDirectory = gameDirectory;
             this.modDirectory = modDirectory;
+            this.outDirectory = outDirectory;
 
             //stopwatch 
             Stopwatch sw = new Stopwatch();
             sw.Start();
-
+            //print time each method takes
+            Console.WriteLine("Parsing files...");
             ParseStateFiles();
             ParseRegionFiles();
             ParseDefaultMap();
@@ -52,6 +55,13 @@ namespace Vic3MapMaker
             int count = 0;
             foreach (string file in files) {
                 if (file.EndsWith(".txt")) {
+                    //if directory outDirectory + "/map_data/state_regions/"+ Path.GetFileName(file) does not exist, create it
+                    if (!Directory.Exists(outDirectory + "/map_data/state_regions/")) {
+                        Directory.CreateDirectory(outDirectory + "/map_data/state_regions/");
+                    }
+                    //create a new blank txt file of same name to outDirectory + /map_data/state_regions/ using System.IO.File.Create
+                    System.IO.File.Create(outDirectory + "/map_data/state_regions/"+ Path.GetFileName(file)).Close();
+
                     //read file
                     string[] lines = File.ReadAllLines(file);
                     //for each line

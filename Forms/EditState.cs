@@ -35,7 +35,7 @@ namespace Vic3MapMaker
             stateNameTextBox.Text = state.name;
             //set stateTraitsListBox to state modifiers
             stateTrait.AddRange(state.traits);
-            stateTraitsListBox.Items.AddRange(lsu.stateTraits.ToArray());
+            stateTraitsListBox.Items.AddRange(state.traits.ToArray());
 
             //set allStateModifersListBox to stateModifers - stateModifers
             foreach (string mod in lsu.stateTraits) {
