@@ -1,0 +1,1140 @@
+#region_andaman_sea
+STATE_ANDAMAN_SEA = {
+	id = 3051
+	subsistence_building = ""
+	provinces = { "x61C8C8" }
+	arable_land = 0
+}
+#region_angolan_sea
+STATE_ANGOLAN_SEA = {
+	id = 3104
+	subsistence_building = ""
+	provinces = { "x51B8B8" }
+	arable_land = 0
+}
+#region_arabian_sea
+STATE_ARABIAN_SEA = {
+	id = 3048
+	subsistence_building = ""
+	provinces = { "x54FAFA" }
+	arable_land = 0
+}
+#region_arafura_sea
+STATE_ARAFURA_SEA = {
+	id = 3126
+	subsistence_building = ""
+	provinces = { "x21C9C9" }
+	arable_land = 0
+}
+#region_arctic_ocean_01
+STATE_ARCTIC_OCEAN_01 = {
+	id = 3037
+	subsistence_building = ""
+	provinces = { "x39CACA" }
+	impassable = { "x39CACA" }
+	arable_land = 0
+}
+#region_arctic_ocean_02
+STATE_ARCTIC_OCEAN_02 = {
+	id = 3038
+	subsistence_building = ""
+	provinces = { "x70FBFB" }
+	impassable = { "x70FBFB" }
+	arable_land = 0
+}
+#region_arctic_ocean_04
+STATE_ARCTIC_OCEAN_04 = {
+	id = 3040
+	subsistence_building = ""
+	provinces = { "x0D61A4" }
+	impassable = { "x0D61A4" }
+	arable_land = 0
+}
+#region_arctic_ocean_05
+STATE_ARCTIC_OCEAN_05 = {
+	id = 3041
+	subsistence_building = ""
+	provinces = { "x20CCE0" }
+	impassable = { "x20CCE0" }
+	arable_land = 0
+}
+#region_arctic_ocean_06
+STATE_ARCTIC_OCEAN_06 = {
+	id = 3042
+	subsistence_building = ""
+	provinces = { "x43DDFB" }
+	impassable = { "x43DDFB" }
+	arable_land = 0
+}
+#region_arctic_ocean_07
+STATE_ARCTIC_OCEAN_07 = {
+	id = 3043
+	subsistence_building = ""
+	provinces = { "x13CCFE" }
+	impassable = { "x13CCFE" }
+	arable_land = 0
+}
+#region_argentine_sea
+STATE_ARGENTINE_SEA = {
+	id = 3065
+	subsistence_building = ""
+	provinces = { "x1FDEFC" }
+	arable_land = 0
+}
+#region_atlantic_ocean_01
+STATE_ATLANTIC_OCEAN_01 = {
+	id = 3083
+	subsistence_building = ""
+	provinces = { "xD55EAD" }
+	arable_land = 0
+}
+#region_atlantic_ocean_02
+STATE_ATLANTIC_OCEAN_02 = {
+	id = 3084
+	subsistence_building = ""
+	provinces = { "xC25EAE" }
+	arable_land = 0
+}
+#region_atlantic_ocean_03
+STATE_ATLANTIC_OCEAN_03 = {
+	id = 3085
+	subsistence_building = ""
+	provinces = { "x9137A4" }
+	arable_land = 0
+}
+#region_atlantic_ocean_04
+STATE_ATLANTIC_OCEAN_04 = {
+	id = 3086
+	subsistence_building = ""
+	provinces = { "x9F5EAE" }
+	arable_land = 0
+}
+#region_atlantic_ocean_05
+STATE_ATLANTIC_OCEAN_05 = {
+	id = 3087
+	subsistence_building = ""
+	provinces = { "x9F5CAE" }
+	arable_land = 0
+}
+#region_atlantic_seaboard
+STATE_ATLANTIC_SEABOARD = {
+	id = 3067
+	subsistence_building = ""
+	provinces = { "xA3CEF4" }
+	arable_land = 0
+}
+#region_azores_sea
+STATE_AZORES_SEA = {
+	id = 3069
+	subsistence_building = ""
+	provinces = { "x3DCACA" }
+	arable_land = 0
+}
+#region_baltic_sea
+STATE_BALTIC_SEA = {
+	id = 3000
+	subsistence_building = ""
+	provinces = { "x08FAFA" }
+	arable_land = 0
+}
+#region_barents_sea
+STATE_BARENTS_SEA = {
+	id = 3039
+	subsistence_building = ""
+	provinces = { "x0EC8FA" }
+	arable_land = 0
+}
+#region_bay_of_bengal
+STATE_BAY_OF_BENGAL = {
+	id = 3050
+	subsistence_building = ""
+	provinces = { "x5CFAFA" }
+	arable_land = 0
+}
+#region_bay_of_biscay
+STATE_BAY_OF_BISCAY = {
+	id = 3029
+	subsistence_building = ""
+	provinces = { "x2A95FA" }
+	arable_land = 0
+}
+#region_bering_sea
+STATE_BERING_SEA = {
+	id = 3128
+	subsistence_building = ""
+	provinces = { "x22CBFD" }
+	arable_land = 0
+}
+#region_black_sea
+STATE_BLACK_SEA = {
+	id = 3036
+	subsistence_building = ""
+	provinces = { "x48FAFA" }
+	arable_land = 0
+}
+#region_brazilian_sea_north
+STATE_BRAZILIAN_SEA_NORTH = {
+	id = 3063
+	subsistence_building = ""
+	provinces = { "x1ACAFC" }
+	arable_land = 0
+}
+#region_brazilian_sea_south
+STATE_BRAZILIAN_SEA_SOUTH = {
+	id = 3064
+	subsistence_building = ""
+	provinces = { "x4499CD" }
+	arable_land = 0
+}
+#region_cape_of_good_hope
+STATE_CAPE_OF_GOOD_HOPE = {
+	id = 3105
+	subsistence_building = ""
+	provinces = { "x56C9FB" }
+	arable_land = 0
+}
+#region_caribbean_sea
+STATE_CARIBBEAN_SEA = {
+	id = 3061
+	subsistence_building = ""
+	provinces = { "x0DCACA" }
+	arable_land = 0
+}
+#region_central_atlantic_ocean
+STATE_CENTRAL_ATLANTIC_OCEAN = {
+	id = 3090
+	subsistence_building = ""
+	provinces = { "x6DC9F4" }
+	impassable = { "x6DC9F4" }
+	arable_land = 0
+}
+#region_central_mediterranean_sea
+STATE_CENTRAL_MEDITERRANEAN_SEA = {
+	id = 3033
+	subsistence_building = ""
+	provinces = { "x3BDCFA" }
+	arable_land = 0
+}
+#region_centroamerican_sea
+STATE_CENTROAMERICAN_SEA = {
+	id = 3155
+	subsistence_building = ""
+	provinces = { "x2BDEFC" }
+	arable_land = 0
+}
+#region_chiliean_sea
+STATE_CHILEAN_SEA = {
+	id = 3151
+	subsistence_building = ""
+	provinces = { "x26CAFC" }
+	arable_land = 0
+}
+#region_coast_of_saint_helena
+STATE_COAST_OF_SAINT_HELENA = {
+	id = 3103
+	subsistence_building = ""
+	provinces = { "x79CBFD" }
+	arable_land = 0
+}
+#region_coral_sea
+STATE_CORAL_SEA = {
+	id = 3124
+	subsistence_building = ""
+	provinces = { "x0DFEE0" }
+	arable_land = 0
+}
+#region_danish_straits
+STATE_DANISH_STRAITS = {
+	id = 3019
+	subsistence_building = ""
+	provinces = { "x0AC8FA" }
+	arable_land = 0
+}
+#region_davis_strait
+STATE_DAVIS_STRAIT = {
+	id = 3023
+	subsistence_building = ""
+	provinces = { "x6DFBFB" }
+	arable_land = 0
+}
+#region_east_china_sea
+STATE_EAST_CHINA_SEA = {
+	id = 3058
+	subsistence_building = ""
+	provinces = { "x0FDDFB" }
+	arable_land = 0
+}
+#region_easter_island
+STATE_EASTER_ISLAND = {
+	id = 3149
+	subsistence_building = ""
+	provinces = { "x91FFFF" }
+	arable_land = 0
+}
+#region_easter_island_lane_01
+STATE_EASTER_ISLAND_LANE_1 = {
+	id = 3005
+	subsistence_building = ""
+	provinces = { "xDB3CA3" }
+	arable_land = 0
+}
+#region_easter_island_lane_02
+STATE_EASTER_ISLAND_LANE_2 = {
+	id = 3006
+	subsistence_building = ""
+	provinces = { "x6644E1" }
+	arable_land = 0
+}
+#region_easter_island_lane_03
+STATE_EASTER_ISLAND_LANE_3 = {
+	id = 3007
+	subsistence_building = ""
+	provinces = { "xDB3C7F" }
+	arable_land = 0
+}
+#region_eastern_caribbean_sea
+STATE_EASTERN_CARIBBEAN_SEA = {
+	id = 3025
+	subsistence_building = ""
+	provinces = { "xA3CDF4" }
+	arable_land = 0
+}
+#region_eastern_mediterranean_sea
+STATE_EASTERN_MEDITERRANEAN_SEA = {
+	id = 3034
+	subsistence_building = ""
+	provinces = { "x46C8FA" }
+	arable_land = 0
+}
+#region_eastern_polynesia
+STATE_EASTERN_POLYNESIA = {
+	id = 3150
+	subsistence_building = ""
+	provinces = { "x81A0D2" }
+	arable_land = 0
+}
+#region_english_channel
+STATE_ENGLISH_CHANNEL = {
+	id = 3028
+	subsistence_building = ""
+	provinces = { "x15C8C8" }
+	arable_land = 0
+}
+#region_faroe_bank
+STATE_FAROE_BANK = {
+	id = 3016
+	subsistence_building = ""
+	provinces = { "x709ACF" }
+	arable_land = 0
+}
+#region_galapagos_rise
+STATE_GALAPAGOS_RISE = {
+	id = 3024
+	subsistence_building = ""
+	provinces = { "x0D61DC" }
+	arable_land = 0
+}
+#region_great_australian_bight
+STATE_GREAT_AUSTRALIAN_BIGHT = {
+	id = 3121
+	subsistence_building = ""
+	provinces = { "x28FBFB" }
+	arable_land = 0
+}
+#region_guiana_sea
+STATE_GUIANA_SEA = {
+	id = 3062
+	subsistence_building = ""
+	provinces = { "x18FCFC" }
+	arable_land = 0
+}
+#region_gulf_of_alaska
+STATE_GULF_OF_ALASKA = {
+	id = 3119
+	subsistence_building = ""
+	provinces = { "x36CAFC" }
+	arable_land = 0
+}
+#region_gulf_of_guinea
+STATE_GULF_OF_GUINEA = {
+	id = 3091
+	subsistence_building = ""
+	provinces = { "x386DCD" }
+	arable_land = 0
+}
+#region_gulf_of_maine
+STATE_GULF_OF_MAINE = {
+	id = 3017
+	subsistence_building = ""
+	provinces = { "x0ECACA" }
+	arable_land = 0
+}
+#region_gulf_of_mexico
+STATE_GULF_OF_MEXICO = {
+	id = 3060
+	subsistence_building = ""
+	provinces = { "x0D74CA" }
+	arable_land = 0
+}
+#region_gulf_of_saint_lawrence
+STATE_GULF_OF_SAINT_LAWRENCE = {
+	id = 3045
+	subsistence_building = ""
+	provinces = { "x74FBFB" }
+	arable_land = 0
+}
+#region_gulf_of_siam
+STATE_GULF_OF_SIAM = {
+	id = 3053
+	subsistence_building = ""
+	provinces = { "x74FAFA" }
+	arable_land = 0
+}
+#region_gulf_of_tonkin
+STATE_GULF_OF_TONKIN = {
+	id = 3054
+	subsistence_building = ""
+	provinces = { "x75C8C8" }
+	arable_land = 0
+}
+#region_hawaiian_seamount_chain
+STATE_HAWAIIAN_SEAMOUNT_CHAIN = {
+	id = 3001
+	subsistence_building = ""
+	provinces = { "x340EEC" }
+	arable_land = 0
+}
+#region_horn_of_africa
+STATE_HORN_OF_AFRICA = {
+	id = 3018
+	subsistence_building = ""
+	provinces = { "x2B5CB8" }
+	arable_land = 0
+}
+#region_hudson_bay
+STATE_HUDSON_BAY = {
+	id = 3044
+	subsistence_building = ""
+	provinces = { "x6FDDFB" }
+	impassable = { "x6FDDFB" }
+	arable_land = 0
+}
+#region_indian_ocean_01
+STATE_INDIAN_OCEAN_01 = {
+	id = 3108
+	subsistence_building = ""
+	provinces = { "x65CDFC" }
+	impassable = { "x65CDFC" }
+	arable_land = 0
+}
+#region_indian_ocean_02
+STATE_INDIAN_OCEAN_02 = {
+	id = 3109
+	subsistence_building = ""
+	provinces = { "x405B94" }
+	impassable = { "x405B94" }
+	arable_land = 0
+}
+#region_indian_ocean_03
+STATE_INDIAN_OCEAN_03 = {
+	id = 3110
+	subsistence_building = ""
+	provinces = { "x49C9C9" }
+	impassable = { "x49C9C9" }
+	arable_land = 0
+}
+#region_indian_ocean_lane_01
+STATE_INDIAN_OCEAN_LANE_01 = {
+	id = 3112
+	subsistence_building = ""
+	provinces = { "x6F4CE0" }
+	arable_land = 0
+}
+#region_indian_ocean_lane_02
+STATE_INDIAN_OCEAN_LANE_02 = {
+	id = 3113
+	subsistence_building = ""
+	provinces = { "x924CE0" }
+	arable_land = 0
+}
+#region_indian_ocean_lane_05
+STATE_INDIAN_OCEAN_LANE_05 = {
+	id = 3116
+	subsistence_building = ""
+	provinces = { "xDB38A3" }
+	arable_land = 0
+}
+#region_indian_ocean_lane_06
+STATE_INDIAN_OCEAN_LANE_06 = {
+	id = 3117
+	subsistence_building = ""
+	provinces = { "x6640E1" }
+	arable_land = 0
+}
+#region_irish_sea
+STATE_IRISH_SEA = {
+	id = 3030
+	subsistence_building = ""
+	provinces = { "x1B77CD" }
+	arable_land = 0
+}
+#region_irminger_sea
+STATE_IRMINGER_SEA = {
+	id = 3022
+	subsistence_building = ""
+	provinces = { "x16FAFA" }
+	arable_land = 0
+}
+#region_java_sea
+STATE_JAVA_SEA = {
+	id = 3052
+	subsistence_building = ""
+	provinces = { "x63DCFA" }
+	arable_land = 0
+}
+#region_labrador_sea
+STATE_LABRADOR_SEA = {
+	id = 3021
+	subsistence_building = ""
+	provinces = { "x69C9C9" }
+	arable_land = 0
+}
+#region_laccadive_sea
+STATE_LACCADIVE_SEA = {
+	id = 3049
+	subsistence_building = ""
+	provinces = { "x6FDEFC" }
+	arable_land = 0
+}
+#region_lake_nicaragua
+STATE_LAKE_NICARAGUA = {
+	id = 3160
+	subsistence_building = ""
+	provinces = { "x18FDFD" }
+	impassable = { "x18FDFD" }
+	arable_land = 0
+}
+#region_macaronesian_sea
+STATE_MACARONESIAN_SEA = {
+	id = 3089
+	subsistence_building = ""
+	provinces = { "x5FDDFB" }
+	arable_land = 0
+}
+#region_mascarenes
+STATE_MASCARENES = {
+	id = 3111
+	subsistence_building = ""
+	provinces = { "x6EDBDB" }
+	arable_land = 0
+}
+#region_micronesian_sea
+STATE_MICRONESIAN_SEA = {
+	id = 3002
+	subsistence_building = ""
+	provinces = { "x341ABA" }
+	arable_land = 0
+}
+#region_molucca_sea
+STATE_MOLUCCA_SEA = {
+	id = 3125
+	subsistence_building = ""
+	provinces = { "x16C9FB" }
+	arable_land = 0
+}
+#region_mozambique_channel
+STATE_MOZAMBIQUE_CHANNEL = {
+	id = 3107
+	subsistence_building = ""
+	provinces = { "x4FDDFB" }
+	arable_land = 0
+}
+#region_natal_coast
+STATE_NATAL_COAST = {
+	id = 3106
+	subsistence_building = ""
+	provinces = { "x78FCFC" }
+	arable_land = 0
+}
+#region_north_atlantic_01
+STATE_NORTH_ATLANTIC_01 = {
+	id = 3076
+	subsistence_building = ""
+	provinces = { "xC64499" }
+	arable_land = 0
+}
+#region_north_atlantic_02
+STATE_NORTH_ATLANTIC_02 = {
+	id = 3077
+	subsistence_building = ""
+	provinces = { "xDA6DF6" }
+	arable_land = 0
+}
+#region_north_atlantic_03
+STATE_NORTH_ATLANTIC_03 = {
+	id = 3078
+	subsistence_building = ""
+	provinces = { "x6643E1" }
+	arable_land = 0
+}
+#region_north_atlantic_04
+STATE_NORTH_ATLANTIC_04 = {
+	id = 3079
+	subsistence_building = ""
+	provinces = { "xA05EB0" }
+	arable_land = 0
+}
+#region_north_atlantic_05
+STATE_NORTH_ATLANTIC_05 = {
+	id = 3080
+	subsistence_building = ""
+	provinces = { "xB14DEF" }
+	arable_land = 0
+}
+#region_north_atlantic_06
+STATE_NORTH_ATLANTIC_06 = {
+	id = 3081
+	subsistence_building = ""
+	provinces = { "xCF4DEF" }
+	arable_land = 0
+}
+#region_north_atlantic_07
+STATE_NORTH_ATLANTIC_07 = {
+	id = 3082
+	subsistence_building = ""
+	provinces = { "x9F5EB0" }
+	arable_land = 0
+}
+#region_north_atlantic_ocean_01
+STATE_NORTH_ATLANTIC_OCEAN_01 = {
+	id = 3070
+	subsistence_building = ""
+	provinces = { "x2DAEF1" }
+	impassable = { "x2DAEF1" }
+	arable_land = 0
+}
+#region_north_atlantic_ocean_02
+STATE_NORTH_ATLANTIC_OCEAN_02 = {
+	id = 3071
+	subsistence_building = ""
+	provinces = { "x837BBA" }
+	impassable = { "x837BBA" }
+	arable_land = 0
+}
+#region_north_atlantic_ocean_03
+STATE_NORTH_ATLANTIC_OCEAN_03 = {
+	id = 3072
+	subsistence_building = ""
+	provinces = { "x807D97" }
+	impassable = { "x807D97" }
+	arable_land = 0
+}
+#region_north_atlantic_ocean_04
+STATE_NORTH_ATLANTIC_OCEAN_04 = {
+	id = 3073
+	subsistence_building = ""
+	provinces = { "x807D98" }
+	impassable = { "x807D98" }
+	arable_land = 0
+}
+#region_north_atlantic_ocean_05
+STATE_NORTH_ATLANTIC_OCEAN_05 = {
+	id = 3074
+	subsistence_building = ""
+	provinces = { "x807D99" }
+	impassable = { "x807D99" }
+	arable_land = 0
+}
+#region_north_atlantic_ocean_06
+STATE_NORTH_ATLANTIC_OCEAN_06 = {
+	id = 3075
+	subsistence_building = ""
+	provinces = { "x6C8AB3" }
+	impassable = { "x6C8AB3" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_01
+STATE_NORTH_PACIFIC_OCEAN_01 = {
+	id = 3130
+	subsistence_building = ""
+	provinces = { "x405D92" }
+	impassable = { "x405D92" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_02
+STATE_NORTH_PACIFIC_OCEAN_02 = {
+	id = 3131
+	subsistence_building = ""
+	provinces = { "x80C2E0" }
+	impassable = { "x80C2E0" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_03
+STATE_NORTH_PACIFIC_OCEAN_03 = {
+	id = 3132
+	subsistence_building = ""
+	provinces = { "x405B92" }
+	impassable = { "x405B92" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_04
+STATE_NORTH_PACIFIC_OCEAN_04 = {
+	id = 3133
+	subsistence_building = ""
+	provinces = { "x5684CF" }
+	impassable = { "x5684CF" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_05
+STATE_NORTH_PACIFIC_OCEAN_05 = {
+	id = 3134
+	subsistence_building = ""
+	provinces = { "x6147C1" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_06
+STATE_NORTH_PACIFIC_OCEAN_06 = {
+	id = 3135
+	subsistence_building = ""
+	provinces = { "xBD2C99" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_07
+STATE_NORTH_PACIFIC_OCEAN_07 = {
+	id = 3136
+	subsistence_building = ""
+	provinces = { "x755BD2" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_08
+STATE_NORTH_PACIFIC_OCEAN_08 = {
+	id = 3137
+	subsistence_building = ""
+	provinces = { "x721B9A" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_09
+STATE_NORTH_PACIFIC_OCEAN_09 = {
+	id = 3138
+	subsistence_building = ""
+	provinces = { "xA63FD5" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_10
+STATE_NORTH_PACIFIC_OCEAN_10 = {
+	id = 3139
+	subsistence_building = ""
+	provinces = { "x9A1B99" }
+	arable_land = 0
+}
+#region_north_pacific_ocean_11
+STATE_NORTH_PACIFIC_OCEAN_11 = {
+	id = 3140
+	subsistence_building = ""
+	provinces = { "x85A2D7" }
+	arable_land = 0
+}
+#region_north_philippines_sea
+STATE_NORTH_PHILIPPINES_SEA = {
+	id = 3157
+	subsistence_building = ""
+	provinces = { "x3D6A6A" }
+	impassable = { "x3D6A6A" }
+	arable_land = 0
+}
+#region_north_sea
+STATE_NORTH_SEA = {
+	id = 3027
+	subsistence_building = ""
+	provinces = { "x14FAFA" }
+	arable_land = 0
+}
+#region_norwegian_sea
+STATE_NORWEGIAN_SEA = {
+	id = 3020
+	subsistence_building = ""
+	provinces = { "x0FDCFA" }
+	arable_land = 0
+}
+#region_pacific_lane_01
+STATE_PACIFIC_LANE_01 = {
+	id = 3008
+	subsistence_building = ""
+	provinces = { "xA685CF" }
+	arable_land = 0
+}
+#region_pacific_lane_02
+STATE_PACIFIC_LANE_02 = {
+	id = 3009
+	subsistence_building = ""
+	provinces = { "x561AA0" }
+	arable_land = 0
+}
+#region_pacific_lane_03
+STATE_PACIFIC_LANE_03 = {
+	id = 3010
+	subsistence_building = ""
+	provinces = { "xD26392" }
+	arable_land = 0
+}
+#region_pacific_lane_04
+STATE_PACIFIC_LANE_04 = {
+	id = 3011
+	subsistence_building = ""
+	provinces = { "xA87DDC" }
+	arable_land = 0
+}
+#region_pacific_lane_05
+STATE_PACIFIC_LANE_05 = {
+	id = 3012
+	subsistence_building = ""
+	provinces = { "xA63565" }
+	arable_land = 0
+}
+#region_pacific_lane_06
+STATE_PACIFIC_LANE_06 = {
+	id = 3013
+	subsistence_building = ""
+	provinces = { "x982455" }
+	arable_land = 0
+}
+#region_pacific_seaboard_01
+STATE_PACIFIC_SEABOARD_01 = {
+	id = 3153
+	subsistence_building = ""
+	provinces = { "x31CACA" }
+	arable_land = 0
+}
+#region_pacific_seaboard_02
+STATE_PACIFIC_SEABOARD_02 = {
+	id = 3154
+	subsistence_building = ""
+	provinces = { "x16FCFA" }
+	arable_land = 0
+}
+#region_patagonian_lakes
+STATE_PATAGONIAN_LAKES = {
+	id = 3159
+	subsistence_building = ""
+	provinces = { "x20E0CC" }
+	impassable = { "x20E0CC" }
+	arable_land = 0
+}
+#region_persian_gulf
+STATE_PERSIAN_GULF = {
+	id = 3046
+	subsistence_building = ""
+	provinces = { "x56C8FA" }
+	arable_land = 0
+}
+#region_peruvian_sea
+STATE_PERUVIAN_SEA = {
+	id = 3152
+	subsistence_building = ""
+	provinces = { "x29CACA" }
+	arable_land = 0
+}
+#region_philippines_sea
+STATE_PHILIPPINES_SEA = {
+	id = 3127
+	subsistence_building = ""
+	provinces = { "x19C9C9" }
+	arable_land = 0
+}
+#region_red_sea
+STATE_RED_SEA = {
+	id = 3047
+	subsistence_building = ""
+	provinces = { "x4FDCFA" }
+	arable_land = 0
+}
+#region_sargasso_sea
+STATE_SARGASSO_SEA = {
+	id = 3068
+	subsistence_building = ""
+	provinces = { "x43DEFC" }
+	impassable = { "x43DEFC" }
+	arable_land = 0
+}
+#region_scotia_sea
+STATE_SCOTIA_SEA = {
+	id = 3066
+	subsistence_building = ""
+	provinces = { "x858CBF" }
+	arable_land = 0
+}
+#region_sea_of_japan
+STATE_SEA_OF_JAPAN = {
+	id = 3059
+	subsistence_building = ""
+	provinces = { "x00FBFB" }
+	arable_land = 0
+}
+#region_sea_of_marmara
+STATE_SEA_OF_MARMARA = {
+	id = 3035
+	subsistence_building = ""
+	provinces = { "x47DCFA" }
+	arable_land = 0
+}
+#region_sea_of_okhotsk
+STATE_SEA_OF_OKHOTSK = {
+	id = 3118
+	subsistence_building = ""
+	provinces = { "x03DDFB" }
+	arable_land = 0
+}
+#region_solomon_sea
+STATE_SOLOMON_SEA = {
+	id = 3129
+	subsistence_building = ""
+	provinces = { "x39C9C9" }
+	arable_land = 0
+}
+#region_south_atlantic_ocean_01
+STATE_SOUTH_ATLANTIC_OCEAN_01 = {
+	id = 3092
+	subsistence_building = ""
+	provinces = { "x2897CB" }
+	impassable = { "x2897CB" }
+	arable_land = 0
+}
+#region_south_atlantic_ocean_02
+STATE_SOUTH_ATLANTIC_OCEAN_02 = {
+	id = 3093
+	subsistence_building = ""
+	provinces = { "x2861CB" }
+	impassable = { "x2861CB" }
+	arable_land = 0
+}
+#region_south_atlantic_ocean_03
+STATE_SOUTH_ATLANTIC_OCEAN_03 = {
+	id = 3094
+	subsistence_building = ""
+	provinces = { "x405E94" }
+	impassable = { "x405E94" }
+	arable_land = 0
+}
+#region_south_atlantic_ocean_04
+STATE_SOUTH_ATLANTIC_OCEAN_04 = {
+	id = 3095
+	subsistence_building = ""
+	provinces = { "x65CBFC" }
+	impassable = { "x65CBFC" }
+	arable_land = 0
+}
+#region_south_atlantic_ocean_05
+STATE_SOUTH_ATLANTIC_OCEAN_05 = {
+	id = 3096
+	subsistence_building = ""
+	provinces = { "x72CBFD" }
+	impassable = { "x72CBFD" }
+	arable_land = 0
+}
+#region_south_atlantic_ocean_06
+STATE_SOUTH_ATLANTIC_OCEAN_06 = {
+	id = 3097
+	subsistence_building = ""
+	provinces = { "x6AC3EC" }
+	impassable = { "x6AC3EC" }
+	arable_land = 0
+}
+#region_south_atlantic_sea_lane_01
+STATE_SOUTH_ATLANTIC_SEA_LANE_01 = {
+	id = 3098
+	subsistence_building = ""
+	provinces = { "x8ADE90" }
+	arable_land = 0
+}
+#region_south_atlantic_sea_lane_02
+STATE_SOUTH_ATLANTIC_SEA_LANE_02 = {
+	id = 3099
+	subsistence_building = ""
+	provinces = { "x9F2781" }
+	arable_land = 0
+}
+#region_south_atlantic_sea_lane_05
+STATE_SOUTH_ATLANTIC_SEA_LANE_05 = {
+	id = 3102
+	subsistence_building = ""
+	provinces = { "xB56DB4" }
+	arable_land = 0
+}
+#region_south_china_sea
+STATE_SOUTH_CHINA_SEA = {
+	id = 3056
+	subsistence_building = ""
+	provinces = { "x7BDCFA" }
+	arable_land = 0
+}
+#region_south_pacific_lane_01
+STATE_SOUTH_PACIFIC_LANE_1 = {
+	id = 3003
+	subsistence_building = ""
+	provinces = { "xA729A6" }
+	arable_land = 0
+}
+#region_south_pacific_lane_02
+STATE_SOUTH_PACIFIC_LANE_2 = {
+	id = 3004
+	subsistence_building = ""
+	provinces = { "xE10DAD" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_01
+STATE_SOUTH_PACIFIC_OCEAN_01 = {
+	id = 3141
+	subsistence_building = ""
+	provinces = { "x445572" }
+	impassable = { "x445572" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_02
+STATE_SOUTH_PACIFIC_OCEAN_02 = {
+	id = 3142
+	subsistence_building = ""
+	provinces = { "x3B70B1" }
+	impassable = { "x3B70B1" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_03
+STATE_SOUTH_PACIFIC_OCEAN_03 = {
+	id = 3143
+	subsistence_building = ""
+	provinces = { "x2D4F87" }
+	impassable = { "x2D4F87" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_04
+STATE_SOUTH_PACIFIC_OCEAN_04 = {
+	id = 3144
+	subsistence_building = ""
+	provinces = { "x2863CB" }
+	impassable = { "x2863CB" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_05
+STATE_SOUTH_PACIFIC_OCEAN_05 = {
+	id = 3145
+	subsistence_building = ""
+	provinces = { "x80C3E0" }
+	impassable = { "x80C3E0" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_06
+STATE_SOUTH_PACIFIC_OCEAN_06 = {
+	id = 3146
+	subsistence_building = ""
+	provinces = { "x340EED" }
+	impassable = { "x340EED" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_07
+STATE_SOUTH_PACIFIC_OCEAN_07 = {
+	id = 3147
+	subsistence_building = ""
+	provinces = { "x92AED0" }
+	impassable = { "x92AED0" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_08
+STATE_SOUTH_PACIFIC_OCEAN_08 = {
+	id = 3148
+	subsistence_building = ""
+	provinces = { "x80C3E1" }
+	impassable = { "x80C3E1" }
+	arable_land = 0
+}
+#region_south_pacific_ocean_09
+STATE_SOUTH_PACIFIC_OCEAN_09 = {
+	id = 3156
+	subsistence_building = ""
+	provinces = { "x48FDFD" }
+	arable_land = 0
+}
+#region_south_philippines_sea
+STATE_SOUTH_PHILIPPINES_SEA = {
+	id = 3158
+	subsistence_building = ""
+	provinces = { "xB6CECE" }
+	arable_land = 0
+}
+#region_southern_ocean_01
+STATE_SOUTHERN_OCEAN_01 = {
+	id = 3014
+	subsistence_building = ""
+	provinces = { "x6FB3DE" }
+	impassable = { "x6FB3DE" }
+	arable_land = 0
+}
+#region_southern_ocean_02
+STATE_SOUTHERN_OCEAN_02 = {
+	id = 3015
+	subsistence_building = ""
+	provinces = { "x316868" }
+	impassable = { "x316868" }
+	arable_land = 0
+}
+#region_straits_of_gibraltar
+STATE_STRAIT_OF_GIBRALTAR = {
+	id = 3031
+	subsistence_building = ""
+	provinces = { "x2CFAFA" }
+	arable_land = 0
+}
+#region_sulu_sea
+STATE_SULU_SEA = {
+	id = 3055
+	subsistence_building = ""
+	provinces = { "x76C8FA" }
+	arable_land = 0
+}
+#region_sumatra_sea
+STATE_SUMATRA_SEA = {
+	id = 3120
+	subsistence_building = ""
+	provinces = { "x66C8FA" }
+	arable_land = 0
+}
+#region_tasman_sea
+STATE_TASMAN_SEA = {
+	id = 3122
+	subsistence_building = ""
+	provinces = { "x32C9FB" }
+	arable_land = 0
+}
+#region_timor_sea
+STATE_TIMOR_SEA = {
+	id = 3123
+	subsistence_building = ""
+	provinces = { "x6BDCFA" }
+	arable_land = 0
+}
+#region_west_african_coast
+STATE_WEST_AFRICAN_COAST = {
+	id = 3088
+	subsistence_building = ""
+	provinces = { "x4989FF" }
+	arable_land = 0
+}
+#region_western_caribbean_sea
+STATE_WESTERN_CARIBBEAN_SEA = {
+	id = 3026
+	subsistence_building = ""
+	provinces = { "x1FC9E5" }
+	arable_land = 0
+}
+#region_western_mediterranean_sea
+STATE_WESTERN_MEDITERRANEAN_SEA = {
+	id = 3032
+	subsistence_building = ""
+	provinces = { "x40D9DB" }
+	arable_land = 0
+}
+#region_yellow_sea
+STATE_YELLOW_SEA = {
+	id = 3057
+	subsistence_building = ""
+	provinces = { "x7EC8FA" }
+	arable_land = 0
+}
