@@ -109,7 +109,7 @@ namespace Vic3MapMaker.Forms
             stateListBox.BackColor = Color.White;
 
             //if regionNameTextBox is empty, show an error message
-            if (regionNameTextBox.Text == "") {
+            if (regionNameTextBox.Text.Trim() == "") {
                 errors.Add("Region name cannot be empty");
                 regionNameTextBox.BackColor = Color.Pink;
             }

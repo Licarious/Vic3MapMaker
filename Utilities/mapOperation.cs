@@ -31,6 +31,7 @@ namespace Vic3MapMaker
             }
 
         }
+        //move prov to another nation singular
         public void MoveProvince(Nation fromNation, Nation toNation, Province prov, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
@@ -44,6 +45,23 @@ namespace Vic3MapMaker
 
             }
         }
+        //move prov to another nation multiple
+        public void MoveProvince(Nation fromNation, Nation toNation, List<Province> provList, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => MoveProvince(toNation, fromNation, provList, false));
+            }
+            foreach (Province prov in provList) {
+                try {
+                    fromNation.provDict.Remove(prov.color);
+                    toNation.provDict.Add(prov.color, prov);
+                }
+                catch {
+
+                }
+            }
+        }
+
         //add prov
         public void AddProvince(State state, Province prov, bool undoAble = true) {
             if (undoAble) {
@@ -333,6 +351,60 @@ namespace Vic3MapMaker
             }
             state.pops.Remove(oldPop);
             state.pops.Add(newPop);
+        }
+        //update substate type
+        public void UpdateSubStateType(SubState state, string type, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => UpdateSubStateType(state, state.type, false));
+            }
+            state.type = type;
+        }
+        //update nation
+        public void UpdateNation(Nation nation, string tag, string name, Color color, string tier, string type, State capital, bool isNamedFromCapital  bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => UpdateNation(nation, nation.tag, nation.name, nation.color, nation.tier, nation.type, nation.capital, nation.isNamedFromCapital false));
+            }
+            nation.tag = tag;
+            nation.name = name;
+            nation.color = color;
+            nation.tier = tier;
+            nation.type = type;
+            nation.capital = capital;
+            nation.isNamedFromCapital = isNamedFromCapital;
+        }
+        //add nation
+        public void AddNation(HashSet<Nation> nationSet, Nation nation, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => RemoveNation(nationSet, nation, false));
+            }
+            nationSet.Add(nation);
+        }
+        //remove nation
+        public void RemoveNation(HashSet<Nation> nationSet, Nation nation, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => AddNation(nationSet, nation, false));
+            }
+            nationSet.Remove(nation);
+        }
+        //add nation culture
+        public void AddNationCulture(Nation nation, string culture, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => RemoveNationCulture(nation, culture, false));
+            }
+            nation.cultures.Add(culture);
+        }
+        //remove nation culture
+        public void RemoveNationCulture(Nation nation, string culture, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => AddNationCulture(nation, culture, false));
+            }
+            nation.cultures.Remove(culture);
         }
 
 

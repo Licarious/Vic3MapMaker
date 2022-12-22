@@ -886,7 +886,7 @@ namespace Vic3MapMaker
                         if (line.StartsWith("color"))
                             currentCountry.color = GetColor(line);
                         //type
-                        else if (line.StartsWith("type"))
+                        else if (line.StartsWith("country_type"))
                             currentCountry.type = line.Split('=')[1].Trim();
                         //tier
                         else if (line.StartsWith("tier"))
@@ -898,6 +898,13 @@ namespace Vic3MapMaker
                         else if (line.StartsWith("capital")) {
                             //try to find the state in the state set with the same name as the capital
                             State capital = stateSet.FirstOrDefault(s => s.name == line.Split('=')[1].Trim());
+                            //if the state is found then set the capital to the state
+                            if (capital != null) 
+                                currentCountry.capital = capital;
+                                
+                        }
+                        else if(line.StartsWith("is_named_from_capital") && line.Contains("yes")) {
+                            currentCountry.isNamedFromCapital = true;
                         }
                     }
 

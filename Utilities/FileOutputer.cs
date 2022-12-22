@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vic3MapMaker.DataFiles;
 
 namespace Vic3MapMaker
 {
@@ -215,6 +216,105 @@ namespace Vic3MapMaker
                     }
                 }
                 sw.Close();
+            }
+
+        }
+
+        //output country_definitions
+        public void WriteCountryDefinitions(HashSet<Nation> nationSet) {
+            //if outputDirectory/common/country_definitons doesn't exist, create it
+            if (!File.Exists(outputDirectory + "\\_output\\common\\country_definitions\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\_output\\common\\country_definitions\\");
+            }
+
+            //sort nations by tag
+            List<Nation> nationList = nationSet.ToList();
+            nationList.Sort((x, y) => x.tag.CompareTo(y.tag));
+
+            //create a new file 00_countries.txt
+            string path = outputDirectory + "\\_output\\common\\country_definitions\\00_countries.txt";
+            using (StreamWriter sw = File.CreateText(path)) {
+                foreach(Nation n in nationList) {
+                    sw.WriteLine(n.name + " = {");
+                    sw.WriteLine("\tcolor = { " + n.color.R + " " + n.color.G + " " + n.color.B + " }\n");
+                    sw.WriteLine("\tcountry_type = " + n.type + "\n");
+                    sw.WriteLine("\ttier = " + n.tier + "\n");
+                    //write all culture names in the culture list to the file
+                    sw.WriteLine("\tculture = { " + string.Join(" ", n.cultures) + " }");
+                    sw.WriteLine("\tcapital = " + n.capital.name);
+                    if(n.isNamedFromCapital)
+                        sw.WriteLine("\tis_named_from_capital = yes");
+                    sw.WriteLine("}");
+
+                }
+            }
+        }
+
+        //output history/states
+        public void WriteHistoryStates(HashSet<Nation> NationsSet) {
+            //if outputDirectory/history/states doesn't exist, create it
+            if (!File.Exists(outputDirectory + "\\common\\history\\states\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\history\\states\\");
+            }
+
+            //create a hashset of all substates
+            HashSet<SubState> subStates = new HashSet<SubState>();
+            foreach (Nation n in NationsSet) {
+                //add all substates to the hashset
+                foreach (SubState s in n.subStates) {
+                    subStates.Add(s);
+                }
+            }
+
+
+            //group substates by substate.parentState
+            Dictionary<State, List<SubState>> parentStateDict = new Dictionary<State, List<SubState>>();
+            foreach (SubState subState in subStates) {
+                if (parentStateDict.ContainsKey(subState.parentState)) {
+                    parentStateDict[subState.parentState].Add(subState);
+                }
+                else {
+                    parentStateDict.Add(subState.parentState, new List<SubState>());
+                    parentStateDict[subState.parentState].Add(subState);
+                }
+            }
+
+            string path = outputDirectory + "\\common\\history\\states\\";
+            using (StreamWriter sw = File.CreateText(path)) {
+                sw.WriteLine("STATES = {");
+                foreach (KeyValuePair<State, List<SubState>> entry in parentStateDict) {
+                    sw.WriteLine("\ts:"+entry.Key.name + " = {");
+                    foreach (SubState substate in entry.Value) {
+                        sw.WriteLine("\t\tcreate_state = {");
+                        sw.WriteLine("\t\t\tcountry = c:" + substate.owner.tag + "");
+                        if (substate.type != "") {
+                            sw.WriteLine("\t\t\tstate_type = " + substate.type);
+                        }
+                        //find all keys in substate.owner.provDict are also in substate.parrentState.provDict and return the values
+                        List<Province> provList = substate.parentState.provDict.Keys.Where(x => substate.owner.provDict.ContainsKey(x)).Select(x => substate.owner.provDict[x]).ToList();
+                        //write provList.hexName joined by a space
+                        sw.WriteLine("\t\t\towned_provinces = { " + string.Join(" ", provList.Select(x => x.NameHex()).ToList()) + " }");
+
+                        sw.WriteLine("\t\t}");
+                    }
+                    sw.WriteLine();
+                    //if key has any claims, write them
+                    if (entry.Key.claimList.Count > 0) {
+                        foreach (string claim in entry.Key.claimList) {
+                            sw.WriteLine("\t\tadd_claim = c:" + claim);
+                        }
+                    }
+                    //if key has any homeland, write them
+                    if (entry.Key.homeLandList.Count > 0) {
+                        foreach (string homeland in entry.Key.homeLandList) {
+                            sw.WriteLine("\t\tadd_homeland = " + homeland);
+                        }
+                    }
+
+                    sw.WriteLine("\t}");
+
+                }
+                sw.WriteLine("}");
             }
 
         }

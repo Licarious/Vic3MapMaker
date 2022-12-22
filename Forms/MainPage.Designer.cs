@@ -124,7 +124,7 @@ namespace Vic3MapMaker
             this.refreshMapButton.TabIndex = 100;
             this.refreshMapButton.Text = "Refresh";
             this.refreshMapButton.UseVisualStyleBackColor = true;
-            this.refreshMapButton.Click += new System.EventHandler(this.refreshMapButton_Click);
+            this.refreshMapButton.Click += new System.EventHandler(this.RefreshMapButton_Click);
             // 
             // undoButton
             // 

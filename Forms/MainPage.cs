@@ -576,24 +576,30 @@ namespace Vic3MapMaker
                             HighlightProv(fromProvince, toNation.color, false);
                         }
                         else if (transferStateNationalRadioButton.Checked) {
+                            List<Province> provList = new List<Province>();
                             foreach (Province p in fromState.provDict.Values) {
                                 //check if p is in fromNation.provDict
                                 if (fromNation.provDict.Values.Contains(p)) {
-                                    mapOp.MoveProvince(fromNation, toNation, p);
+                                    provList.Add(p);
                                     HighlightProv(p, toNation.color, false);
                                 }
+
                             }
+                            mapOp.MoveProvince(fromNation, toNation, provList);
+                            
                         }
                         else if (transferRegionNationalRadioButton.Checked) {
+                            List<Province> provList = new List<Province>();
                             foreach (State s in fromRegion.states) {
                                 foreach (Province p in s.provDict.Values) {
                                     //check if p is in fromNation.provDict
                                     if (fromNation.provDict.Values.Contains(p)) {
-                                        mapOp.MoveProvince(fromNation, toNation, p);
+                                        provList.Add(p);
                                         HighlightProv(p, toNation.color, false);
                                     }
                                 }
                             }
+                            mapOp.MoveProvince(fromNation, toNation, provList);
                         }
                         pictureBox1.Refresh();
                     }
@@ -761,9 +767,16 @@ namespace Vic3MapMaker
         }
 
         private void ButtonSave_Click(object sender, EventArgs e) {
+            //refresh substates for each nation
+            foreach (Nation nation in nationSet) {
+                UpdateSubStates(nation);
+            }
+
             fo.WriteStateRegions(regionSet);
             fo.WriteTerrain(provSet);
             fo.WriteRegions(regionSet);
+            fo.WriteCountryDefinitions(nationSet);
+            fo.WriteHistoryStates(nationSet);
         }
 
         private void UndoButton_Click(object sender, EventArgs e) {
@@ -885,7 +898,7 @@ namespace Vic3MapMaker
             pictureBox1.Refresh();
         }
 
-        private void refreshMapButton_Click(object sender, EventArgs e) {
+        private void RefreshMapButton_Click(object sender, EventArgs e) {
             RefreshMap();
         }
 
@@ -1009,8 +1022,26 @@ namespace Vic3MapMaker
                 }
             }
 
+            //clear nationTier
+            lsu.nationTiers.Clear();
+            //get a list of all nationTier from nationSet
+            foreach (Nation nation in nationSet) {
+                if (!lsu.nationTiers.Contains(nation.tier)) {
+                    lsu.nationTiers.Add(nation.tier);
+                }
+            }
+
+            //clear states hashset
+            lsu.states.Clear();
+            //get a list of all states from regionSet
+            foreach (Region region1 in regionSet) {
+                foreach (State state1 in region1.states) {
+                    lsu.states.Add(state1);
+                }
+            }
+
 
         }
-        
+
     }
 }

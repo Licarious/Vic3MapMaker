@@ -10,14 +10,16 @@ namespace Vic3MapMaker
     public class Nation
     {
         public string tag = "";
+        public string name = "";
         public int interalID = -1;
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
-        public List<String> cultures = new List<string>();
+        public List<string> cultures = new List<string>();
         public string type = "";
         public string tier = "";
         public State capital = null;
         public List<State> claimList = new List<State>();
+        public bool isNamedFromCapital = false;
 
         //Hash set of coordinates
         public HashSet<(int, int)> coordSet = new HashSet<(int, int)>();
