@@ -17,6 +17,9 @@ namespace Vic3MapMaker.Utilities
         public List<string> cultureGFX = new List<string>();
         public List<string> nationTags = new List<string>();
         public List<string> superRegions = new List<string>();
+        public List<string> religions = new List<string>();
+        public List<string> occupationTypes = new List<string>();
+
 
     }
 }

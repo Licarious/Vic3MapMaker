@@ -8,11 +8,16 @@ namespace Vic3MapMaker.DataFiles
 {
     public class Pop
     {
-        public string culture;
-        public int size;
-        public string type;
-        public string religion;
+        public string culture = "";
+        public int size = 0;
+        public string type  = "";
+        public string religion = "";
 
         public Pop() { }
+
+        //toString
+        public override string ToString() {
+            return type + " " + size + " " + culture + " " + religion;
+        }
     }
 }

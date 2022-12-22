@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Vic3MapMaker.DataFiles;
 
 namespace Vic3MapMaker
 {
@@ -306,6 +307,32 @@ namespace Vic3MapMaker
                 UndoStack.Push(() => AddClaim(state, claim, false));
             }
             state.claimList.Remove(claim);
+        }
+
+        //add pop
+        public void AddPop(SubState state, Pop pop, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => RemovePop(state, pop, false));
+            }
+            state.pops.Add(pop);
+        }
+        //remove pop
+        public void RemovePop(SubState state, Pop pop, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => AddPop(state, pop, false));
+            }
+            state.pops.Remove(pop);
+        }
+        //update pop
+        public void UpdatePop(SubState state, Pop newPop, Pop oldPop, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => UpdatePop(state, oldPop, newPop, false));
+            }
+            state.pops.Remove(oldPop);
+            state.pops.Add(newPop);
         }
 
 

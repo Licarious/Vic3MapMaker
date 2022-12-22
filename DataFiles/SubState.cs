@@ -25,5 +25,11 @@ namespace Vic3MapMaker.DataFiles
         public SubState() {
         }
 
+        //toStirng
+        public override string ToString() {
+            return parentState.name.Replace("STATE_", "").Replace("_", " ");
+
+        }
+
     }
 }

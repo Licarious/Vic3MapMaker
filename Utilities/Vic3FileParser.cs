@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using Vic3MapMaker.DataFiles;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Vic3MapMaker
 {
@@ -966,55 +967,57 @@ namespace Vic3MapMaker
                         }
                     }
 
-                    //indentation 2
-                    else if (indentation == 2) {
-                        //if nation found
-                        if (line.StartsWith("region_state:")) {
-                            //find nation with the same tag as the substate
-                            Nation nation = nationSet.FirstOrDefault(n => n.tag == line.Split(':')[1].Trim());
+                    if (currentState != null) {
+                        //indentation 2
+                        if (indentation == 2) {
+                            //if nation found
+                            if (line.StartsWith("region_state:")) {
+                                //find nation with the same tag as the substate
+                                Nation nation = nationSet.FirstOrDefault(n => n.tag == line.Split(':')[1].Split('=')[0].Trim());
 
-                            if (nation != null && currentState != null) {
-                                //create new substate
-                                currentSubState = new SubState(currentState, nation);
-                                //add substate to nation
-                                nation.subStates.Add(currentSubState);
+                                if (nation != null && currentState != null) {
+                                    //create new substate
+                                    currentSubState = new SubState(currentState, nation);
+                                    //add substate to nation
+                                    nation.subStates.Add(currentSubState);
 
-                                //check stateTypeList tupple list for nation.tag
-                                foreach ((string tag, string type) t in currentState.stateTypeList) {
-                                    if (t.tag == nation.tag) {
-                                        //set state type
-                                        currentSubState.type = t.type;
-                                        break;
+                                    //check stateTypeList tupple list for nation.tag
+                                    foreach ((string tag, string type) t in currentState.stateTypeList) {
+                                        if (t.tag == nation.tag) {
+                                            //set state type
+                                            currentSubState.type = t.type;
+                                            break;
+                                        }
                                     }
-                                }
 
+                                }
                             }
                         }
-                    }
 
-                    //indentation 3
-                    else if (indentation == 3) {
-                        //if pops found
-                        if (line.StartsWith("create_pop")) {
-                            popFound = true;
-                            currentPop = new Pop();
-                            currentSubState.pops.Add(currentPop);
+                        //indentation 3
+                        else if (indentation == 3) {
+                            //if pops found
+                            if (line.StartsWith("create_pop")) {
+                                popFound = true;
+                                //Console.WriteLine(currentPop);
+                                currentPop = new Pop();
+                                //currentSubState.pops.Add(currentPop);
+                            }
                         }
+
+
+                        if (popFound) {
+                            if (line.StartsWith("culture"))
+                                currentPop.culture = line.Split('=')[1].Trim();
+                            else if (line.StartsWith("size"))
+                                currentPop.size = int.Parse(line.Split('=')[1].Trim());
+                            else if (line.StartsWith("type"))
+                                currentPop.type = line.Split('=')[1].Trim();
+                            else if (line.StartsWith("religion"))
+                                currentPop.religion = line.Split('=')[1].Trim();
+                        }
+
                     }
-
-
-                    if (popFound) {
-                        if (line.StartsWith("culture"))
-                            currentPop.culture = line.Split('=')[1].Trim();
-                        else if (line.StartsWith("size"))
-                            currentPop.size = int.Parse(line.Split('=')[1].Trim());
-                        else if (line.StartsWith("type"))
-                            currentPop.type = line.Split('=')[1].Trim();
-                        else if (line.StartsWith("religion"))
-                            currentPop.religion = line.Split('=')[1].Trim();
-                    }
-
-
 
                     //update indentation
                     if (line.Contains("{") || line.Contains("}")) {
@@ -1022,6 +1025,9 @@ namespace Vic3MapMaker
                             if (s.StartsWith("{")) indentation++;
                             else if (s.StartsWith("}")) {
                                 indentation--;
+                                if (popFound && currentState != null) {
+                                    currentSubState.pops.Add(currentPop);
+                                }
                                 popFound = false;
                                 //if (indentation == 3) currentSubState = null;
                                 //else if (indentation == 1) currentState = null;

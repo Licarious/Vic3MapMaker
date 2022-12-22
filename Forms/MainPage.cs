@@ -676,9 +676,56 @@ namespace Vic3MapMaker
                     editRegion.ShowDialog();
 
                     break;
+                case "Country":
+                    //grab the nation from the itemComboBox
+                    Nation nation = (Nation)itemComboBox.SelectedItem;
+                    UpdateSubStates(nation);
+
+                    //open new form to edit the nation
+                    EditCountry editNation = new EditCountry(nation, lsu, mapOp);
+                    editNation.ShowDialog();
+
+
+                    break;
             }
 
         }
+
+        private void UpdateSubStates(Nation nation) {
+            //set still exists to false for each substate in nation
+            foreach (SubState subState in nation.subStates) {
+                subState.stillExists = false;
+            }
+
+            //for each region in regionSet
+            foreach (Region region in regionSet) {
+                //for each state in region
+                foreach (State state in region.states) {
+                    //if the state provDict and nation.provDict have a common province
+                    if (state.provDict.Values.Intersect(nation.provDict.Values).Any()) {
+                        //check if any subStates in the nation has a parrent state that is the same as the state
+                        bool found = false;
+                        foreach (SubState subState in nation.subStates) {
+                            if (subState.parentState.name == state.name) {
+                                found = true;
+                                subState.stillExists = true;
+                                break;
+                            }
+                        }
+                        //if not found
+                        if (!found) {
+                            //create a new substate
+                            SubState subState = new SubState(state, nation);
+                            nation.subStates.Add(subState);
+                        }
+                    }
+                }
+            }
+
+            //remove any substate that still exists is false from nation.subStates hashSet
+            nation.subStates.RemoveWhere(subState => subState.stillExists == false);
+        }
+
 
         private void ColorTerrain(string highlightTerrain = "", Province prov = null) {
             if (prov != null) {
@@ -964,5 +1011,6 @@ namespace Vic3MapMaker
 
 
         }
+        
     }
 }
