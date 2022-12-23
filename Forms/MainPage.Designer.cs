@@ -75,6 +75,7 @@ namespace Vic3MapMaker
             this.categoryComboBox = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.saveHubNamesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControls_Image)).BeginInit();
             this.splitContainerControls_Image.Panel1.SuspendLayout();
             this.splitContainerControls_Image.Panel2.SuspendLayout();
@@ -90,7 +91,6 @@ namespace Vic3MapMaker
             // 
             this.splitContainerControls_Image.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControls_Image.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerControls_Image.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainerControls_Image.Name = "splitContainerControls_Image";
             // 
             // splitContainerControls_Image.Panel1
@@ -110,17 +110,15 @@ namespace Vic3MapMaker
             // 
             this.splitContainerControls_Image.Panel2.AutoScroll = true;
             this.splitContainerControls_Image.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainerControls_Image.Size = new System.Drawing.Size(1283, 690);
-            this.splitContainerControls_Image.SplitterDistance = 161;
-            this.splitContainerControls_Image.SplitterWidth = 3;
+            this.splitContainerControls_Image.Size = new System.Drawing.Size(1924, 1062);
+            this.splitContainerControls_Image.SplitterDistance = 333;
             this.splitContainerControls_Image.TabIndex = 0;
             // 
             // refreshMapButton
             // 
-            this.refreshMapButton.Location = new System.Drawing.Point(156, 363);
-            this.refreshMapButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.refreshMapButton.Location = new System.Drawing.Point(234, 558);
             this.refreshMapButton.Name = "refreshMapButton";
-            this.refreshMapButton.Size = new System.Drawing.Size(58, 29);
+            this.refreshMapButton.Size = new System.Drawing.Size(87, 45);
             this.refreshMapButton.TabIndex = 100;
             this.refreshMapButton.Text = "Refresh";
             this.refreshMapButton.UseVisualStyleBackColor = true;
@@ -128,10 +126,9 @@ namespace Vic3MapMaker
             // 
             // undoButton
             // 
-            this.undoButton.Location = new System.Drawing.Point(7, 363);
-            this.undoButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.undoButton.Location = new System.Drawing.Point(10, 558);
             this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(58, 29);
+            this.undoButton.Size = new System.Drawing.Size(87, 45);
             this.undoButton.TabIndex = 20;
             this.undoButton.Text = "Undo";
             this.undoButton.UseVisualStyleBackColor = true;
@@ -139,6 +136,7 @@ namespace Vic3MapMaker
             // 
             // statePanel
             // 
+            this.statePanel.Controls.Add(this.saveHubNamesButton);
             this.statePanel.Controls.Add(this.farmHubNameTextBox);
             this.statePanel.Controls.Add(this.regionPannel);
             this.statePanel.Controls.Add(this.mineHubNameTextBox);
@@ -159,19 +157,17 @@ namespace Vic3MapMaker
             this.statePanel.Controls.Add(this.hubPortTextBox);
             this.statePanel.Controls.Add(this.hubCityTextBox);
             this.statePanel.Controls.Add(this.stateNavalExitTextBox);
-            this.statePanel.Location = new System.Drawing.Point(8, 107);
-            this.statePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.statePanel.Location = new System.Drawing.Point(12, 165);
             this.statePanel.Name = "statePanel";
-            this.statePanel.Size = new System.Drawing.Size(206, 252);
+            this.statePanel.Size = new System.Drawing.Size(309, 388);
             this.statePanel.TabIndex = 8;
             this.statePanel.Visible = false;
             // 
             // farmHubNameTextBox
             // 
-            this.farmHubNameTextBox.Location = new System.Drawing.Point(133, 181);
-            this.farmHubNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.farmHubNameTextBox.Location = new System.Drawing.Point(200, 278);
             this.farmHubNameTextBox.Name = "farmHubNameTextBox";
-            this.farmHubNameTextBox.Size = new System.Drawing.Size(73, 20);
+            this.farmHubNameTextBox.Size = new System.Drawing.Size(108, 26);
             this.farmHubNameTextBox.TabIndex = 21;
             // 
             // regionPannel
@@ -180,20 +176,18 @@ namespace Vic3MapMaker
             this.regionPannel.Controls.Add(this.ChangeCapitalRadioButton);
             this.regionPannel.Controls.Add(this.regionCapitalTextBox);
             this.regionPannel.Controls.Add(this.createNewRegionButton);
-            this.regionPannel.Location = new System.Drawing.Point(19, 13);
-            this.regionPannel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.regionPannel.Location = new System.Drawing.Point(28, 20);
             this.regionPannel.Name = "regionPannel";
-            this.regionPannel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.regionPannel.Size = new System.Drawing.Size(157, 91);
+            this.regionPannel.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.regionPannel.Size = new System.Drawing.Size(236, 140);
             this.regionPannel.TabIndex = 99;
             // 
             // transferStateRadioButton
             // 
             this.transferStateRadioButton.AutoSize = true;
-            this.transferStateRadioButton.Location = new System.Drawing.Point(5, 5);
-            this.transferStateRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.transferStateRadioButton.Location = new System.Drawing.Point(7, 8);
             this.transferStateRadioButton.Name = "transferStateRadioButton";
-            this.transferStateRadioButton.Size = new System.Drawing.Size(92, 17);
+            this.transferStateRadioButton.Size = new System.Drawing.Size(136, 24);
             this.transferStateRadioButton.TabIndex = 10;
             this.transferStateRadioButton.TabStop = true;
             this.transferStateRadioButton.Text = "Transfer State";
@@ -202,10 +196,9 @@ namespace Vic3MapMaker
             // ChangeCapitalRadioButton
             // 
             this.ChangeCapitalRadioButton.AutoSize = true;
-            this.ChangeCapitalRadioButton.Location = new System.Drawing.Point(5, 26);
-            this.ChangeCapitalRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ChangeCapitalRadioButton.Location = new System.Drawing.Point(7, 38);
             this.ChangeCapitalRadioButton.Name = "ChangeCapitalRadioButton";
-            this.ChangeCapitalRadioButton.Size = new System.Drawing.Size(57, 17);
+            this.ChangeCapitalRadioButton.Size = new System.Drawing.Size(83, 24);
             this.ChangeCapitalRadioButton.TabIndex = 11;
             this.ChangeCapitalRadioButton.TabStop = true;
             this.ChangeCapitalRadioButton.Text = "Capital";
@@ -214,19 +207,17 @@ namespace Vic3MapMaker
             // regionCapitalTextBox
             // 
             this.regionCapitalTextBox.Enabled = false;
-            this.regionCapitalTextBox.Location = new System.Drawing.Point(66, 26);
-            this.regionCapitalTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.regionCapitalTextBox.Location = new System.Drawing.Point(96, 38);
             this.regionCapitalTextBox.Name = "regionCapitalTextBox";
             this.regionCapitalTextBox.ReadOnly = true;
-            this.regionCapitalTextBox.Size = new System.Drawing.Size(77, 20);
+            this.regionCapitalTextBox.Size = new System.Drawing.Size(114, 26);
             this.regionCapitalTextBox.TabIndex = 25;
             // 
             // createNewRegionButton
             // 
-            this.createNewRegionButton.Location = new System.Drawing.Point(5, 50);
-            this.createNewRegionButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.createNewRegionButton.Location = new System.Drawing.Point(7, 70);
             this.createNewRegionButton.Name = "createNewRegionButton";
-            this.createNewRegionButton.Size = new System.Drawing.Size(135, 34);
+            this.createNewRegionButton.Size = new System.Drawing.Size(202, 52);
             this.createNewRegionButton.TabIndex = 26;
             this.createNewRegionButton.Text = "Creat New Region";
             this.createNewRegionButton.UseVisualStyleBackColor = true;
@@ -234,43 +225,38 @@ namespace Vic3MapMaker
             // 
             // mineHubNameTextBox
             // 
-            this.mineHubNameTextBox.Location = new System.Drawing.Point(133, 153);
-            this.mineHubNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mineHubNameTextBox.Location = new System.Drawing.Point(200, 235);
             this.mineHubNameTextBox.Name = "mineHubNameTextBox";
-            this.mineHubNameTextBox.Size = new System.Drawing.Size(73, 20);
+            this.mineHubNameTextBox.Size = new System.Drawing.Size(108, 26);
             this.mineHubNameTextBox.TabIndex = 21;
             // 
             // woodHubNameTextBox
             // 
-            this.woodHubNameTextBox.Location = new System.Drawing.Point(133, 125);
-            this.woodHubNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.woodHubNameTextBox.Location = new System.Drawing.Point(200, 192);
             this.woodHubNameTextBox.Name = "woodHubNameTextBox";
-            this.woodHubNameTextBox.Size = new System.Drawing.Size(73, 20);
+            this.woodHubNameTextBox.Size = new System.Drawing.Size(108, 26);
             this.woodHubNameTextBox.TabIndex = 21;
             // 
             // portHubNameTextBox
             // 
-            this.portHubNameTextBox.Location = new System.Drawing.Point(133, 95);
-            this.portHubNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.portHubNameTextBox.Location = new System.Drawing.Point(200, 146);
             this.portHubNameTextBox.Name = "portHubNameTextBox";
-            this.portHubNameTextBox.Size = new System.Drawing.Size(73, 20);
+            this.portHubNameTextBox.Size = new System.Drawing.Size(108, 26);
             this.portHubNameTextBox.TabIndex = 21;
             // 
             // cityHubNameTextBox
             // 
-            this.cityHubNameTextBox.Location = new System.Drawing.Point(133, 65);
-            this.cityHubNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cityHubNameTextBox.Location = new System.Drawing.Point(200, 100);
             this.cityHubNameTextBox.Name = "cityHubNameTextBox";
-            this.cityHubNameTextBox.Size = new System.Drawing.Size(73, 20);
+            this.cityHubNameTextBox.Size = new System.Drawing.Size(108, 26);
             this.cityHubNameTextBox.TabIndex = 21;
             // 
             // transferProvinceRadioButton
             // 
             this.transferProvinceRadioButton.AutoSize = true;
-            this.transferProvinceRadioButton.Location = new System.Drawing.Point(2, 13);
-            this.transferProvinceRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.transferProvinceRadioButton.Location = new System.Drawing.Point(3, 20);
             this.transferProvinceRadioButton.Name = "transferProvinceRadioButton";
-            this.transferProvinceRadioButton.Size = new System.Drawing.Size(109, 17);
+            this.transferProvinceRadioButton.Size = new System.Drawing.Size(157, 24);
             this.transferProvinceRadioButton.TabIndex = 3;
             this.transferProvinceRadioButton.TabStop = true;
             this.transferProvinceRadioButton.Text = "Transfer Province";
@@ -279,10 +265,9 @@ namespace Vic3MapMaker
             // navalExitRadioButton
             // 
             this.navalExitRadioButton.AutoSize = true;
-            this.navalExitRadioButton.Location = new System.Drawing.Point(2, 38);
-            this.navalExitRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.navalExitRadioButton.Location = new System.Drawing.Point(3, 58);
             this.navalExitRadioButton.Name = "navalExitRadioButton";
-            this.navalExitRadioButton.Size = new System.Drawing.Size(73, 17);
+            this.navalExitRadioButton.Size = new System.Drawing.Size(103, 24);
             this.navalExitRadioButton.TabIndex = 4;
             this.navalExitRadioButton.TabStop = true;
             this.navalExitRadioButton.Text = "Naval Exit";
@@ -290,10 +275,9 @@ namespace Vic3MapMaker
             // 
             // clearUpdateHubButton
             // 
-            this.clearUpdateHubButton.Location = new System.Drawing.Point(75, 209);
-            this.clearUpdateHubButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearUpdateHubButton.Location = new System.Drawing.Point(112, 322);
             this.clearUpdateHubButton.Name = "clearUpdateHubButton";
-            this.clearUpdateHubButton.Size = new System.Drawing.Size(129, 36);
+            this.clearUpdateHubButton.Size = new System.Drawing.Size(80, 55);
             this.clearUpdateHubButton.TabIndex = 20;
             this.clearUpdateHubButton.Text = "Clear Selected";
             this.clearUpdateHubButton.UseVisualStyleBackColor = true;
@@ -302,10 +286,9 @@ namespace Vic3MapMaker
             // hubFarmUpdateRadioButton
             // 
             this.hubFarmUpdateRadioButton.AutoSize = true;
-            this.hubFarmUpdateRadioButton.Location = new System.Drawing.Point(2, 181);
-            this.hubFarmUpdateRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubFarmUpdateRadioButton.Location = new System.Drawing.Point(3, 278);
             this.hubFarmUpdateRadioButton.Name = "hubFarmUpdateRadioButton";
-            this.hubFarmUpdateRadioButton.Size = new System.Drawing.Size(48, 17);
+            this.hubFarmUpdateRadioButton.Size = new System.Drawing.Size(71, 24);
             this.hubFarmUpdateRadioButton.TabIndex = 9;
             this.hubFarmUpdateRadioButton.TabStop = true;
             this.hubFarmUpdateRadioButton.Text = "Farm";
@@ -314,10 +297,9 @@ namespace Vic3MapMaker
             // hubMineUpdateRadioButton
             // 
             this.hubMineUpdateRadioButton.AutoSize = true;
-            this.hubMineUpdateRadioButton.Location = new System.Drawing.Point(2, 153);
-            this.hubMineUpdateRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubMineUpdateRadioButton.Location = new System.Drawing.Point(3, 235);
             this.hubMineUpdateRadioButton.Name = "hubMineUpdateRadioButton";
-            this.hubMineUpdateRadioButton.Size = new System.Drawing.Size(48, 17);
+            this.hubMineUpdateRadioButton.Size = new System.Drawing.Size(68, 24);
             this.hubMineUpdateRadioButton.TabIndex = 8;
             this.hubMineUpdateRadioButton.TabStop = true;
             this.hubMineUpdateRadioButton.Text = "Mine";
@@ -326,10 +308,9 @@ namespace Vic3MapMaker
             // hubWoodUpdateRadioButton
             // 
             this.hubWoodUpdateRadioButton.AutoSize = true;
-            this.hubWoodUpdateRadioButton.Location = new System.Drawing.Point(2, 125);
-            this.hubWoodUpdateRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubWoodUpdateRadioButton.Location = new System.Drawing.Point(3, 192);
             this.hubWoodUpdateRadioButton.Name = "hubWoodUpdateRadioButton";
-            this.hubWoodUpdateRadioButton.Size = new System.Drawing.Size(54, 17);
+            this.hubWoodUpdateRadioButton.Size = new System.Drawing.Size(76, 24);
             this.hubWoodUpdateRadioButton.TabIndex = 7;
             this.hubWoodUpdateRadioButton.TabStop = true;
             this.hubWoodUpdateRadioButton.Text = "Wood";
@@ -338,10 +319,9 @@ namespace Vic3MapMaker
             // hubPortUpdateRadioButton
             // 
             this.hubPortUpdateRadioButton.AutoSize = true;
-            this.hubPortUpdateRadioButton.Location = new System.Drawing.Point(2, 95);
-            this.hubPortUpdateRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubPortUpdateRadioButton.Location = new System.Drawing.Point(3, 146);
             this.hubPortUpdateRadioButton.Name = "hubPortUpdateRadioButton";
-            this.hubPortUpdateRadioButton.Size = new System.Drawing.Size(44, 17);
+            this.hubPortUpdateRadioButton.Size = new System.Drawing.Size(63, 24);
             this.hubPortUpdateRadioButton.TabIndex = 6;
             this.hubPortUpdateRadioButton.TabStop = true;
             this.hubPortUpdateRadioButton.Text = "Port";
@@ -350,10 +330,9 @@ namespace Vic3MapMaker
             // hubCityUpdateRadioButton
             // 
             this.hubCityUpdateRadioButton.AutoSize = true;
-            this.hubCityUpdateRadioButton.Location = new System.Drawing.Point(2, 65);
-            this.hubCityUpdateRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubCityUpdateRadioButton.Location = new System.Drawing.Point(3, 100);
             this.hubCityUpdateRadioButton.Name = "hubCityUpdateRadioButton";
-            this.hubCityUpdateRadioButton.Size = new System.Drawing.Size(42, 17);
+            this.hubCityUpdateRadioButton.Size = new System.Drawing.Size(60, 24);
             this.hubCityUpdateRadioButton.TabIndex = 5;
             this.hubCityUpdateRadioButton.TabStop = true;
             this.hubCityUpdateRadioButton.Text = "City";
@@ -362,70 +341,63 @@ namespace Vic3MapMaker
             // hubFarmTextBox
             // 
             this.hubFarmTextBox.Enabled = false;
-            this.hubFarmTextBox.Location = new System.Drawing.Point(75, 181);
-            this.hubFarmTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubFarmTextBox.Location = new System.Drawing.Point(112, 278);
             this.hubFarmTextBox.Name = "hubFarmTextBox";
             this.hubFarmTextBox.ReadOnly = true;
-            this.hubFarmTextBox.Size = new System.Drawing.Size(55, 20);
+            this.hubFarmTextBox.Size = new System.Drawing.Size(80, 26);
             this.hubFarmTextBox.TabIndex = 18;
             // 
             // hubMineTextBox
             // 
             this.hubMineTextBox.Enabled = false;
-            this.hubMineTextBox.Location = new System.Drawing.Point(75, 153);
-            this.hubMineTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubMineTextBox.Location = new System.Drawing.Point(112, 235);
             this.hubMineTextBox.Name = "hubMineTextBox";
             this.hubMineTextBox.ReadOnly = true;
-            this.hubMineTextBox.Size = new System.Drawing.Size(55, 20);
+            this.hubMineTextBox.Size = new System.Drawing.Size(80, 26);
             this.hubMineTextBox.TabIndex = 17;
             // 
             // hubWoodTextBox
             // 
             this.hubWoodTextBox.Enabled = false;
-            this.hubWoodTextBox.Location = new System.Drawing.Point(75, 125);
-            this.hubWoodTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubWoodTextBox.Location = new System.Drawing.Point(112, 192);
             this.hubWoodTextBox.Name = "hubWoodTextBox";
             this.hubWoodTextBox.ReadOnly = true;
-            this.hubWoodTextBox.Size = new System.Drawing.Size(55, 20);
+            this.hubWoodTextBox.Size = new System.Drawing.Size(80, 26);
             this.hubWoodTextBox.TabIndex = 16;
             // 
             // hubPortTextBox
             // 
             this.hubPortTextBox.Enabled = false;
-            this.hubPortTextBox.Location = new System.Drawing.Point(75, 95);
-            this.hubPortTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubPortTextBox.Location = new System.Drawing.Point(112, 146);
             this.hubPortTextBox.Name = "hubPortTextBox";
             this.hubPortTextBox.ReadOnly = true;
-            this.hubPortTextBox.Size = new System.Drawing.Size(55, 20);
+            this.hubPortTextBox.Size = new System.Drawing.Size(80, 26);
             this.hubPortTextBox.TabIndex = 15;
             // 
             // hubCityTextBox
             // 
             this.hubCityTextBox.Enabled = false;
-            this.hubCityTextBox.Location = new System.Drawing.Point(75, 65);
-            this.hubCityTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hubCityTextBox.Location = new System.Drawing.Point(112, 100);
             this.hubCityTextBox.Name = "hubCityTextBox";
             this.hubCityTextBox.ReadOnly = true;
-            this.hubCityTextBox.Size = new System.Drawing.Size(55, 20);
+            this.hubCityTextBox.Size = new System.Drawing.Size(80, 26);
             this.hubCityTextBox.TabIndex = 14;
             // 
             // stateNavalExitTextBox
             // 
             this.stateNavalExitTextBox.Enabled = false;
-            this.stateNavalExitTextBox.Location = new System.Drawing.Point(75, 38);
-            this.stateNavalExitTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stateNavalExitTextBox.Location = new System.Drawing.Point(112, 58);
             this.stateNavalExitTextBox.Name = "stateNavalExitTextBox";
             this.stateNavalExitTextBox.ReadOnly = true;
-            this.stateNavalExitTextBox.Size = new System.Drawing.Size(55, 20);
+            this.stateNavalExitTextBox.Size = new System.Drawing.Size(80, 26);
             this.stateNavalExitTextBox.TabIndex = 8;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(7, 395);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSave.Location = new System.Drawing.Point(10, 608);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonSave.Size = new System.Drawing.Size(58, 29);
+            this.buttonSave.Size = new System.Drawing.Size(87, 45);
             this.buttonSave.TabIndex = 22;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -437,20 +409,18 @@ namespace Vic3MapMaker
             this.nationalPanel.Controls.Add(this.transferStateNationalRadioButton);
             this.nationalPanel.Controls.Add(this.transferRegionNationalRadioButton);
             this.nationalPanel.Controls.Add(this.createNewCountryButton);
-            this.nationalPanel.Location = new System.Drawing.Point(27, 443);
-            this.nationalPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nationalPanel.Location = new System.Drawing.Point(40, 682);
             this.nationalPanel.Name = "nationalPanel";
-            this.nationalPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.nationalPanel.Size = new System.Drawing.Size(157, 119);
+            this.nationalPanel.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nationalPanel.Size = new System.Drawing.Size(236, 183);
             this.nationalPanel.TabIndex = 100;
             // 
             // transferProvinceNationalRadioButton
             // 
             this.transferProvinceNationalRadioButton.AutoSize = true;
-            this.transferProvinceNationalRadioButton.Location = new System.Drawing.Point(5, 5);
-            this.transferProvinceNationalRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.transferProvinceNationalRadioButton.Location = new System.Drawing.Point(7, 8);
             this.transferProvinceNationalRadioButton.Name = "transferProvinceNationalRadioButton";
-            this.transferProvinceNationalRadioButton.Size = new System.Drawing.Size(109, 17);
+            this.transferProvinceNationalRadioButton.Size = new System.Drawing.Size(157, 24);
             this.transferProvinceNationalRadioButton.TabIndex = 10;
             this.transferProvinceNationalRadioButton.TabStop = true;
             this.transferProvinceNationalRadioButton.Text = "Transfer Province";
@@ -459,10 +429,9 @@ namespace Vic3MapMaker
             // transferStateNationalRadioButton
             // 
             this.transferStateNationalRadioButton.AutoSize = true;
-            this.transferStateNationalRadioButton.Location = new System.Drawing.Point(5, 26);
-            this.transferStateNationalRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.transferStateNationalRadioButton.Location = new System.Drawing.Point(7, 38);
             this.transferStateNationalRadioButton.Name = "transferStateNationalRadioButton";
-            this.transferStateNationalRadioButton.Size = new System.Drawing.Size(92, 17);
+            this.transferStateNationalRadioButton.Size = new System.Drawing.Size(136, 24);
             this.transferStateNationalRadioButton.TabIndex = 11;
             this.transferStateNationalRadioButton.TabStop = true;
             this.transferStateNationalRadioButton.Text = "Transfer State";
@@ -471,10 +440,9 @@ namespace Vic3MapMaker
             // transferRegionNationalRadioButton
             // 
             this.transferRegionNationalRadioButton.AutoSize = true;
-            this.transferRegionNationalRadioButton.Location = new System.Drawing.Point(5, 47);
-            this.transferRegionNationalRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.transferRegionNationalRadioButton.Location = new System.Drawing.Point(7, 68);
             this.transferRegionNationalRadioButton.Name = "transferRegionNationalRadioButton";
-            this.transferRegionNationalRadioButton.Size = new System.Drawing.Size(101, 17);
+            this.transferRegionNationalRadioButton.Size = new System.Drawing.Size(148, 24);
             this.transferRegionNationalRadioButton.TabIndex = 12;
             this.transferRegionNationalRadioButton.TabStop = true;
             this.transferRegionNationalRadioButton.Text = "Transfer Region";
@@ -482,10 +450,9 @@ namespace Vic3MapMaker
             // 
             // createNewCountryButton
             // 
-            this.createNewCountryButton.Location = new System.Drawing.Point(5, 68);
-            this.createNewCountryButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.createNewCountryButton.Location = new System.Drawing.Point(7, 98);
             this.createNewCountryButton.Name = "createNewCountryButton";
-            this.createNewCountryButton.Size = new System.Drawing.Size(135, 34);
+            this.createNewCountryButton.Size = new System.Drawing.Size(202, 52);
             this.createNewCountryButton.TabIndex = 27;
             this.createNewCountryButton.Text = "Creat New Country";
             this.createNewCountryButton.UseVisualStyleBackColor = true;
@@ -493,20 +460,18 @@ namespace Vic3MapMaker
             // textBoxCurrentlySelectedMapArea
             // 
             this.textBoxCurrentlySelectedMapArea.Enabled = false;
-            this.textBoxCurrentlySelectedMapArea.Location = new System.Drawing.Point(8, 30);
-            this.textBoxCurrentlySelectedMapArea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxCurrentlySelectedMapArea.Location = new System.Drawing.Point(12, 46);
             this.textBoxCurrentlySelectedMapArea.Name = "textBoxCurrentlySelectedMapArea";
             this.textBoxCurrentlySelectedMapArea.ReadOnly = true;
-            this.textBoxCurrentlySelectedMapArea.Size = new System.Drawing.Size(207, 20);
+            this.textBoxCurrentlySelectedMapArea.Size = new System.Drawing.Size(308, 26);
             this.textBoxCurrentlySelectedMapArea.TabIndex = 5;
             this.textBoxCurrentlySelectedMapArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // EditStateRegioon
             // 
-            this.EditStateRegioon.Location = new System.Drawing.Point(7, 73);
-            this.EditStateRegioon.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EditStateRegioon.Location = new System.Drawing.Point(10, 112);
             this.EditStateRegioon.Name = "EditStateRegioon";
-            this.EditStateRegioon.Size = new System.Drawing.Size(58, 30);
+            this.EditStateRegioon.Size = new System.Drawing.Size(87, 46);
             this.EditStateRegioon.TabIndex = 2;
             this.EditStateRegioon.Text = "Edit";
             this.EditStateRegioon.UseVisualStyleBackColor = true;
@@ -516,11 +481,10 @@ namespace Vic3MapMaker
             // 
             this.itemComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemComboBox.FormattingEnabled = true;
-            this.itemComboBox.Location = new System.Drawing.Point(7, 51);
-            this.itemComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.itemComboBox.MinimumSize = new System.Drawing.Size(68, 0);
+            this.itemComboBox.Location = new System.Drawing.Point(10, 78);
+            this.itemComboBox.MinimumSize = new System.Drawing.Size(100, 0);
             this.itemComboBox.Name = "itemComboBox";
-            this.itemComboBox.Size = new System.Drawing.Size(208, 21);
+            this.itemComboBox.Size = new System.Drawing.Size(310, 28);
             this.itemComboBox.TabIndex = 1;
             this.itemComboBox.SelectedIndexChanged += new System.EventHandler(this.ItemComboBox_SelectedIndexChanged);
             // 
@@ -536,31 +500,38 @@ namespace Vic3MapMaker
             "PrimeLand",
             "Impassable",
             "Terrain"});
-            this.categoryComboBox.Location = new System.Drawing.Point(8, 8);
-            this.categoryComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.categoryComboBox.MinimumSize = new System.Drawing.Size(68, 0);
+            this.categoryComboBox.Location = new System.Drawing.Point(12, 12);
+            this.categoryComboBox.MinimumSize = new System.Drawing.Size(100, 0);
             this.categoryComboBox.Name = "categoryComboBox";
-            this.categoryComboBox.Size = new System.Drawing.Size(208, 21);
+            this.categoryComboBox.Size = new System.Drawing.Size(310, 28);
             this.categoryComboBox.TabIndex = 0;
             this.categoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(2, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1533, 907);
+            this.pictureBox1.Size = new System.Drawing.Size(2300, 1395);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
+            // saveHubNamesButton
+            // 
+            this.saveHubNamesButton.Location = new System.Drawing.Point(198, 322);
+            this.saveHubNamesButton.Name = "saveHubNamesButton";
+            this.saveHubNamesButton.Size = new System.Drawing.Size(108, 55);
+            this.saveHubNamesButton.TabIndex = 100;
+            this.saveHubNamesButton.Text = "Save Hub Names";
+            this.saveHubNamesButton.UseVisualStyleBackColor = true;
+            this.saveHubNamesButton.Click += new System.EventHandler(this.saveHubNamesButton_Click);
+            // 
             // MainPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1283, 690);
+            this.ClientSize = new System.Drawing.Size(1924, 1062);
             this.Controls.Add(this.splitContainerControls_Image);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainPage";
             this.Text = "MainPage";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -624,6 +595,7 @@ namespace Vic3MapMaker
         private TextBox mineHubNameTextBox;
         private TextBox woodHubNameTextBox;
         private TextBox portHubNameTextBox;
+        private Button saveHubNamesButton;
     }
 }
 

@@ -29,6 +29,8 @@ namespace Vic3MapMaker.Forms
 
             //set tagTextBox to nation.tag
             tagTextBox.Text = nation.tag;
+            //set nameTextBox to nation.name
+            nameTextBox.Text = nation.name;
 
             //set combobox values to nation substates.parentState
             foreach (SubState subState in nation.subStates) {
@@ -77,8 +79,10 @@ namespace Vic3MapMaker.Forms
             colorButton.BackColor = nation.color;
 
 
-            //select first item in subStateComboBox
-            subStateComboBox.SelectedIndex = 0;
+            //select first item in subStateComboBox if there are substates
+            if (nation.subStates.Count > 0) {
+                subStateComboBox.SelectedIndex = 0;
+            }
 
             //set tierComboBox list to lsu.tiers
             tierComboBox.Items.AddRange(lsu.nationTiers.ToArray());
@@ -89,13 +93,27 @@ namespace Vic3MapMaker.Forms
             typeComboBox.Items.AddRange(lsu.nationTypes.ToArray());
             //set typeComboBox to nation.type
             typeComboBox.SelectedItem = nation.type;
+            
 
+            
             //if nation has any substates
             if (nation.subStates.Count > 0) {
-                //set capitalComboBox list to nation.subStates
-                capitalComboBox.Items.AddRange(nation.subStates.ToArray());
-                //set capitalComboBox to nation.capital to the subState that contains nation.capital
-                capitalComboBox.SelectedItem = nation.subStates.First(subState => subState.parentState == nation.capital);
+                //sort capitalComboBox items by name
+                capitalComboBox.Sorted = true;
+
+                //set capitalComboBox list to nation.subStates.parentState
+                capitalComboBox.Items.AddRange(nation.subStates.Select(x => x.parentState).ToArray());
+
+                //if nation.capital is not null is not in capitalComboBox list add it
+                if (nation.capital != null ) {
+                    if(!capitalComboBox.Items.Contains(nation.capital))
+                        capitalComboBox.Items.Add(nation.capital);
+                    //get the index of nation.capital in capitalComboBox
+                    int index = capitalComboBox.Items.IndexOf(nation.capital);
+                    //set capitalComboBox to nation.capital
+                    capitalComboBox.SelectedIndex = index;
+                }
+                
             }
             else {
                 //set capitalComboBox list to lsu.states
@@ -103,12 +121,15 @@ namespace Vic3MapMaker.Forms
                 //set capitalComboBox to nation.capital
                 capitalComboBox.SelectedItem = nation.capital;
             }
+            
 
             //if nation is named from capital
             if (nation.isNamedFromCapital) {
                 //set nameFromCapitalCheckBox to checked
                 namedFromCapitalCheckBox.Checked = true;
             }
+
+            
 
 
         }

@@ -13,3 +13,9 @@ _output/_output/map_data/state_regions/west_south_asia_strategic_regions.txt
 _output/common/history/states/00_states.txt
 _output/map_data/state_regions/europe_strategic_regions.txt
 _output/map_data/state_regions/europe_strategic_regions.txt
+_output/common/country_definitions/00_countries.txt
+_output/common/history/pops/african_strategic_regions.txt
+_output/common/history/pops/europe_strategic_regions.txt
+_output/common/history/pops/west_south_asia_strategic_regions.txt
+_output/common/strategic_regions/african_strategic_regions.txt
+_output/common/strategic_regions/west_south_asia_strategic_regions.txt

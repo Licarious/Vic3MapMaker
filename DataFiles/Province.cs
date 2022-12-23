@@ -14,7 +14,6 @@ namespace Vic3MapMaker
         public string terrain = "";
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public HashSet<(int, int)> coordSet = new HashSet<(int, int)>();
-        public string hubName = "";
         public List<string> hubList = new List<string>();
         public bool isImpassible = false;
         public bool isPrimeLand = false;
@@ -65,9 +64,6 @@ namespace Vic3MapMaker
             }
             if (other.color != Color.FromArgb(0, 0, 0, 0)) {
                 this.color = other.color;
-            }
-            if (other.hubName != "") {
-                this.hubName = other.hubName;
             }
             if (other.isImpassible) {
                 this.isImpassible = other.isImpassible;

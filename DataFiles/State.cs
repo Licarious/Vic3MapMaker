@@ -25,6 +25,10 @@ namespace Vic3MapMaker
         //hub list for writing to file
         public List<(string, string)> hubList = new List<(string, string)>();
 
+        //hub localization list preset with blank strings for city, port, mine, wood, and farm
+        public List<(string type, string local)> hubLocalizationList = new List<(string, string)>();
+
+
         //dictionary of color and its province
         public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
 
@@ -49,14 +53,12 @@ namespace Vic3MapMaker
         public void GenerateHubList() {
             hubList.Clear();
             foreach (KeyValuePair<Color, Province> prov in provDict) {
-                if (prov.Value.hubName != "") {
-                    //if hubName is already in hubList
-                    if (hubList.Exists(x => x.Item1 == prov.Value.hubName)) {
-                        //clear this hubName from prov
-                        prov.Value.hubName = "";
-                        continue;
+                if (prov.Value.hubList.Count > 0) {
+                    //for each hub in the province
+                    foreach (string hub in prov.Value.hubList) {
+                        //add the hub to the state hub list
+                        hubList.Add((hub, prov.Value.name));
                     }
-                    hubList.Add((prov.Value.hubName, prov.Value.NameHex()));
                 }
             }
         }

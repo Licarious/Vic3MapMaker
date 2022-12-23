@@ -55,8 +55,6 @@ namespace Vic3MapMaker
 
             //default selection in categoryComboBox to state
             categoryComboBox.SelectedIndex = 1;
-            
-
 
         }
 
@@ -225,6 +223,36 @@ namespace Vic3MapMaker
                     }
                 }
             }
+            //clear *HubNameTextBox and add the hub names to the hubNameTextBoxes
+            cityHubNameTextBox.Text = "";
+            portHubNameTextBox.Text = "";
+            woodHubNameTextBox.Text = "";
+            mineHubNameTextBox.Text = "";
+            farmHubNameTextBox.Text = "";
+            //set hub name text boxes to the s's hublocalization
+            foreach ((string type, string loc) hubLoc in state.hubLocalizationList) {
+                Console.WriteLine(hubLoc);
+                switch (hubLoc.type) {
+                    case "city":
+                        cityHubNameTextBox.Text = hubLoc.loc;
+                        break;
+                    case "port":
+                        portHubNameTextBox.Text = hubLoc.loc;
+                        break;
+                    case "wood":
+                        woodHubNameTextBox.Text = hubLoc.loc;
+                        break;
+                    case "mine":
+                        mineHubNameTextBox.Text = hubLoc.loc;
+                        break;
+                    case "farm":
+                        farmHubNameTextBox.Text = hubLoc.loc;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
 
         private void RefreshRegionTextBoxes(Region region) {
@@ -722,6 +750,11 @@ namespace Vic3MapMaker
                         if (!found) {
                             //create a new substate
                             SubState subState = new SubState(state, nation);
+                            //if nation has any cultures create a single pop with that culture
+                            if (nation.cultures.Count > 0) {
+                                subState.pops.Add(new Pop(nation.cultures[0], 1));
+                                Console.WriteLine("\tnew substate created for " + nation.tag + " in" + state.name + " adding a single pop of " + nation.cultures[0] + " culture to it.");
+                            }
                             nation.subStates.Add(subState);
                         }
                     }
@@ -777,6 +810,7 @@ namespace Vic3MapMaker
             fo.WriteRegions(regionSet);
             fo.WriteCountryDefinitions(nationSet);
             fo.WriteHistoryStates(nationSet);
+            fo.WritePops(nationSet, regionSet);
         }
 
         private void UndoButton_Click(object sender, EventArgs e) {
@@ -823,32 +857,22 @@ namespace Vic3MapMaker
             else if (hubCityUpdateRadioButton.Checked) {
                 Province oldProv = state.provDict.Values.FirstOrDefault(x => x.name == hubCityTextBox.Text);
                 mapOp.ClearHub(state, oldProv, "city");
-                //update hub city text box
-                hubCityTextBox.Text = "";
             }
             else if (hubPortUpdateRadioButton.Checked) {
                 Province oldProv = state.provDict.Values.FirstOrDefault(x => x.name == hubPortTextBox.Text);
                 mapOp.ClearHub(state, oldProv, "port");
-                //update hub city text box
-                hubPortTextBox.Text = "";
             }
             else if (hubWoodUpdateRadioButton.Checked) {
                 Province oldProv = state.provDict.Values.FirstOrDefault(x => x.name == hubWoodTextBox.Text);
                 mapOp.ClearHub(state, oldProv, "wood");
-                //update hub city text box
-                hubWoodTextBox.Text = "";
             }
             else if (hubMineUpdateRadioButton.Checked) {
                 Province oldProv = state.provDict.Values.FirstOrDefault(x => x.name == hubMineTextBox.Text);
                 mapOp.ClearHub(state, oldProv, "mine");
-                //update hub city text box
-                hubMineTextBox.Text = "";
             }
             else if (hubFarmUpdateRadioButton.Checked) {
                 Province oldProv = state.provDict.Values.FirstOrDefault(x => x.name == hubFarmTextBox.Text);
                 mapOp.ClearHub(state, oldProv, "farm");
-                //update hub city text box
-                hubFarmTextBox.Text = "";
             }
             RefreshHubTextBoxes(state);
         }
@@ -1043,5 +1067,54 @@ namespace Vic3MapMaker
 
         }
 
+        private void saveHubNamesButton_Click(object sender, EventArgs e) {
+            //get state in itemComboBox
+            State s = (State)itemComboBox.SelectedItem;
+
+            //get hub localizations from each  *HubNameTextBox
+            //find index of "city" in s.hubLocalizationList
+            int index = s.hubLocalizationList.FindIndex(x => x.type.Contains("city"));
+            //if index is -1 then add new hubLocalization
+            if (index == -1) {
+                s.hubLocalizationList.Add(("city", cityHubNameTextBox.Text.Trim()));
+            }
+            //else replace hubLocalization
+            else {
+                s.hubLocalizationList[index] = ("city", cityHubNameTextBox.Text.Trim());
+            }
+            //port
+            index = s.hubLocalizationList.FindIndex(x => x.type.Contains("port"));
+            if (index == -1) {
+                s.hubLocalizationList.Add(("port", portHubNameTextBox.Text.Trim()));
+            }
+            else {
+                s.hubLocalizationList[index] = ("port", portHubNameTextBox.Text.Trim());
+            }
+            //wood
+            index = s.hubLocalizationList.FindIndex(x => x.type.Contains("wood"));
+            if (index == -1) {
+                s.hubLocalizationList.Add(("wood", woodHubNameTextBox.Text.Trim()));
+            }
+            else {
+                s.hubLocalizationList[index] = ("wood", woodHubNameTextBox.Text.Trim());
+            }
+            //mine
+            index = s.hubLocalizationList.FindIndex(x => x.type.Contains("mine"));
+            if (index == -1) {
+                s.hubLocalizationList.Add(("mine", mineHubNameTextBox.Text.Trim()));
+            }
+            else {
+                s.hubLocalizationList[index] = ("mine", mineHubNameTextBox.Text.Trim());
+            }
+            //farm
+            index = s.hubLocalizationList.FindIndex(x => x.type.Contains("farm"));
+            if (index == -1) {
+                s.hubLocalizationList.Add(("farm", farmHubNameTextBox.Text.Trim()));
+            }
+            else {
+                s.hubLocalizationList[index] = ("farm", farmHubNameTextBox.Text.Trim());
+            }
+
+        }
     }
 }

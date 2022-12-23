@@ -14,6 +14,11 @@ namespace Vic3MapMaker.DataFiles
         public string religion = "";
 
         public Pop() { }
+        
+        public Pop(string culture, int size) {
+            this.culture = culture;
+            this.size = size;
+        }
 
         //toString
         public override string ToString() {

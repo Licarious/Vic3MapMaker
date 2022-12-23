@@ -171,7 +171,7 @@ namespace Vic3MapMaker
             else {
                 if (undoAble) {
                     StackSize += 1;
-                    UndoStack.Push(() => SetHub(state, oldProv, prov, oldProv.hubName, false));
+                    UndoStack.Push(() => SetHub(state, oldProv, prov, hubName, false));
                 }
                 //clear old hub name
                 oldProv.hubList.Remove(hubName);

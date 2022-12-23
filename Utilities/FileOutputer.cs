@@ -148,8 +148,8 @@ namespace Vic3MapMaker
         
         public void WriteRegions(HashSet<Region> regionSet) {
             //check if the folder exists
-            if (!File.Exists(outputDirectory + "\\_output\\common\\strategic_regions\\")) {
-                Directory.CreateDirectory(outputDirectory + "\\_output\\common\\strategic_regions\\");
+            if (!File.Exists(outputDirectory + "\\common\\strategic_regions\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\strategic_regions\\");
             }
 
             //group regions by region.supperRegion
@@ -169,7 +169,7 @@ namespace Vic3MapMaker
 
             //write each region in supperRegionDict
             foreach (KeyValuePair<string, List<Region>> entry in supperRegionDict) {
-                string path = outputDirectory + "\\_output\\common\\strategic_regions\\" + entry.Key + ".txt";
+                string path = outputDirectory + "\\common\\strategic_regions\\" + entry.Key + ".txt";
                 using (StreamWriter sw = File.CreateText(path)) {
                     foreach (Region region in entry.Value) {
                         //if region has no states, skip
@@ -185,7 +185,7 @@ namespace Vic3MapMaker
                             sw.WriteLine("\tcapital_province = " + region.capital.NameHex());
                         }
                         else {
-                            Console.WriteLine("Region " + region.name + " has no capital set");
+                            Console.WriteLine("region " + region.name + " has no capital set");
                         }
                         sw.WriteLine("\tcolor = { " + region.color.R + " " + region.color.G + " " + region.color.B + " }");
                         sw.WriteLine("\tstates = { " + string.Join(" ", region.states.Select(x => x.name).ToList()) + " }");
@@ -206,7 +206,7 @@ namespace Vic3MapMaker
             //remove any duplicate names from the list
             //provList = provList.GroupBy(x => x.name).Select(x => x.First()).ToList();
 
-            string path = outputDirectory + "\\_output\\map_data\\province_terrains.txt";
+            string path = outputDirectory + "\\map_data\\province_terrains.txt";
 
             using (StreamWriter sw = File.CreateText(path)) {
                 sw.WriteLine("#This is a generated file, do not modify unless you know what you are doing!");
@@ -223,8 +223,8 @@ namespace Vic3MapMaker
         //output country_definitions
         public void WriteCountryDefinitions(HashSet<Nation> nationSet) {
             //if outputDirectory/common/country_definitons doesn't exist, create it
-            if (!File.Exists(outputDirectory + "\\_output\\common\\country_definitions\\")) {
-                Directory.CreateDirectory(outputDirectory + "\\_output\\common\\country_definitions\\");
+            if (!File.Exists(outputDirectory + "\\common\\country_definitions\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\country_definitions\\");
             }
 
             //sort nations by tag
@@ -232,7 +232,7 @@ namespace Vic3MapMaker
             nationList.Sort((x, y) => x.tag.CompareTo(y.tag));
 
             //create a new file 00_countries.txt
-            string path = outputDirectory + "\\_output\\common\\country_definitions\\00_countries.txt";
+            string path = outputDirectory + "\\common\\country_definitions\\00_countries.txt";
             using (StreamWriter sw = File.CreateText(path)) {
                 foreach(Nation n in nationList) {
                     sw.WriteLine(n.tag + " = {");
@@ -325,7 +325,119 @@ namespace Vic3MapMaker
 
         //write history/pops
         public void WritePops(HashSet<Nation> nations, HashSet<Region> regions) {
-            
+            //if outputDirectory/history/pops doesn't exist, create it
+            if (!File.Exists(outputDirectory + "\\common\\history\\pops\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\history\\pops\\");
+            }
+
+            //create a hashset of all substates
+            HashSet<SubState> subStates = new HashSet<SubState>();
+            foreach (Nation n in nations) {
+                //add all substates to the hashset
+                foreach (SubState s in n.subStates) {
+                    subStates.Add(s);
+                }
+            }
+
+            //group substates by substate.parentState
+            Dictionary<State, List<SubState>> parentStateDict = new Dictionary<State, List<SubState>>();
+            foreach (SubState subState in subStates) {
+                if (parentStateDict.ContainsKey(subState.parentState)) {
+                    parentStateDict[subState.parentState].Add(subState);
+                }
+                else {
+                    parentStateDict.Add(subState.parentState, new List<SubState>());
+                    parentStateDict[subState.parentState].Add(subState);
+                }
+            }
+
+            //group parentStateDict by the region they are in
+            Dictionary<Region, Dictionary<State, List<SubState>>> regionDict = new Dictionary<Region, Dictionary<State, List<SubState>>>();
+            //foreach region in regions hashset group parentStateDict by region
+            foreach (Region region in regions) {
+                regionDict.Add(region, new Dictionary<State, List<SubState>>());
+                foreach (KeyValuePair<State, List<SubState>> entry in parentStateDict) {
+                    if (region.states.Contains(entry.Key)) {
+                        regionDict[region].Add(entry.Key, entry.Value);
+                    }
+                }
+            }
+
+            //group regionDict by region.superRegion
+            Dictionary<string, Dictionary<Region, Dictionary<State, List<SubState>>>> superRegionDict = new Dictionary<string, Dictionary<Region, Dictionary<State, List<SubState>>>>();
+
+            foreach (KeyValuePair<Region, Dictionary<State, List<SubState>>> entry in regionDict) {
+                if (superRegionDict.ContainsKey(entry.Key.superRegion)) {
+                    superRegionDict[entry.Key.superRegion].Add(entry.Key, entry.Value);
+                }
+                else {
+                    superRegionDict.Add(entry.Key.superRegion, new Dictionary<Region, Dictionary<State, List<SubState>>>());
+                    superRegionDict[entry.Key.superRegion].Add(entry.Key, entry.Value);
+                }
+            }
+
+            //if a superRegion has no pops in it, remove it
+            List<string> removeList = new List<string>();
+            //from superRegionDict cascade down to substate List and check if it has any thing in its pop list
+            foreach (KeyValuePair<string, Dictionary<Region, Dictionary<State, List<SubState>>>> superRegion in superRegionDict) {
+                foreach (KeyValuePair<Region, Dictionary<State, List<SubState>>> region in superRegion.Value) {
+                    foreach (KeyValuePair<State, List<SubState>> state in region.Value) {
+                        foreach (SubState substate in state.Value) {
+                            if (substate.pops.Count > 0) {
+                                goto next;
+                            }
+                        }
+                    }
+                }
+                removeList.Add(superRegion.Key);
+                next:;
+            }
+            //remove all keys in superRegionDict that are in removeList
+            foreach(string superRegion in removeList) {
+                superRegionDict.Remove(superRegion);
+            }
+
+
+
+            //write a pop file for each superRegion
+            foreach (KeyValuePair<string, Dictionary<Region, Dictionary<State, List<SubState>>>> superRegion in superRegionDict) {
+                string path = outputDirectory + "\\common\\history\\pops\\" + superRegion.Key + ".txt";
+                using (StreamWriter sw = File.CreateText(path)) {
+                    sw.WriteLine("pops = {");
+                    foreach (KeyValuePair<Region, Dictionary<State, List<SubState>>> Region in superRegion.Value) {
+                        sw.WriteLine("\t#" + Region.Key.name);
+                        foreach(KeyValuePair<State,List<SubState>> State in Region.Value) {
+                            sw.WriteLine("\ts:" + State.Key.name + " = {");
+                            foreach (SubState substate in State.Value) {
+                                sw.WriteLine("\t\tregion_state:" + substate.owner.tag + " = {");
+                                if (substate.pops.Count == 0) {
+                                    sw.WriteLine("\t\t\t#SubState Found Without Pops. Add Some!");
+                                    Console.WriteLine("\t\tmissing pops for" + substate.owner + ": " + substate.parentState);
+                                }
+
+                                foreach (Pop pop in substate.pops) {
+                                    sw.WriteLine("\t\t\tcreate_pop = {");
+                                    if(pop.culture != "")
+                                        sw.WriteLine("\t\t\t\tculture = " + pop.culture);
+                                    if (pop.size > 0)
+                                        sw.WriteLine("\t\t\t\tsize = " + pop.size);
+                                    if (pop.type != "")
+                                        sw.WriteLine("\t\t\t\ttype = " + pop.type);
+                                    if (pop.religion != "")
+                                        sw.WriteLine("\t\t\t\treligion = " + pop.religion);
+                                    sw.WriteLine("\t\t\t}");
+                                }
+                                sw.WriteLine("\t\t}");
+                            }
+                            sw.WriteLine("\t}");
+                        }
+                    }
+                    sw.WriteLine("}");
+                    sw.Close();
+                }
+            }
+
+
         }
     }
 }

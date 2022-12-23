@@ -25,14 +25,14 @@ namespace Vic3MapMaker
         string gameDirectory;
         string modDirectory; //Not used yet
         string outDirectory;
+        Stopwatch sw = new Stopwatch();
 
         public Vic3FileParser(string gameDirectory, string modDirectory, string outDirectory) {
             this.gameDirectory = gameDirectory;
             this.modDirectory = modDirectory;
             this.outDirectory = outDirectory;
 
-            //stopwatch 
-            Stopwatch sw = new Stopwatch();
+            //stopwatch             
             sw.Start();
             //print time each method takes
             Console.WriteLine("Parsing files...");
@@ -44,6 +44,7 @@ namespace Vic3MapMaker
             ParseCulture();
             ParseCountries();
             ParseSubStates();
+            ParseLocal();
 
             sw.Stop();
             Console.WriteLine("Time elapsed: {0}", sw.Elapsed);
@@ -51,6 +52,8 @@ namespace Vic3MapMaker
 
         //method to parse state files
         void ParseStateFiles() {
+            DateTime startTime = DateTime.Now;
+
             //read all files in outputDirectory/_Input/state_regions
             string[] files = Directory.GetFiles(gameDirectory + "/map_data/state_regions");
             //for each file
@@ -225,7 +228,7 @@ namespace Vic3MapMaker
                             //set province with color c hubName to name
                             if (s.provDict.TryGetValue(hubC, out Province p)) {
                                 p.hubList.Add(line.Split('=')[0].Trim().ToLower());
-                                p.hubName = line.Split('=')[0].Trim().ToLower();
+                                //p.hubName = line.Split('=')[0].Trim().ToLower();
                                 //if s.color.A is 0 set the color to hubcolor
                                 if (s.color.A == 0) {
                                     s.color = p.color;
@@ -266,12 +269,12 @@ namespace Vic3MapMaker
                             //find state with same name as one in line
                             string stateName = line.Split(':')[1].Split('=')[0].Trim();
                             //search the stateSet hashset for a state with the same name
-                            foreach (State s in stateSet) {
-                                if (s.name == stateName) {
-                                    currentState = s;
-                                    break;
-                                }
+                            foreach (var s in stateSet.Where(s => s.name == stateName)) {
+                                currentState = s;
+                                break;
                             }
+
+                            
                             //if state is not found create a new state
                             if (currentState == null) {
                                 currentState = new State(stateName);
@@ -346,11 +349,15 @@ namespace Vic3MapMaker
                     provSet.Add(p);
                 }
             }
+            
+            Console.WriteLine("Parsed States in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
 
         }
 
         //parse all region files
         void ParseRegionFiles() {
+            DateTime startTime = DateTime.Now;
+            
             string[] files = Directory.GetFiles(gameDirectory + "/common/strategic_regions");
 
             int count = 0;
@@ -432,10 +439,14 @@ namespace Vic3MapMaker
                 }
             }
             Console.WriteLine("Regions: " + count + " | " + regionSet.Count);
+            //print time taken
+            Console.WriteLine("Parsed Regions in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         }
 
         //parse default.map
         void ParseDefaultMap() {
+            DateTime startTime = DateTime.Now;
+
             //itterate throu all states in regionSet and add their provDict to colorToProv
             foreach (Region r in regionSet) {
                 foreach (State s in r.states) {
@@ -491,10 +502,14 @@ namespace Vic3MapMaker
                     }
                 }
             }
+            
+            Console.WriteLine("Parsed default.map in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         }
 
         //parse province_terrains.txt
         void ParseTerrain() {
+            DateTime startTime = DateTime.Now;
+
             string[] lines = File.ReadAllLines(gameDirectory + "/map_data/province_terrains.txt");
             int internalID = 1;
             foreach (string l1 in lines) {
@@ -576,10 +591,14 @@ namespace Vic3MapMaker
 
                 }
             }
+            
+            Console.WriteLine("Parsed province_terrains.txt in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         }
 
         //parse provinces png
         private void ParseMap() {
+            DateTime startTime = DateTime.Now;
+
             Dictionary<Color, Province> provinceDict = new Dictionary<Color, Province>();
 
             //add all provinces from provSet to the provinceDict if not already in the dict
@@ -677,7 +696,8 @@ namespace Vic3MapMaker
                 }
             }
             mapImage = borderImage;
-
+            
+            Console.WriteLine("Parsed provinces.png in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         }
 
         private Color GetColor(string line) {
@@ -776,6 +796,9 @@ namespace Vic3MapMaker
 
         //parse cultures
         private void ParseCulture() {
+            //start time
+            DateTime startTime = DateTime.Now;
+
             //get the culture files from game folder +\common\cultures
             string[] cultureFiles = Directory.GetFiles(gameDirectory + @"\common\cultures\", "*.txt");
 
@@ -848,6 +871,8 @@ namespace Vic3MapMaker
                 }
 
             }
+
+            Console.WriteLine("Parsed cultures.txt in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         }
 
         //replace line with cleaned up line
@@ -857,6 +882,8 @@ namespace Vic3MapMaker
 
         //parse countries
         private void ParseCountries() {
+            DateTime startTime = DateTime.Now;
+
             //get all country files from game folder +\common\country_definitions\
             string[] countryFiles = Directory.GetFiles(gameDirectory + @"\common\country_definitions\", "*.txt");
 
@@ -945,10 +972,14 @@ namespace Vic3MapMaker
                 n?.provDict.Add(p.color, p);
             }
 
+            Console.WriteLine("Parsed countries in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
+
         }
 
         //parse subStates
         private void ParseSubStates() {
+            DateTime startTime = DateTime.Now;
+
             HashSet<SubState> subStateSet = new HashSet<SubState>();
             
             //get all substate files in game folder +\common\history\pops\
@@ -1071,6 +1102,86 @@ namespace Vic3MapMaker
                 }
             }
 
+            Console.WriteLine("Parsed substates in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
+
+        }
+
+        //parse localization files
+        public void ParseLocal() {
+            DateTime startTime = DateTime.Now;
+
+            string desiredLanguage = "english";
+            //country names
+            //get all files in game folder +\localization\** that contian countries in their name
+            string[] countryFiles = Directory.GetFiles(gameDirectory + @"\localization\", "*countries*"+ desiredLanguage+".yml", SearchOption.AllDirectories);
+
+            //for each country file
+            foreach (string file in countryFiles) {
+                Console.WriteLine(file);
+                //open file
+                string[] lines = File.ReadAllLines(file);
+
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    string potentialTag = line.Split(':')[0].Trim();
+                    //check if potentialTag is a tag in nationSet
+                    Nation n = nationSet.FirstOrDefault(nation => nation.tag.ToLower() == potentialTag.ToLower());
+                    if (n != null) {
+                        //split line on space and take the last element
+                        n.name = line.Split()[line.Split().Length - 1].Replace("\"","").Trim();
+                    }
+                }
+            }
+
+            //hub names
+            //get all files in game folder +\localization\** that contian hubs in their name
+            string[] hubFiles = Directory.GetFiles(gameDirectory + @"\localization\", "*hub*name*" + desiredLanguage + ".yml", SearchOption.AllDirectories);
+
+            //for each hub file
+            foreach (string file in hubFiles) {
+                Console.WriteLine(file);
+                //open file
+                string[] lines = File.ReadAllLines(file);
+
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+                    
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    string potentialStateHub = line.Split(':')[0].Trim();
+                    //check if potentialStateHub has a state name from stateSet in it
+                    State s = stateSet.FirstOrDefault(state => potentialStateHub.Contains(state.name));
+                    if (s != null) {
+                        //find hub type
+                        string hubType = line.Split('_')[line.Split('_').Length - 1].Split(':')[0].Trim();
+                        //find hub name
+                        string hubName = line.Split()[line.Split().Length - 1].Replace("\"","").Trim();
+
+                        //find index of hub type in hubLocalizationList
+                        int index = s.hubLocalizationList.FindIndex(h => h.type == hubType);
+                        //if hub type not found in hubLocalizationList
+                        if (index == -1) {
+                            //add new hubLocalization to hubLocalizationList
+                            s.hubLocalizationList.Add((hubType, hubName));
+                        }
+                        //if hub type found in hubLocalizationList
+                        else {
+                            //update hub name
+                            s.hubLocalizationList[index] = (hubType, hubName);
+                        }
+
+                    }
+                }
+            }
+
+            Console.WriteLine("Parsed localisation in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         }
 
         //get data returns regionSet, provSet, terrainSet, and mergedImage

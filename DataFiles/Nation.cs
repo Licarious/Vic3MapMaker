@@ -35,7 +35,7 @@ namespace Vic3MapMaker
 
         //tostring override
         public override string ToString() {
-            return tag;
+            return tag + "  -  " + name;
         }
 
 
