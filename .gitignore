@@ -1,2 +1,15 @@
 
 bin/Debug/autorun.cfg
+_output/_output/common/country_definitions/00_countries.txt
+_output/_output/common/strategic_regions/african_strategic_regions.txt
+_output/_output/common/strategic_regions/europe_strategic_regions.txt
+_output/_output/common/strategic_regions/water_strategic_regions.txt
+_output/_output/common/strategic_regions/west_south_asia_strategic_regions.txt
+_output/_output/map_data/province_terrains.txt
+_output/_output/map_data/state_regions/african_strategic_regions.txt
+_output/_output/map_data/state_regions/europe_strategic_regions.txt
+_output/_output/map_data/state_regions/water_strategic_regions.txt
+_output/_output/map_data/state_regions/west_south_asia_strategic_regions.txt
+_output/common/history/states/00_states.txt
+_output/map_data/state_regions/europe_strategic_regions.txt
+_output/map_data/state_regions/europe_strategic_regions.txt

@@ -21,8 +21,8 @@ namespace Vic3MapMaker
         //output state_regions files
         public void WriteStateRegions(HashSet<Region> regionSet) {
             //check if the folder exists
-            if (!File.Exists(outputDirectory + "\\_output\\map_data\\state_regions\\")) {
-                Directory.CreateDirectory(outputDirectory + "\\_output\\map_data\\state_regions\\");
+            if (!File.Exists(outputDirectory + "\\map_data\\state_regions\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\map_data\\state_regions\\");
             }
 
             //group regions by superregion and remove any regions that has no states with provs
@@ -36,7 +36,7 @@ namespace Vic3MapMaker
                 }
 
                 //file path
-                string filePath = outputDirectory + "\\_output\\map_data\\state_regions\\" + superRegionName + ".txt";
+                string filePath = outputDirectory + "\\map_data\\state_regions\\" + superRegionName + ".txt";
                 //pass the file path and the regions in the superregion to the write function
                 WriteStateRegions(superRegionGroup.ToList(), filePath);
             }
@@ -235,13 +235,17 @@ namespace Vic3MapMaker
             string path = outputDirectory + "\\_output\\common\\country_definitions\\00_countries.txt";
             using (StreamWriter sw = File.CreateText(path)) {
                 foreach(Nation n in nationList) {
-                    sw.WriteLine(n.name + " = {");
+                    sw.WriteLine(n.tag + " = {");
                     sw.WriteLine("\tcolor = { " + n.color.R + " " + n.color.G + " " + n.color.B + " }\n");
                     sw.WriteLine("\tcountry_type = " + n.type + "\n");
                     sw.WriteLine("\ttier = " + n.tier + "\n");
                     //write all culture names in the culture list to the file
                     sw.WriteLine("\tculture = { " + string.Join(" ", n.cultures) + " }");
-                    sw.WriteLine("\tcapital = " + n.capital.name);
+                    if(n.capital != null)
+                        sw.WriteLine("\tcapital = " + n.capital.name);
+                    else {
+                        Console.WriteLine("Nation " + n.tag + " has a null capital");
+                    }
                     if(n.isNamedFromCapital)
                         sw.WriteLine("\tis_named_from_capital = yes");
                     sw.WriteLine("}");
@@ -279,7 +283,7 @@ namespace Vic3MapMaker
                 }
             }
 
-            string path = outputDirectory + "\\common\\history\\states\\";
+            string path = outputDirectory + "\\common\\history\\states\\00_states.txt";
             using (StreamWriter sw = File.CreateText(path)) {
                 sw.WriteLine("STATES = {");
                 foreach (KeyValuePair<State, List<SubState>> entry in parentStateDict) {
@@ -293,7 +297,7 @@ namespace Vic3MapMaker
                         //find all keys in substate.owner.provDict are also in substate.parrentState.provDict and return the values
                         List<Province> provList = substate.parentState.provDict.Keys.Where(x => substate.owner.provDict.ContainsKey(x)).Select(x => substate.owner.provDict[x]).ToList();
                         //write provList.hexName joined by a space
-                        sw.WriteLine("\t\t\towned_provinces = { " + string.Join(" ", provList.Select(x => x.NameHex()).ToList()) + " }");
+                        sw.WriteLine("\t\t\towned_provinces = { " + string.Join(" ", provList.Select(x => x.NameHex().Replace("\"","")).ToList()) + " }");
 
                         sw.WriteLine("\t\t}");
                     }
@@ -301,7 +305,7 @@ namespace Vic3MapMaker
                     //if key has any claims, write them
                     if (entry.Key.claimList.Count > 0) {
                         foreach (string claim in entry.Key.claimList) {
-                            sw.WriteLine("\t\tadd_claim = c:" + claim);
+                            sw.WriteLine("\t\tadd_claim =" + claim);
                         }
                     }
                     //if key has any homeland, write them
@@ -317,6 +321,11 @@ namespace Vic3MapMaker
                 sw.WriteLine("}");
             }
 
+        }
+
+        //write history/pops
+        public void WritePops(HashSet<Nation> nations, HashSet<Region> regions) {
+            
         }
     }
 }

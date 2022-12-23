@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Vic3MapMaker.DataFiles;
@@ -279,43 +280,45 @@ namespace Vic3MapMaker
                             }
                         }
                     }
-                    //homeland and exteral cores
-                    if (indintation == 2) {
-                        //homeland
-                        if (line.StartsWith("add_homeland")) {
-                            currentState.homeLandList.Add(line.Split('=')[1].Trim());
-                        }
-                        //external cores
-                        if (line.StartsWith("add_claim")) {
-                            currentState.claimList.Add(line.Split('=')[1].Trim());
-                        }
-                    }
-                    //country tag, state_type and provinces
-                    if (indintation == 3) {
-                        if (line.StartsWith("country")) {
-                            currentNation = line.Split(':')[1].Trim();
-                        }
-                        else if (line.StartsWith("state_type")) {
-                            currentState.stateTypeList.Add((currentNation, line.Split('=')[1].Trim()));
-                        }
-                        else if (line.StartsWith("owned_provinces")) {
-                            foundProvs = true;
-                        }
-                    }
-
-                    //if foundProvs is true
-                    if (foundProvs) {
-                        string[] l2 = line.Split();
-                        //for each province in l2 try to turn it into a color by hex
-                        foreach (string prov in l2) {
-                            try {
-                                Color c = ColorTranslator.FromHtml("#" + prov.Replace("x", "").Replace("\"", "").Trim());
-                                //if the color is in the provDict add the nation to the ownerList
-                                if (currentState.provDict.TryGetValue(c, out Province p)) {
-                                    p.originalOwnerTAG = currentNation;
-                                }
+                    if (currentState != null) {
+                        //homeland and exteral cores
+                        if (indintation == 2) {
+                            //homeland
+                            if (line.StartsWith("add_homeland")) {
+                                currentState.homeLandList.Add(line.Split('=')[1].Trim());
                             }
-                            catch {
+                            //external cores
+                            if (line.StartsWith("add_claim")) {
+                                currentState.claimList.Add(line.Split('=')[1].Trim());
+                            }
+                        }
+                        //country tag, state_type and provinces
+                        if (indintation == 3) {
+                            if (line.StartsWith("country")) {
+                                currentNation = line.Split(':')[1].Trim();
+                            }
+                            else if (line.StartsWith("state_type")) {
+                                currentState.stateTypeList.Add((currentNation, line.Split('=')[1].Trim()));
+                            }
+                            else if (line.StartsWith("owned_provinces")) {
+                                foundProvs = true;
+                            }
+                        }
+
+                        //if foundProvs is true
+                        if (foundProvs) {
+                            string[] l2 = line.Split();
+                            //for each province in l2 try to turn it into a color by hex
+                            foreach (string prov in l2) {
+                                try {
+                                    Color c = ColorTranslator.FromHtml("#" + prov.Replace("x", "").Replace("\"", "").Trim());
+                                    //if the color is in the provDict add the nation to the ownerList
+                                    if (currentState.provDict.TryGetValue(c, out Province p)) {
+                                        p.originalOwnerTAG = currentNation;
+                                    }
+                                }
+                                catch {
+                                }
                             }
                         }
                     }
@@ -328,6 +331,9 @@ namespace Vic3MapMaker
                     if (line.Contains("}")) {
                         indintation--;
                         foundProvs = false;
+                        if(indintation == 1) {
+                            currentState = null;
+                        }
                     }
                 }
             }
