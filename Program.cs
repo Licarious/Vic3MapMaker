@@ -20,7 +20,12 @@ namespace Vic3MapMaker
             string defaultGameFolder = "";
             string defaultModFolder = "--Not Implemented--";
             string defaultOutputFolder = "";
-            
+
+            //check if the version of .NET is 4.0 or higher
+            if (Environment.Version.Major < 4) {
+                MessageBox.Show("This program requires .NET 4.0 or higher to run. Please update your .NET version and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             //get directory of the executable
             string executablePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
