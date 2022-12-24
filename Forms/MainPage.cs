@@ -99,6 +99,15 @@ namespace Vic3MapMaker
             //set specific panels to invisible
             statePanel.Visible = false;
             regionPannel.Visible = false;
+            nationalPanel.Visible = false;
+
+            //set sideControleTableLayoutPanel row 4, 5 and 6 sizes to 0
+            sideControleTableLayoutPanel.RowStyles[4].SizeType = SizeType.Absolute;
+            sideControleTableLayoutPanel.RowStyles[4].Height = 0;
+            sideControleTableLayoutPanel.RowStyles[5].SizeType = SizeType.Absolute;
+            sideControleTableLayoutPanel.RowStyles[5].Height = 0;
+            sideControleTableLayoutPanel.RowStyles[6].SizeType = SizeType.Absolute;
+            sideControleTableLayoutPanel.RowStyles[6].Height = 0;
 
             //case statement to determine what to do with the selected item
             switch (categoryComboBox.SelectedItem) {
@@ -111,6 +120,9 @@ namespace Vic3MapMaker
                     break;
                 case "State":
                     statePanel.Visible = true;
+                    //set sideControleTableLayoutPanel row 4 to 500
+                    sideControleTableLayoutPanel.RowStyles[4].SizeType = SizeType.Absolute;
+                    sideControleTableLayoutPanel.RowStyles[4].Height = 325;
                     //update itemComboBox to show all states in each r in regionSet and sort by name
                     itemComboBox.DataSource = regionSet.SelectMany(r => r.states).OrderBy(s => s.name).ToList();
                     RefreshMap();
@@ -118,6 +130,9 @@ namespace Vic3MapMaker
                     break;
                 case "Region":
                     regionPannel.Visible = true;
+                    //set sideControleTableLayoutPanel row 5 to 175
+                    sideControleTableLayoutPanel.RowStyles[5].SizeType = SizeType.Absolute;
+                    sideControleTableLayoutPanel.RowStyles[5].Height = 140;
                     //update itemComboBox to show the regions in the regionSet
                     itemComboBox.DataSource = regionSet.OrderBy(r => r.name).ToList();
                     RefreshMap();
@@ -136,6 +151,10 @@ namespace Vic3MapMaker
                     itemComboBox.DataSource = terrainList;
                     break;
                 case "Country":
+                    nationalPanel.Visible = true;
+                    //set sideControleTableLayoutPanel row 6 to 175
+                    sideControleTableLayoutPanel.RowStyles[6].SizeType = SizeType.Absolute;
+                    sideControleTableLayoutPanel.RowStyles[6].Height = 140;
                     //set other combo box to show all nations
                     itemComboBox.DataSource = nationSet.OrderBy(n => n.tag).ToList();
                     RefreshMap();
@@ -1067,7 +1086,7 @@ namespace Vic3MapMaker
 
         }
 
-        private void saveHubNamesButton_Click(object sender, EventArgs e) {
+        private void SaveHubNamesButton_Click(object sender, EventArgs e) {
             //get state in itemComboBox
             State s = (State)itemComboBox.SelectedItem;
 
@@ -1116,5 +1135,28 @@ namespace Vic3MapMaker
             }
 
         }
+
+        private void CreateNewCountryButton_Click(object sender, EventArgs e) {
+            Nation newNation = new Nation();
+            //open editCountry
+            EditCountry editCountry = new EditCountry(newNation, lsu, mapOp);
+            //set editCountry name to "New Country"
+            editCountry.Text = "New Country";
+            //show editCountry
+            editCountry.ShowDialog();
+
+            //if editCountry is closed with OK
+            if (editCountry.ShowDialog() == DialogResult.OK) {
+                //add new nation to nationSet
+                nationSet.Add(newNation);
+                //refresh itemComboBox
+                itemComboBox.Items.Clear();
+                itemComboBox.Items.AddRange(nationSet.ToArray());
+                //select new nation
+                itemComboBox.SelectedItem = newNation;
+            }
+
+        }
+        
     }
 }
