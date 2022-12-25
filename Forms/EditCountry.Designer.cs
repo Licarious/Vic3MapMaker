@@ -53,8 +53,9 @@
             this.cultureSearchTextBox = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.capitalComboBox = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.namedFromCapitalCheckBox = new System.Windows.Forms.CheckBox();
+            this.adjTextBox = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.popGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,10 +162,10 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(811, 477);
+            this.cancelButton.Location = new System.Drawing.Point(835, 477);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(112, 35);
+            this.cancelButton.Size = new System.Drawing.Size(100, 40);
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -172,10 +173,10 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(931, 475);
+            this.saveButton.Location = new System.Drawing.Point(943, 477);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(112, 35);
+            this.saveButton.Size = new System.Drawing.Size(100, 40);
             this.saveButton.TabIndex = 8;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -344,33 +345,43 @@
             this.capitalComboBox.Size = new System.Drawing.Size(196, 28);
             this.capitalComboBox.TabIndex = 10;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 24);
-            this.checkBox1.TabIndex = 24;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // namedFromCapitalCheckBox
             // 
             this.namedFromCapitalCheckBox.AutoSize = true;
-            this.namedFromCapitalCheckBox.Location = new System.Drawing.Point(328, 61);
+            this.namedFromCapitalCheckBox.Location = new System.Drawing.Point(631, 20);
             this.namedFromCapitalCheckBox.Name = "namedFromCapitalCheckBox";
             this.namedFromCapitalCheckBox.Size = new System.Drawing.Size(237, 24);
             this.namedFromCapitalCheckBox.TabIndex = 25;
             this.namedFromCapitalCheckBox.Text = "Country Named After Captial";
             this.namedFromCapitalCheckBox.UseVisualStyleBackColor = true;
             // 
+            // adjTextBox
+            // 
+            this.adjTextBox.Location = new System.Drawing.Point(428, 60);
+            this.adjTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.adjTextBox.Name = "adjTextBox";
+            this.adjTextBox.Size = new System.Drawing.Size(196, 26);
+            this.adjTextBox.TabIndex = 27;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Enabled = false;
+            this.textBox9.Location = new System.Drawing.Point(328, 60);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(92, 26);
+            this.textBox9.TabIndex = 26;
+            this.textBox9.Text = "Adjective:";
+            // 
             // EditCountry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 526);
+            this.Controls.Add(this.adjTextBox);
+            this.Controls.Add(this.textBox9);
             this.Controls.Add(this.namedFromCapitalCheckBox);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.cultureSearchTextBox);
             this.Controls.Add(this.removeCultureButton);
             this.Controls.Add(this.addCultureButton);
@@ -437,7 +448,8 @@
         private System.Windows.Forms.TextBox cultureSearchTextBox;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.ComboBox capitalComboBox;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox namedFromCapitalCheckBox;
+        private System.Windows.Forms.TextBox adjTextBox;
+        private System.Windows.Forms.TextBox textBox9;
     }
 }

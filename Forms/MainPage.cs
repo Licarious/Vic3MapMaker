@@ -177,15 +177,18 @@ namespace Vic3MapMaker
                 case "State":
                     //cast the selected item to a State object
                     State state = (State)itemComboBox.SelectedItem;
-                    HighlightState(state, state.color);
-                    RefreshHubTextBoxes(state);
-
+                    if(state != null) { 
+                        textBoxCurrentlySelectedMapArea.Text = state.name;
+                        HighlightState(state, state.color);
+                        RefreshHubTextBoxes(state);
+                    }
                     break;
                 case "Region":
                     //cast the selected item to a Region object
                     Region region = (Region)itemComboBox.SelectedItem;
                     //if region is not null
                     if (region != null) {
+                        textBoxCurrentlySelectedMapArea.Text = region.name;
                         //highlight each s in the r
                         foreach (State state1 in region.states) {
                             HighlightState(state1, region.color);
@@ -830,6 +833,7 @@ namespace Vic3MapMaker
             fo.WriteCountryDefinitions(nationSet);
             fo.WriteHistoryStates(nationSet);
             fo.WritePops(nationSet, regionSet);
+            fo.WriteLocalizations(nationSet, regionSet);
         }
 
         private void UndoButton_Click(object sender, EventArgs e) {
@@ -960,13 +964,7 @@ namespace Vic3MapMaker
             //if user saved the region in editRegion form add it to regionSet using mapOp
             if (editRegion.DialogResult == DialogResult.OK) {
                 mapOp.AddRegion(newRegion, regionSet);
-                //disable dataSource for categoryComboBox
-                categoryComboBox.DataSource = null;
-                //update the region drop down box
-                categoryComboBox.Items.Clear();
-                foreach (Region region in regionSet) {
-                    categoryComboBox.Items.Add(region);
-                }
+                itemComboBox.Refresh();
                 categoryComboBox.SelectedItem = newRegion;
             }
 
@@ -1137,21 +1135,19 @@ namespace Vic3MapMaker
         }
 
         private void CreateNewCountryButton_Click(object sender, EventArgs e) {
+            RefreshLSU();
             Nation newNation = new Nation();
             //open editCountry
-            EditCountry editCountry = new EditCountry(newNation, lsu, mapOp);
-            //set editCountry name to "New Country"
-            editCountry.Text = "New Country";
-            //show editCountry
-            editCountry.ShowDialog();
-
+            EditCountry editCountry = new EditCountry(newNation, lsu, mapOp) {
+                //set editCountry name to "New Country"
+                Text = "New Country"
+            };
+            
             //if editCountry is closed with OK
             if (editCountry.ShowDialog() == DialogResult.OK) {
                 //add new nation to nationSet
                 nationSet.Add(newNation);
-                //refresh itemComboBox
-                itemComboBox.Items.Clear();
-                itemComboBox.Items.AddRange(nationSet.ToArray());
+                itemComboBox.Refresh();
                 //select new nation
                 itemComboBox.SelectedItem = newNation;
             }

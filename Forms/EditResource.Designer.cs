@@ -139,9 +139,9 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(12, 208);
+            this.saveButton.Location = new System.Drawing.Point(289, 193);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 37);
+            this.saveButton.Size = new System.Drawing.Size(100, 40);
             this.saveButton.TabIndex = 6;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -150,19 +150,19 @@
             // cancelButton
             // 
             this.cancelButton.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cancelButton.Location = new System.Drawing.Point(93, 208);
+            this.cancelButton.Location = new System.Drawing.Point(183, 193);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 37);
+            this.cancelButton.Size = new System.Drawing.Size(100, 40);
             this.cancelButton.TabIndex = 6;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // UpdateResource
+            // EditResource
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 302);
+            this.ClientSize = new System.Drawing.Size(397, 241);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.depletedTypeComboBox);
@@ -175,7 +175,7 @@
             this.Controls.Add(this.DiscoverableRadioButton);
             this.Controls.Add(this.CappedRadioButton);
             this.Controls.Add(this.ArableRadioButton);
-            this.Name = "UpdateResource";
+            this.Name = "EditResource";
             this.Text = "UpdateResource";
             this.ResumeLayout(false);
             this.PerformLayout();

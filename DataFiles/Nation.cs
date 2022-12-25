@@ -11,6 +11,7 @@ namespace Vic3MapMaker
     {
         public string tag = "";
         public string name = "";
+        public string adj = "";
         public int interalID = -1;
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();

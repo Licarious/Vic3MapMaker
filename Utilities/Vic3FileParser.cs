@@ -1129,11 +1129,21 @@ namespace Vic3MapMaker
                     if (line == "") continue;
 
                     string potentialTag = line.Split(':')[0].Trim();
-                    //check if potentialTag is a tag in nationSet
-                    Nation n = nationSet.FirstOrDefault(nation => nation.tag.ToLower() == potentialTag.ToLower());
-                    if (n != null) {
-                        //split line on space and take the last element
-                        n.name = line.Split()[line.Split().Length - 1].Replace("\"","").Trim();
+                    if (potentialTag.Contains("_ADJ")) {
+                        //split potentialTag on _ and check if the first part is a tag
+                        Nation n = nationSet.FirstOrDefault(nation => nation.tag == potentialTag.Split('_')[0].Trim());
+                        if (n != null) {
+                            //set country name
+                            n.adj = line.Split(':')[1].Trim();
+                        }
+                    }
+                    else {
+                        //check if potentialTag is a tag in nationSet
+                        Nation n = nationSet.FirstOrDefault(nation => nation.tag.ToLower() == potentialTag.ToLower());
+                        if (n != null) {
+                            //split line on space and take the last element
+                            n.name = line.Split()[line.Split().Length - 1].Replace("\"", "").Trim();
+                        }
                     }
                 }
             }

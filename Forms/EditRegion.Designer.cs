@@ -76,7 +76,7 @@
             // 
             // colorButton
             // 
-            this.colorButton.Location = new System.Drawing.Point(218, 13);
+            this.colorButton.Location = new System.Drawing.Point(220, 13);
             this.colorButton.Name = "colorButton";
             this.colorButton.Size = new System.Drawing.Size(98, 59);
             this.colorButton.TabIndex = 4;
@@ -142,7 +142,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(14, 399);
+            this.saveButton.Location = new System.Drawing.Point(243, 398);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 39);
             this.saveButton.TabIndex = 11;
@@ -152,7 +152,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(95, 399);
+            this.cancelButton.Location = new System.Drawing.Point(162, 398);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 39);
             this.cancelButton.TabIndex = 11;

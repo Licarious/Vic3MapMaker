@@ -439,5 +439,52 @@ namespace Vic3MapMaker
 
 
         }
+
+        //write localizations for all nations and hubs
+        public void WriteLocalizations(HashSet<Nation> nations, HashSet<Region> regions, string desiredLanguage = "english") {
+            //if outputDirectory/localisation doesn't exist, create it
+            if (!File.Exists(outputDirectory + "\\localisation\\replace\\"+desiredLanguage+"\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\localisation\\replace\\" + desiredLanguage + "\\");
+            }
+
+            string path = outputDirectory + "\\localisation\\replace\\" + desiredLanguage + "\\z_countries_l_" + desiredLanguage + ".yml";
+            //write localisation file for each nation
+            using (StreamWriter sw = File.CreateText(path)) {
+                sw.WriteLine("l_" + desiredLanguage + ":");
+                foreach (Nation nation in nations) {
+                    if(nation.name != "")
+                        sw.WriteLine(" " + nation.tag + ":0 \"" + nation.name + "\"");
+                    if (nation.adj != "")
+                        sw.WriteLine(" " + nation.tag + "_ADJ:0 \"" + nation.adj + "\"");
+                }
+                sw.Close();
+
+            }
+
+            //write hubs file
+            path = outputDirectory + "\\localisation\\replace\\" + desiredLanguage + "\\z_hubs_names_l_" + desiredLanguage + ".yml";
+            using (StreamWriter sw = File.CreateText(path)) {
+                sw.WriteLine("l_"+desiredLanguage+":");
+                foreach (Region region in regions) {
+                    //if any state in the region has a hub, write the localization return ture
+                    foreach (State state in region.states) {
+                        if (state.hubLocalizationList.Count>0) {
+                            sw.WriteLine("\n #" + region.name);
+                            break;
+                        }
+                    }
+                    
+                    foreach (State state in region.states) {
+                        foreach ((string type, string name) in state.hubLocalizationList) {
+                            //if name is not empty, write it
+                            if (name != "") {
+                                sw.WriteLine(" HUB_NAME_" + state.name + "_" + type + ":0 \"" + name + "\"");
+                            }
+                        }
+                    }
+                }
+                sw.Close();
+            }
+        }
     }
 }

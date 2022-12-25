@@ -183,6 +183,7 @@ namespace Vic3MapMaker
             // transferStateRadioButton
             // 
             this.transferStateRadioButton.AutoSize = true;
+            this.transferStateRadioButton.Checked = true;
             this.transferStateRadioButton.Location = new System.Drawing.Point(7, 8);
             this.transferStateRadioButton.Name = "transferStateRadioButton";
             this.transferStateRadioButton.Size = new System.Drawing.Size(136, 24);
@@ -250,6 +251,7 @@ namespace Vic3MapMaker
             // transferProvinceNationalRadioButton
             // 
             this.transferProvinceNationalRadioButton.AutoSize = true;
+            this.transferProvinceNationalRadioButton.Checked = true;
             this.transferProvinceNationalRadioButton.Location = new System.Drawing.Point(7, 8);
             this.transferProvinceNationalRadioButton.Name = "transferProvinceNationalRadioButton";
             this.transferProvinceNationalRadioButton.Size = new System.Drawing.Size(157, 24);
@@ -326,13 +328,11 @@ namespace Vic3MapMaker
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.Controls.Add(this.EditStateRegioon);
             this.panel1.Controls.Add(this.refreshMapButton);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 108);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(381, 44);
@@ -402,6 +402,7 @@ namespace Vic3MapMaker
             // transferProvinceRadioButton
             // 
             this.transferProvinceRadioButton.AutoSize = true;
+            this.transferProvinceRadioButton.Checked = true;
             this.transferProvinceRadioButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.transferProvinceRadioButton.Location = new System.Drawing.Point(3, 3);
             this.transferProvinceRadioButton.Name = "transferProvinceRadioButton";
@@ -409,6 +410,7 @@ namespace Vic3MapMaker
             this.transferProvinceRadioButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.transferProvinceRadioButton.Size = new System.Drawing.Size(107, 54);
             this.transferProvinceRadioButton.TabIndex = 3;
+            this.transferProvinceRadioButton.TabStop = true;
             this.transferProvinceRadioButton.Text = "Move Prov";
             this.transferProvinceRadioButton.UseVisualStyleBackColor = true;
             // 

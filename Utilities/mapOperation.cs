@@ -361,13 +361,14 @@ namespace Vic3MapMaker
             state.type = type;
         }
         //update nation
-        public void UpdateNation(Nation nation, string tag, string name, Color color, string tier, string type, State capital, bool isNamedFromCapital,  bool undoAble = true) {
+        public void UpdateNation(Nation nation, string tag, string name, string adj, Color color, string tier, string type, State capital, bool isNamedFromCapital,  bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
-                UndoStack.Push(() => UpdateNation(nation, nation.tag, nation.name, nation.color, nation.tier, nation.type, nation.capital, nation.isNamedFromCapital, false));
+                UndoStack.Push(() => UpdateNation(nation, nation.tag, nation.name, nation.adj, nation.color, nation.tier, nation.type, nation.capital, nation.isNamedFromCapital, false));
             }
             nation.tag = tag;
             nation.name = name;
+            nation.adj = adj;
             nation.color = color;
             nation.tier = tier;
             nation.type = type;

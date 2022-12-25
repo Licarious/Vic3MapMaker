@@ -19,3 +19,5 @@ _output/common/history/pops/europe_strategic_regions.txt
 _output/common/history/pops/west_south_asia_strategic_regions.txt
 _output/common/strategic_regions/african_strategic_regions.txt
 _output/common/strategic_regions/west_south_asia_strategic_regions.txt
+_output/localisation/replace/english/z_hubs_names_l_english.yml
+_output/localisation/replace/english/z_countries_l_english.yml

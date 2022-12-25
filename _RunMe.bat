@@ -1,0 +1,1 @@
+start /d "%~dp0bin\Debug\" Vic3MapMaker.exe

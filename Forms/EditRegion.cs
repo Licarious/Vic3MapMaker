@@ -118,13 +118,13 @@ namespace Vic3MapMaker.Forms
                 errors.Add("Region name must be unique");
                 regionNameTextBox.BackColor = Color.Pink;
             }
-
+            /*
             //if there are no state in stateListBox, show an error message
             if (stateListBox.Items.Count == 0) {
                 errors.Add("Region must have at least one state");
                 stateListBox.BackColor = Color.Pink;
             }
-
+            */
 
             //if there are any errors, show them in a message box
             if (errors.Count > 0) {

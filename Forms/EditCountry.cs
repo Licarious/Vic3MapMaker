@@ -24,6 +24,8 @@ namespace Vic3MapMaker.Forms
             this.lsu = lsu;
             this.mapOp = mapOp;
             startingUndoCount = mapOp.UndoStack.Count;
+            
+
 
             InitializeComponent();
 
@@ -31,6 +33,8 @@ namespace Vic3MapMaker.Forms
             tagTextBox.Text = nation.tag;
             //set nameTextBox to nation.name
             nameTextBox.Text = nation.name;
+            //set adjTextBox to nation.adj
+            adjTextBox.Text = nation.adj;
 
             //set combobox values to nation substates.parentState
             foreach (SubState subState in nation.subStates) {
@@ -98,9 +102,6 @@ namespace Vic3MapMaker.Forms
             
             //if nation has any substates
             if (nation.subStates.Count > 0) {
-                //sort capitalComboBox items by name
-                capitalComboBox.Sorted = true;
-
                 //set capitalComboBox list to nation.subStates.parentState
                 capitalComboBox.Items.AddRange(nation.subStates.Select(x => x.parentState).ToArray());
 
@@ -119,7 +120,8 @@ namespace Vic3MapMaker.Forms
                 //set capitalComboBox list to lsu.states
                 capitalComboBox.Items.AddRange(lsu.states.ToArray());
                 //set capitalComboBox to nation.capital
-                capitalComboBox.SelectedItem = nation.capital;
+                if(nation.capital != null)
+                    capitalComboBox.SelectedItem = nation.capital;
             }
             
 
@@ -238,6 +240,8 @@ namespace Vic3MapMaker.Forms
 
         private void SaveButton_Click(object sender, EventArgs e) {
             tagTextBox.BackColor = Color.White;
+            nameTextBox.BackColor = Color.White;
+            adjTextBox.BackColor = Color.White;
             subStateComboBox.BackColor = Color.White;
             capitalComboBox.BackColor = Color.White;
             nationCultureListBox.BackColor = Color.White;
@@ -290,6 +294,17 @@ namespace Vic3MapMaker.Forms
                 capitalComboBox.BackColor = Color.Pink;
             }
 
+            //if adjTextBox is blank
+            if (adjTextBox.Text.Trim() == "") {
+                errors.Add("Country adjective cannot be blank");
+                adjTextBox.BackColor = Color.Pink;
+            }
+            //if nameTextBox is blank
+            if (nameTextBox.Text.Trim() == "") {
+                errors.Add("Country name cannot be blank");
+                nameTextBox.BackColor = Color.Pink;
+            }
+
             //if there are errors then show them in a messageBox
             if (errors.Count > 0) {
                 string errorString = "";
@@ -311,10 +326,11 @@ namespace Vic3MapMaker.Forms
             }
 
 
-            mapOp.UpdateNation(nation, tagTextBox.Text, nameTextBox.Text, colorButton.BackColor, tierComboBox.Text, typeComboBox.Text,  capital, namedFromCapitalCheckBox.Checked);
+            mapOp.UpdateNation(nation, tagTextBox.Text, nameTextBox.Text, adjTextBox.Text, colorButton.BackColor, tierComboBox.Text, typeComboBox.Text,  capital, namedFromCapitalCheckBox.Checked);
 
-            //close the form
-            this.Close();
+            //close the form with a dialogResult of OK
+            this.DialogResult = DialogResult.OK;
+            this.Close();            
         }
 
         private void ColorButton_Click(object sender, EventArgs e) {
