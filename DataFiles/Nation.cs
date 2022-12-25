@@ -22,6 +22,9 @@ namespace Vic3MapMaker
         public List<State> claimList = new List<State>();
         public bool isNamedFromCapital = false;
 
+        public string wealth = "";
+        public string literacy = "";
+
         //Hash set of coordinates
         public HashSet<(int, int)> coordSet = new HashSet<(int, int)>();
         
@@ -36,7 +39,7 @@ namespace Vic3MapMaker
 
         //tostring override
         public override string ToString() {
-            return tag + "  -  " + name;
+            return tag + " - " + name;
         }
 
 

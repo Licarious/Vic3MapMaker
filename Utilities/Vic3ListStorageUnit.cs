@@ -21,6 +21,9 @@ namespace Vic3MapMaker.Utilities
         public List<string> occupationTypes = new List<string>();
         public List<string> tags = new List<string>();
 
+        public List<string> welthLevels = new List<string>() {"","very_low","low", "medium", "high", "very_high" };
+        public List<string> literacyLevels = new List<string>() { "", "very_low", "low", "baseline", "high", "very_high" };
+
         public HashSet<State> states = new HashSet<State>();
 
 

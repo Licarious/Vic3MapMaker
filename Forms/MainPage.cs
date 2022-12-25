@@ -834,6 +834,7 @@ namespace Vic3MapMaker
             fo.WriteHistoryStates(nationSet);
             fo.WritePops(nationSet, regionSet);
             fo.WriteLocalizations(nationSet, regionSet);
+            fo.WriteWelthLiteracy(nationSet);
         }
 
         private void UndoButton_Click(object sender, EventArgs e) {

@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Vic3MapMaker.DataFiles;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
@@ -45,6 +46,7 @@ namespace Vic3MapMaker
             ParseCountries();
             ParseSubStates();
             ParseLocal();
+            ParseWelthLiteracy();
 
             sw.Stop();
             Console.WriteLine("Time elapsed: {0}", sw.Elapsed);
@@ -1192,6 +1194,57 @@ namespace Vic3MapMaker
             }
 
             Console.WriteLine("Parsed localisation in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
+        }
+
+        //parse nation pops starting welth and literacy
+        private void ParseWelthLiteracy() {
+            DateTime startTime = DateTime.Now;
+
+            //get all files in game folder +\common\history\population\
+            string[] popFiles = Directory.GetFiles(gameDirectory + @"\common\history\population\", "*.txt", SearchOption.AllDirectories);
+
+            //for each nation file
+            foreach (string file in popFiles) {
+                //open file
+                string[] lines = File.ReadAllLines(file);
+                
+
+                Nation currentNation = null;
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    if (line.StartsWith("c:")) {
+                        string potentialTag = line.Split(':')[1].Split('=')[0].Trim();
+                        //check if potentialTag is a tag in nationSet
+                        currentNation = nationSet.FirstOrDefault(nation => nation.tag == potentialTag);
+                    }
+
+                    if (currentNation != null) {
+                        //if line starts with "literacy" then set literacy
+                        if (line.Contains("literacy")) {
+                            string[] splitLine = Regex.Split(line, "literacy_");
+                            currentNation.literacy = splitLine[1].Split('=')[0].Trim();
+                        }
+                        //if line starts with "wealth" then set wealth
+                        else if (line.Contains("wealth")) {
+                            string[] splitLine = Regex.Split(line, "wealth_");
+                            currentNation.wealth = splitLine[1].Split('=')[0].Trim();
+                        }
+                    }
+
+                    if (line.StartsWith("}")) {
+                        currentNation = null;
+                    }
+
+                }
+            }
+
+            Console.WriteLine("Parsed welth and literacy in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
+
         }
 
         //get data returns regionSet, provSet, terrainSet, and mergedImage

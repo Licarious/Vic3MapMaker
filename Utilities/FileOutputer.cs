@@ -486,5 +486,31 @@ namespace Vic3MapMaker
                 sw.Close();
             }
         }
+
+        //write starting wealth and literacy for each nation
+        public void WriteWelthLiteracy(HashSet<Nation> nations) {
+            //if outputDirectory/common/history/population/ doesn't exist, create it
+            if (!File.Exists(outputDirectory + "\\common\\history\\population\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\history\\population\\");
+            }
+
+            foreach (Nation nation in nations) {
+                //if nation has no wealth or literacy, skip it
+                if (nation.wealth == "" || nation.literacy == "") {
+                    continue;
+                }
+                string path = outputDirectory + "\\common\\history\\population\\" + nation.tag.ToLower()+ " - " + nation.name.ToLower() + ".txt";
+                using (StreamWriter sw = File.CreateText(path)) {
+                    sw.WriteLine("POPULATION = {");
+                    sw.WriteLine("\tc:" + nation.tag + " = {");
+                    sw.WriteLine("\t\teffect_starting_pop_wealth_" + nation.wealth + " = yes");
+                    sw.WriteLine("\t\teffect_starting_pop_literacy_" + nation.literacy + " = yes");
+                    sw.WriteLine("\t}");
+                    sw.WriteLine("}");
+                    sw.Close();
+                }
+                
+            }
+        }
     }
 }

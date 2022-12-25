@@ -56,6 +56,10 @@
             this.namedFromCapitalCheckBox = new System.Windows.Forms.CheckBox();
             this.adjTextBox = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.literacyComboBox = new System.Windows.Forms.ComboBox();
+            this.wealthComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.popGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +104,7 @@
             // subStateComboBox
             // 
             this.subStateComboBox.FormattingEnabled = true;
-            this.subStateComboBox.Location = new System.Drawing.Point(120, 96);
+            this.subStateComboBox.Location = new System.Drawing.Point(120, 132);
             this.subStateComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.subStateComboBox.Name = "subStateComboBox";
             this.subStateComboBox.Size = new System.Drawing.Size(200, 28);
@@ -110,7 +114,7 @@
             // popGridView
             // 
             this.popGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.popGridView.Location = new System.Drawing.Point(20, 172);
+            this.popGridView.Location = new System.Drawing.Point(20, 208);
             this.popGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.popGridView.Name = "popGridView";
             this.popGridView.RowHeadersWidth = 62;
@@ -119,7 +123,7 @@
             // 
             // newPopButton
             // 
-            this.newPopButton.Location = new System.Drawing.Point(20, 477);
+            this.newPopButton.Location = new System.Drawing.Point(20, 513);
             this.newPopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.newPopButton.Name = "newPopButton";
             this.newPopButton.Size = new System.Drawing.Size(112, 35);
@@ -130,7 +134,7 @@
             // 
             // editPopButton
             // 
-            this.editPopButton.Location = new System.Drawing.Point(142, 477);
+            this.editPopButton.Location = new System.Drawing.Point(142, 513);
             this.editPopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPopButton.Name = "editPopButton";
             this.editPopButton.Size = new System.Drawing.Size(112, 35);
@@ -142,7 +146,7 @@
             // stateTypeComboBox
             // 
             this.stateTypeComboBox.FormattingEnabled = true;
-            this.stateTypeComboBox.Location = new System.Drawing.Point(120, 134);
+            this.stateTypeComboBox.Location = new System.Drawing.Point(120, 170);
             this.stateTypeComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.stateTypeComboBox.Name = "stateTypeComboBox";
             this.stateTypeComboBox.Size = new System.Drawing.Size(200, 28);
@@ -151,7 +155,7 @@
             // 
             // deletePopButton
             // 
-            this.deletePopButton.Location = new System.Drawing.Point(262, 477);
+            this.deletePopButton.Location = new System.Drawing.Point(262, 513);
             this.deletePopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deletePopButton.Name = "deletePopButton";
             this.deletePopButton.Size = new System.Drawing.Size(112, 35);
@@ -162,7 +166,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(835, 477);
+            this.cancelButton.Location = new System.Drawing.Point(835, 513);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 40);
@@ -173,7 +177,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(943, 477);
+            this.saveButton.Location = new System.Drawing.Point(943, 513);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(100, 40);
@@ -185,7 +189,7 @@
             // tierComboBox
             // 
             this.tierComboBox.FormattingEnabled = true;
-            this.tierComboBox.Location = new System.Drawing.Point(428, 94);
+            this.tierComboBox.Location = new System.Drawing.Point(428, 134);
             this.tierComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tierComboBox.Name = "tierComboBox";
             this.tierComboBox.Size = new System.Drawing.Size(196, 28);
@@ -194,7 +198,7 @@
             // typeComboBox
             // 
             this.typeComboBox.FormattingEnabled = true;
-            this.typeComboBox.Location = new System.Drawing.Point(428, 134);
+            this.typeComboBox.Location = new System.Drawing.Point(428, 170);
             this.typeComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.Size = new System.Drawing.Size(196, 28);
@@ -203,7 +207,7 @@
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(20, 98);
+            this.textBox1.Location = new System.Drawing.Point(20, 134);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -214,7 +218,7 @@
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(20, 136);
+            this.textBox2.Location = new System.Drawing.Point(20, 172);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
@@ -225,7 +229,7 @@
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(328, 134);
+            this.textBox3.Location = new System.Drawing.Point(328, 172);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
@@ -236,7 +240,7 @@
             // textBox4
             // 
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(328, 96);
+            this.textBox4.Location = new System.Drawing.Point(328, 134);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
@@ -258,7 +262,7 @@
             // 
             this.nationCultureListBox.FormattingEnabled = true;
             this.nationCultureListBox.ItemHeight = 20;
-            this.nationCultureListBox.Location = new System.Drawing.Point(631, 163);
+            this.nationCultureListBox.Location = new System.Drawing.Point(631, 199);
             this.nationCultureListBox.Name = "nationCultureListBox";
             this.nationCultureListBox.Size = new System.Drawing.Size(179, 304);
             this.nationCultureListBox.TabIndex = 17;
@@ -267,7 +271,7 @@
             // 
             this.allCulturesListBox.FormattingEnabled = true;
             this.allCulturesListBox.ItemHeight = 20;
-            this.allCulturesListBox.Location = new System.Drawing.Point(864, 163);
+            this.allCulturesListBox.Location = new System.Drawing.Point(864, 199);
             this.allCulturesListBox.Name = "allCulturesListBox";
             this.allCulturesListBox.Size = new System.Drawing.Size(179, 304);
             this.allCulturesListBox.TabIndex = 18;
@@ -275,7 +279,7 @@
             // textBox5
             // 
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(631, 129);
+            this.textBox5.Location = new System.Drawing.Point(631, 165);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
@@ -286,7 +290,7 @@
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(864, 98);
+            this.textBox6.Location = new System.Drawing.Point(864, 134);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
@@ -296,7 +300,7 @@
             // 
             // addCultureButton
             // 
-            this.addCultureButton.Location = new System.Drawing.Point(817, 215);
+            this.addCultureButton.Location = new System.Drawing.Point(817, 251);
             this.addCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addCultureButton.Name = "addCultureButton";
             this.addCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -307,7 +311,7 @@
             // 
             // removeCultureButton
             // 
-            this.removeCultureButton.Location = new System.Drawing.Point(817, 263);
+            this.removeCultureButton.Location = new System.Drawing.Point(817, 299);
             this.removeCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.removeCultureButton.Name = "removeCultureButton";
             this.removeCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -318,7 +322,7 @@
             // 
             // cultureSearchTextBox
             // 
-            this.cultureSearchTextBox.Location = new System.Drawing.Point(864, 129);
+            this.cultureSearchTextBox.Location = new System.Drawing.Point(864, 165);
             this.cultureSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cultureSearchTextBox.Name = "cultureSearchTextBox";
             this.cultureSearchTextBox.Size = new System.Drawing.Size(179, 26);
@@ -374,11 +378,55 @@
             this.textBox9.TabIndex = 26;
             this.textBox9.Text = "Adjective:";
             // 
+            // textBox8
+            // 
+            this.textBox8.Enabled = false;
+            this.textBox8.Location = new System.Drawing.Point(328, 98);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(92, 26);
+            this.textBox8.TabIndex = 31;
+            this.textBox8.Text = "Literacy:";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Enabled = false;
+            this.textBox10.Location = new System.Drawing.Point(20, 98);
+            this.textBox10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
+            this.textBox10.Size = new System.Drawing.Size(92, 26);
+            this.textBox10.TabIndex = 30;
+            this.textBox10.Text = "Wealth:";
+            // 
+            // literacyComboBox
+            // 
+            this.literacyComboBox.FormattingEnabled = true;
+            this.literacyComboBox.Location = new System.Drawing.Point(428, 96);
+            this.literacyComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.literacyComboBox.Name = "literacyComboBox";
+            this.literacyComboBox.Size = new System.Drawing.Size(196, 28);
+            this.literacyComboBox.TabIndex = 29;
+            // 
+            // wealthComboBox
+            // 
+            this.wealthComboBox.FormattingEnabled = true;
+            this.wealthComboBox.Location = new System.Drawing.Point(120, 96);
+            this.wealthComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.wealthComboBox.Name = "wealthComboBox";
+            this.wealthComboBox.Size = new System.Drawing.Size(200, 28);
+            this.wealthComboBox.TabIndex = 28;
+            // 
             // EditCountry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1059, 526);
+            this.ClientSize = new System.Drawing.Size(1059, 561);
+            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.literacyComboBox);
+            this.Controls.Add(this.wealthComboBox);
             this.Controls.Add(this.adjTextBox);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.namedFromCapitalCheckBox);
@@ -451,5 +499,9 @@
         private System.Windows.Forms.CheckBox namedFromCapitalCheckBox;
         private System.Windows.Forms.TextBox adjTextBox;
         private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.ComboBox literacyComboBox;
+        private System.Windows.Forms.ComboBox wealthComboBox;
     }
 }

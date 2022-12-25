@@ -131,7 +131,16 @@ namespace Vic3MapMaker.Forms
                 namedFromCapitalCheckBox.Checked = true;
             }
 
-            
+            //set wealthComboBox list to lsu.welthLevels
+            wealthComboBox.Items.AddRange(lsu.welthLevels.ToArray());
+            //set wealthComboBox to nation.wealth
+            wealthComboBox.SelectedItem = nation.wealth;
+
+            //set literacyComboBox list to lsu.literacyLevels
+            literacyComboBox.Items.AddRange(lsu.literacyLevels.ToArray());
+            //set literacyComboBox to nation.literacy
+            literacyComboBox.SelectedItem = nation.literacy;
+
 
 
         }
@@ -326,7 +335,7 @@ namespace Vic3MapMaker.Forms
             }
 
 
-            mapOp.UpdateNation(nation, tagTextBox.Text, nameTextBox.Text, adjTextBox.Text, colorButton.BackColor, tierComboBox.Text, typeComboBox.Text,  capital, namedFromCapitalCheckBox.Checked);
+            mapOp.UpdateNation(nation, tagTextBox.Text, nameTextBox.Text, adjTextBox.Text, colorButton.BackColor, tierComboBox.Text, typeComboBox.Text, wealthComboBox.Text, literacyComboBox.Text,  capital, namedFromCapitalCheckBox.Checked);
 
             //close the form with a dialogResult of OK
             this.DialogResult = DialogResult.OK;
@@ -393,5 +402,6 @@ namespace Vic3MapMaker.Forms
             }
 
         }
+        
     }
 }
