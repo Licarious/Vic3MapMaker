@@ -32,3 +32,4 @@ C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\obj\Debug\Vic3MapMaker.csproj.
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\obj\Debug\Vic3MapMaker.csproj.CoreCompileInputs.cache
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\obj\Debug\Vic3MapMaker.exe
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\obj\Debug\Vic3MapMaker.pdb
+C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.Forms.EditTradeRoute.resources

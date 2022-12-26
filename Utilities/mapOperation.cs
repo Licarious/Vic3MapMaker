@@ -410,6 +410,36 @@ namespace Vic3MapMaker
             nation.cultures.Remove(culture);
         }
 
+        //add trade route
+        public void AddTradeRoute(Nation nation, TradeRoute tradeRoute, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => RemoveTradeRoute(nation, tradeRoute, false));
+            }
+            nation.tradeRoutes.Add(tradeRoute);
+        }
+        //remove trade route
+        public void RemoveTradeRoute(Nation nation, TradeRoute tradeRoute, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => AddTradeRoute(nation, tradeRoute, false));
+            }
+            nation.tradeRoutes.Remove(tradeRoute);
+        }
+        //update trade route
+        public void UpdateTradeRoute(TradeRoute newRoute, TradeRoute oldRoute, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => UpdateTradeRoute(oldRoute, newRoute, false));
+            }
+
+            oldRoute.target = newRoute.target;
+            oldRoute.goods = newRoute.goods;
+            oldRoute.isExport = newRoute.isExport;
+            oldRoute.level = newRoute.level;
+
+        }
+
 
         //undo last action
         public string Undo() {

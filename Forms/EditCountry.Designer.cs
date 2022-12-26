@@ -60,7 +60,12 @@
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.literacyComboBox = new System.Windows.Forms.ComboBox();
             this.wealthComboBox = new System.Windows.Forms.ComboBox();
+            this.tradeRouteDataGridView = new System.Windows.Forms.DataGridView();
+            this.deleteRouteButton = new System.Windows.Forms.Button();
+            this.editRouteButton = new System.Windows.Forms.Button();
+            this.newRouteButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.popGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tradeRouteDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tagTB
@@ -166,7 +171,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(835, 513);
+            this.cancelButton.Location = new System.Drawing.Point(1260, 558);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 40);
@@ -177,7 +182,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(943, 513);
+            this.saveButton.Location = new System.Drawing.Point(1368, 558);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(100, 40);
@@ -250,9 +255,9 @@
             // 
             // colorButton
             // 
-            this.colorButton.Location = new System.Drawing.Point(951, 22);
+            this.colorButton.Location = new System.Drawing.Point(953, 12);
             this.colorButton.Name = "colorButton";
-            this.colorButton.Size = new System.Drawing.Size(92, 68);
+            this.colorButton.Size = new System.Drawing.Size(92, 59);
             this.colorButton.TabIndex = 16;
             this.colorButton.Text = "Color";
             this.colorButton.UseVisualStyleBackColor = true;
@@ -262,24 +267,24 @@
             // 
             this.nationCultureListBox.FormattingEnabled = true;
             this.nationCultureListBox.ItemHeight = 20;
-            this.nationCultureListBox.Location = new System.Drawing.Point(631, 199);
+            this.nationCultureListBox.Location = new System.Drawing.Point(631, 139);
             this.nationCultureListBox.Name = "nationCultureListBox";
-            this.nationCultureListBox.Size = new System.Drawing.Size(179, 304);
+            this.nationCultureListBox.Size = new System.Drawing.Size(179, 364);
             this.nationCultureListBox.TabIndex = 17;
             // 
             // allCulturesListBox
             // 
             this.allCulturesListBox.FormattingEnabled = true;
             this.allCulturesListBox.ItemHeight = 20;
-            this.allCulturesListBox.Location = new System.Drawing.Point(864, 199);
+            this.allCulturesListBox.Location = new System.Drawing.Point(867, 134);
             this.allCulturesListBox.Name = "allCulturesListBox";
-            this.allCulturesListBox.Size = new System.Drawing.Size(179, 304);
+            this.allCulturesListBox.Size = new System.Drawing.Size(179, 364);
             this.allCulturesListBox.TabIndex = 18;
             // 
             // textBox5
             // 
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(631, 165);
+            this.textBox5.Location = new System.Drawing.Point(631, 105);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
@@ -290,7 +295,7 @@
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(864, 134);
+            this.textBox6.Location = new System.Drawing.Point(866, 79);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
@@ -300,7 +305,7 @@
             // 
             // addCultureButton
             // 
-            this.addCultureButton.Location = new System.Drawing.Point(817, 251);
+            this.addCultureButton.Location = new System.Drawing.Point(821, 160);
             this.addCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addCultureButton.Name = "addCultureButton";
             this.addCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -311,7 +316,7 @@
             // 
             // removeCultureButton
             // 
-            this.removeCultureButton.Location = new System.Drawing.Point(817, 299);
+            this.removeCultureButton.Location = new System.Drawing.Point(821, 208);
             this.removeCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.removeCultureButton.Name = "removeCultureButton";
             this.removeCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -322,7 +327,7 @@
             // 
             // cultureSearchTextBox
             // 
-            this.cultureSearchTextBox.Location = new System.Drawing.Point(864, 165);
+            this.cultureSearchTextBox.Location = new System.Drawing.Point(866, 105);
             this.cultureSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cultureSearchTextBox.Name = "cultureSearchTextBox";
             this.cultureSearchTextBox.Size = new System.Drawing.Size(179, 26);
@@ -418,11 +423,58 @@
             this.wealthComboBox.Size = new System.Drawing.Size(200, 28);
             this.wealthComboBox.TabIndex = 28;
             // 
+            // tradeRouteDataGridView
+            // 
+            this.tradeRouteDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tradeRouteDataGridView.Location = new System.Drawing.Point(1053, 12);
+            this.tradeRouteDataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tradeRouteDataGridView.Name = "tradeRouteDataGridView";
+            this.tradeRouteDataGridView.RowHeadersWidth = 62;
+            this.tradeRouteDataGridView.Size = new System.Drawing.Size(415, 486);
+            this.tradeRouteDataGridView.TabIndex = 32;
+            // 
+            // deleteRouteButton
+            // 
+            this.deleteRouteButton.Location = new System.Drawing.Point(1356, 513);
+            this.deleteRouteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteRouteButton.Name = "deleteRouteButton";
+            this.deleteRouteButton.Size = new System.Drawing.Size(112, 35);
+            this.deleteRouteButton.TabIndex = 35;
+            this.deleteRouteButton.Text = "Delete Route";
+            this.deleteRouteButton.UseVisualStyleBackColor = true;
+            this.deleteRouteButton.Click += new System.EventHandler(this.DeleteRouteButton_Click);
+            // 
+            // editRouteButton
+            // 
+            this.editRouteButton.Location = new System.Drawing.Point(1236, 513);
+            this.editRouteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.editRouteButton.Name = "editRouteButton";
+            this.editRouteButton.Size = new System.Drawing.Size(112, 35);
+            this.editRouteButton.TabIndex = 34;
+            this.editRouteButton.Text = "Edit Route";
+            this.editRouteButton.UseVisualStyleBackColor = true;
+            this.editRouteButton.Click += new System.EventHandler(this.EditRouteButton_Click);
+            // 
+            // newRouteButton
+            // 
+            this.newRouteButton.Location = new System.Drawing.Point(1114, 513);
+            this.newRouteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.newRouteButton.Name = "newRouteButton";
+            this.newRouteButton.Size = new System.Drawing.Size(112, 35);
+            this.newRouteButton.TabIndex = 33;
+            this.newRouteButton.Text = "New Route";
+            this.newRouteButton.UseVisualStyleBackColor = true;
+            this.newRouteButton.Click += new System.EventHandler(this.NewRouteButton_Click);
+            // 
             // EditCountry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1059, 561);
+            this.ClientSize = new System.Drawing.Size(1485, 614);
+            this.Controls.Add(this.deleteRouteButton);
+            this.Controls.Add(this.editRouteButton);
+            this.Controls.Add(this.newRouteButton);
+            this.Controls.Add(this.tradeRouteDataGridView);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.textBox10);
             this.Controls.Add(this.literacyComboBox);
@@ -461,6 +513,7 @@
             this.Name = "EditCountry";
             this.Text = "EditCountry";
             ((System.ComponentModel.ISupportInitialize)(this.popGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tradeRouteDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,5 +556,9 @@
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.ComboBox literacyComboBox;
         private System.Windows.Forms.ComboBox wealthComboBox;
+        private System.Windows.Forms.DataGridView tradeRouteDataGridView;
+        private System.Windows.Forms.Button deleteRouteButton;
+        private System.Windows.Forms.Button editRouteButton;
+        private System.Windows.Forms.Button newRouteButton;
     }
 }

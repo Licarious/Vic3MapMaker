@@ -47,6 +47,7 @@ namespace Vic3MapMaker
             ParseSubStates();
             ParseLocal();
             ParseWelthLiteracy();
+            ParseTradeRoutes();
 
             sw.Stop();
             Console.WriteLine("Time elapsed: {0}", sw.Elapsed);
@@ -1135,8 +1136,8 @@ namespace Vic3MapMaker
                         //split potentialTag on _ and check if the first part is a tag
                         Nation n = nationSet.FirstOrDefault(nation => nation.tag == potentialTag.Split('_')[0].Trim());
                         if (n != null) {
-                            //set country name
-                            n.adj = line.Split(':')[1].Trim();
+                            //set country adjective
+                            n.adj = line.Split()[line.Split().Length - 1].Replace("\"", "").Trim();
                         }
                     }
                     else {
@@ -1244,6 +1245,87 @@ namespace Vic3MapMaker
             }
 
             Console.WriteLine("Parsed welth and literacy in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
+
+        }
+
+        //parse trade routes
+        private void ParseTradeRoutes() {
+            DateTime dateTime = DateTime.Now;
+
+            //get all files in game folder +\common\trade_routes\
+            string[] tradeRouteFiles = Directory.GetFiles(gameDirectory + @"\common\history\trade_routes\", "*.txt", SearchOption.AllDirectories);
+
+            //for each trade route file
+            foreach (string file in tradeRouteFiles) {
+                //open file
+                string[] lines = File.ReadAllLines(file);
+
+                int indentation = 0;
+                Nation currentNation = null;
+                TradeRoute currentTradeRoute = null;
+
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    if (indentation == 1) {
+                        if (line.StartsWith("c:")) {
+                            string potentialTag = line.Split(':')[1].Split('=')[0].Trim();
+                            //check if potentialTag is a tag in nationSet
+                            currentNation = nationSet.FirstOrDefault(nation => nation.tag == potentialTag);
+                        }
+                    }
+                    if (indentation == 2) {
+                        if (line.StartsWith("create_trade_route")) {
+                            currentTradeRoute = new TradeRoute();
+                            currentNation.tradeRoutes.Add(currentTradeRoute);
+                        }
+                    }
+                    if(indentation == 3) {
+                        if (line.StartsWith("goods"))
+                            currentTradeRoute.goods = line.Split('=')[1].Trim();
+                        else if (line.StartsWith("level")) {
+                            //try to parse level to int
+                            if (int.TryParse(line.Split('=')[1].Trim(), out int level)) {
+                                currentTradeRoute.level = level;
+                            }
+                        }
+                        else if (line.StartsWith("direction")) {
+                            currentTradeRoute.isExport = line.ToLower().Contains("export");
+                        }
+                        else if (line.StartsWith("target")) {
+                            string targetTag = line.Split(':')[1].Split('.')[0].Trim();
+                            //check if targetTag is a tag in nationSet
+                            currentTradeRoute.target = nationSet.FirstOrDefault(nation => nation.tag == targetTag);
+                            
+                        }
+
+                    }
+
+
+
+                    if (line.Contains("{") || line.Contains("}")) {
+                        string[] l2 = line.Split();
+                        foreach (string word in l2) {
+                            if (word.Contains("{")) {
+                                indentation++;
+                            }
+                            else if (word.Contains("}")) {
+                                indentation--;
+                                if (indentation == 1) {
+                                    currentNation = null;
+                                }
+                                else if (indentation == 2) {
+                                    currentTradeRoute = null;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
         }
 

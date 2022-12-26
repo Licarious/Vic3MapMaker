@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Vic3MapMaker.DataFiles;
 using Vic3MapMaker.Utilities;
+using static System.Windows.Forms.AxHost;
 
 namespace Vic3MapMaker.Forms
 {
@@ -42,10 +43,18 @@ namespace Vic3MapMaker.Forms
             }
 
             //add 4 colums to the popGridView
+            popGridView.Columns.Add("", "");
             popGridView.Columns.Add("Culture", "Culture");
             popGridView.Columns.Add("Size", "Size");
             popGridView.Columns.Add("Type", "Type");       
             popGridView.Columns.Add("Religion", "Religion");
+
+            //set tradeRouteDataGridView to only select one row at a time
+            popGridView.MultiSelect = false;
+            //and highlight the selected row
+            popGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //hide first column
+            popGridView.Columns[0].Visible = false;
 
             //don't allow uncommitted new rows
             popGridView.AllowUserToAddRows = false;
@@ -141,6 +150,40 @@ namespace Vic3MapMaker.Forms
             //set literacyComboBox to nation.literacy
             literacyComboBox.SelectedItem = nation.literacy;
 
+            //add 3 colums to tradeRouteDataGridView target, goods, level, Import/Export
+            tradeRouteDataGridView.Columns.Add("", "");
+            tradeRouteDataGridView.Columns.Add("Target", "Target");
+            tradeRouteDataGridView.Columns.Add("Goods", "Goods");
+            tradeRouteDataGridView.Columns.Add("Level", "Level");
+            tradeRouteDataGridView.Columns.Add("In/Out", "In/Out");
+
+            //don't allow uncommitted new rows
+            tradeRouteDataGridView.AllowUserToAddRows = false;
+
+            //disable editing of the tradeRouteDataGridView
+            tradeRouteDataGridView.ReadOnly = true;
+
+            //set the tradeRouteDataGridView colmn widths to auto with a minimum size to fit the borders
+            for (int i = 0; i < tradeRouteDataGridView.Columns.Count; i++) {
+                tradeRouteDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                tradeRouteDataGridView.Columns[i].MinimumWidth = 65;
+            }
+
+            //center the text in the tradeRouteDataGridView
+            tradeRouteDataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            //remove the select all row from the tradeRouteDataGridView
+            tradeRouteDataGridView.RowHeadersVisible = false;
+
+            RefreshTradRouteGrid();
+
+            //set tradeRouteDataGridView to only select one row at a time
+            tradeRouteDataGridView.MultiSelect = false;
+            //and highlight the selected row
+            tradeRouteDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //hide first column
+            tradeRouteDataGridView.Columns[0].Visible = false;
+
 
 
         }
@@ -155,7 +198,7 @@ namespace Vic3MapMaker.Forms
             //popGridView.DataSource = state.pops;
             //add the values to the columns
             foreach (Pop pop in state.pops) {
-                popGridView.Rows.Add(pop.culture, pop.size, pop.type, pop.religion);
+                popGridView.Rows.Add(pop, pop.culture, pop.size, pop.type, pop.religion);
                 Console.WriteLine(pop.culture + " " + pop.size + " " + pop.type + " " + pop.religion);
             }
             Console.WriteLine(state.parentState.name + "\t" + state.pops.Count);
@@ -172,16 +215,21 @@ namespace Vic3MapMaker.Forms
 
         private void NewPopButton_Click(object sender, EventArgs e) {
             Pop newPop = new Pop();
-
             //open a editPop form and add the pop to the substate.pops
             SubState state = (SubState)subStateComboBox.SelectedItem;
-
-            mapOp.AddPop(state, newPop);
+            
             EditPop editPop = new EditPop(state, newPop, lsu, mapOp);
             editPop.ShowDialog();
 
-            //after the editPop form is closed, refresh the popGridView
-            SubStateComboBox_SelectedIndexChanged(sender, e);
+            //if editPop returns ok
+            if (editPop.DialogResult == DialogResult.OK) {
+                //add the pop to the substate.pops
+                mapOp.AddPop(state, newPop);
+                //after the editPop form is closed, refresh the popGridView
+                SubStateComboBox_SelectedIndexChanged(sender, e);
+            }
+
+            
 
 
         }
@@ -190,9 +238,8 @@ namespace Vic3MapMaker.Forms
             //get the selected pop from the popGridView
             SubState state = (SubState)subStateComboBox.SelectedItem;
             if (state == null) return;
-            int index = popGridView.CurrentCell.RowIndex;
-            Pop pop = state.pops.ElementAt(index);
 
+            Pop pop = (Pop)popGridView.SelectedCells[0].Value;
             if (pop == null) return;
 
             //open a editPop form and edit the pop
@@ -205,12 +252,12 @@ namespace Vic3MapMaker.Forms
         }
 
         private void DeletePopButton_Click(object sender, EventArgs e) {
+            
             //get the selected pop from the popGridView
             SubState state = (SubState)subStateComboBox.SelectedItem;
-            if (state == null) return;
-            int index = popGridView.CurrentCell.RowIndex;
-            Pop pop = state.pops.ElementAt(index);
+            if (state == null) return;          
 
+            Pop pop = (Pop)popGridView.SelectedCells[0].Value;
             if (pop == null) return;
 
             //delete the pop from the substate.pops
@@ -402,6 +449,69 @@ namespace Vic3MapMaker.Forms
             }
 
         }
-        
+
+        private void DeleteRouteButton_Click(object sender, EventArgs e) {
+            TradeRoute route = (TradeRoute)tradeRouteDataGridView.SelectedCells[0].Value;
+
+            //if route is null then return
+            if (route == null) return;
+
+            Console.WriteLine("Deleting route " + route);
+            
+
+            //remove the route from the nation.tradeRoutes
+            mapOp.RemoveTradeRoute(nation, route);
+            
+            //remove the route from the tradeRouteDataGridView
+            //tradeRouteDataGridView.Rows.Remove(tradeRouteDataGridView.SelectedRows[0]);
+            RefreshTradRouteGrid();
+        }
+
+        private void EditRouteButton_Click(object sender, EventArgs e) {
+            
+            //tradeRoute is the first column of the selected row
+            TradeRoute route = (TradeRoute)tradeRouteDataGridView.SelectedCells[0].Value;
+
+            //if route is null then return
+            if (route == null) return;
+
+
+            //open a EditTradeRoute
+            EditTradeRoute tradeRouteForm = new EditTradeRoute(route, lsu, mapOp);
+            //wait to close the form until the dialogResult is OK
+            tradeRouteForm.ShowDialog();
+
+            //if the dialogResult is OK then update the tradeRouteDataGridView
+            if (tradeRouteForm.DialogResult == DialogResult.OK) {
+                RefreshTradRouteGrid();
+            }
+            
+        }
+
+        private void NewRouteButton_Click(object sender, EventArgs e) {
+            TradeRoute route = new TradeRoute();
+            //open a EditTradeRoute
+            EditTradeRoute tradeRouteForm = new EditTradeRoute(route, lsu, mapOp);
+
+            //wait to close the form until the dialogResult is OK
+            tradeRouteForm.ShowDialog();
+
+            //if the dialogResult is OK then add the route to the nation.tradeRoutes and update the tradeRouteDataGridView
+            if (tradeRouteForm.DialogResult == DialogResult.OK) {
+                mapOp.AddTradeRoute(nation, route);
+                //clear the tradeRouteDataGridView
+                RefreshTradRouteGrid();
+            }
+
+        }
+
+        private void RefreshTradRouteGrid() {
+            //clear the tradeRouteDataGridView
+            tradeRouteDataGridView.Rows.Clear();
+            //add all the routes to the tradeRouteDataGridView
+            foreach (TradeRoute tradeRoute in nation.tradeRoutes) {
+                tradeRouteDataGridView.Rows.Add(tradeRoute, tradeRoute.target, tradeRoute.goods, tradeRoute.level, tradeRoute.isExport ? "Export" : "Import");
+            }
+        }
     }
 }

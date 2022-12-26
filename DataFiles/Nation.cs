@@ -27,8 +27,10 @@ namespace Vic3MapMaker
 
         //Hash set of coordinates
         public HashSet<(int, int)> coordSet = new HashSet<(int, int)>();
-        
+
         public HashSet<SubState> subStates = new HashSet<SubState>();
+
+        public List<TradeRoute> tradeRoutes = new List<TradeRoute>();
 
         public Nation(string tag) {
             this.tag = tag;

@@ -443,11 +443,11 @@ namespace Vic3MapMaker
         //write localizations for all nations and hubs
         public void WriteLocalizations(HashSet<Nation> nations, HashSet<Region> regions, string desiredLanguage = "english") {
             //if outputDirectory/localisation doesn't exist, create it
-            if (!File.Exists(outputDirectory + "\\localisation\\replace\\"+desiredLanguage+"\\")) {
-                Directory.CreateDirectory(outputDirectory + "\\localisation\\replace\\" + desiredLanguage + "\\");
+            if (!File.Exists(outputDirectory + "\\localization\\replace\\" + desiredLanguage+"\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\localization\\replace\\" + desiredLanguage + "\\");
             }
 
-            string path = outputDirectory + "\\localisation\\replace\\" + desiredLanguage + "\\z_countries_l_" + desiredLanguage + ".yml";
+            string path = outputDirectory + "\\localization\\replace\\" + desiredLanguage + "\\z_countries_l_" + desiredLanguage + ".yml";
             //write localisation file for each nation
             using (StreamWriter sw = File.CreateText(path)) {
                 sw.WriteLine("l_" + desiredLanguage + ":");
@@ -462,7 +462,7 @@ namespace Vic3MapMaker
             }
 
             //write hubs file
-            path = outputDirectory + "\\localisation\\replace\\" + desiredLanguage + "\\z_hubs_names_l_" + desiredLanguage + ".yml";
+            path = outputDirectory + "\\localization\\replace\\" + desiredLanguage + "\\z_hubs_names_l_" + desiredLanguage + ".yml";
             using (StreamWriter sw = File.CreateText(path)) {
                 sw.WriteLine("l_"+desiredLanguage+":");
                 foreach (Region region in regions) {
@@ -511,6 +511,43 @@ namespace Vic3MapMaker
                 }
                 
             }
+        }
+
+        //write trage_routes 
+        public void WriteTradeRoutes(HashSet<Nation> nations) {
+            //if outputDirectory/common/history/trade_routes/ doesn't exist, create it
+            if (!File.Exists(outputDirectory + "\\common\\history\\trade_routes\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\history\\trade_routes\\");
+            }
+
+            string path = outputDirectory + "\\common\\history\\trade_routes\\00_trade_routes.txt";
+
+            //sort nations by tag
+            List<Nation> nationsList = nations.ToList();
+            nationsList.Sort((x, y) => x.tag.CompareTo(y.tag));
+            
+            using (StreamWriter sw = File.CreateText(path)) {
+                sw.WriteLine("TRADE_ROUTES = {");
+                foreach (Nation nation in nationsList) {
+                    if (nation.tradeRoutes.Count > 0) {
+                        sw.WriteLine("\t# " + nation.name);
+                        sw.WriteLine("\tc:" + nation.tag + " = {");
+                        foreach (TradeRoute tradeRoute in nation.tradeRoutes) {
+                            sw.WriteLine("\t\tcreate_trade_route = {");
+                            sw.WriteLine("\t\t\tgoods = " + tradeRoute.goods);
+                            sw.WriteLine("\t\t\tlevel = " + tradeRoute.level);
+                            sw.WriteLine("\t\t\tdirection = " + (tradeRoute.isExport ? "export" : "import"));
+                            sw.WriteLine("\t\t\ttarget = c:" + tradeRoute.target.tag + ".market");
+                            sw.WriteLine("\t\t}");
+                        }
+
+                        sw.WriteLine("\t}\n");
+                    }
+                }
+                sw.WriteLine("}");
+                sw.Close();
+            }
+
         }
     }
 }

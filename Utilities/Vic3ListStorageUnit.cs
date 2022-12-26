@@ -20,11 +20,13 @@ namespace Vic3MapMaker.Utilities
         public List<string> religions = new List<string>();
         public List<string> occupationTypes = new List<string>();
         public List<string> tags = new List<string>();
+        public List<string> goods = new List<string>();
 
         public List<string> welthLevels = new List<string>() {"","very_low","low", "medium", "high", "very_high" };
         public List<string> literacyLevels = new List<string>() { "", "very_low", "low", "baseline", "high", "very_high" };
 
         public HashSet<State> states = new HashSet<State>();
+        public HashSet<Nation> nations = new HashSet<Nation>();
 
 
         //set nationTier lsit to "recognized", "colonial", "unrecognized", and "decentralized"

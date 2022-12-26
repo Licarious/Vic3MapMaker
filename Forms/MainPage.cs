@@ -835,6 +835,7 @@ namespace Vic3MapMaker
             fo.WritePops(nationSet, regionSet);
             fo.WriteLocalizations(nationSet, regionSet);
             fo.WriteWelthLiteracy(nationSet);
+            fo.WriteTradeRoutes(nationSet);
         }
 
         private void UndoButton_Click(object sender, EventArgs e) {
@@ -1081,6 +1082,21 @@ namespace Vic3MapMaker
                     lsu.states.Add(state1);
                 }
             }
+
+            //clear nations hashset
+            lsu.nations = nationSet;
+
+            //clear goods list
+            lsu.goods.Clear();
+            //get a list of all goods from nation.tradeRoutes
+            foreach (Nation nation in nationSet) {
+                foreach (TradeRoute tradeRoute in nation.tradeRoutes) {
+                    if (!lsu.goods.Contains(tradeRoute.goods)) {
+                        lsu.goods.Add(tradeRoute.goods);
+                    }
+                }
+            }
+
 
 
         }
