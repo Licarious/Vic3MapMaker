@@ -272,12 +272,12 @@ namespace Vic3MapMaker
                 errors.Add("Arable Land must be a positive integer");
             }
 
-            //subsistence Building
+            //subsistence StateBuilding
             string subsistenceBuilding = subsistenceBuildingTextBox.Text;
             if (subsistenceBuilding == "") {
                 valid = false;
                 subsistenceBuildingTextBox.BackColor = Color.Pink;
-                errors.Add("Subsistence Building cannot be blank");
+                errors.Add("Subsistence StateBuilding cannot be blank");
             }
 
             //traits

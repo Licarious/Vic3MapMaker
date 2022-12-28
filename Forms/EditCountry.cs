@@ -42,37 +42,85 @@ namespace Vic3MapMaker.Forms
                 subStateComboBox.Items.Add(subState);
             }
 
-            //add 4 colums to the popGridView
-            popGridView.Columns.Add("", "");
-            popGridView.Columns.Add("Culture", "Culture");
-            popGridView.Columns.Add("Size", "Size");
-            popGridView.Columns.Add("Type", "Type");       
-            popGridView.Columns.Add("Religion", "Religion");
-
-            //set tradeRouteDataGridView to only select one row at a time
-            popGridView.MultiSelect = false;
-            //and highlight the selected row
-            popGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //hide first column
-            popGridView.Columns[0].Visible = false;
+            //buildingDataGridView
+            //add 5 colums to buildingDataGridView stateBuilding, name, level, reserves, and activeProductionMethods
+            buildingDataGridView.Columns.Add("", "");
+            buildingDataGridView.Columns.Add("Name", "Name");
+            buildingDataGridView.Columns.Add("Level", "Level");
+            buildingDataGridView.Columns.Add("Reserves", "Reserves");
+            buildingDataGridView.Columns.Add("\t\tActive Production Methods\t\t", "\t\tActive Production Methods\t\t");
 
             //don't allow uncommitted new rows
-            popGridView.AllowUserToAddRows = false;
+            buildingDataGridView.AllowUserToAddRows = false;
 
-            //disable editing of the popGridView
-            popGridView.ReadOnly = true;
+            //disable editing of the buildingDataGridView
+            buildingDataGridView.ReadOnly = true;
+            /*
+            //set the buildingDataGridView colmn widths to auto with a minimum size to fit the borders
+            for (int i = 0; i < buildingDataGridView.Columns.Count; i++) {
+                buildingDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                buildingDataGridView.Columns[i].MinimumWidth = 65;
+            }
+            */
+            //center the text in the buildingDataGridView
+            buildingDataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            //set the popGridView colmn widths to auto with a minimum size to fit the borders
-            for (int i = 0; i < popGridView.Columns.Count; i++) {
-                popGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                popGridView.Columns[i].MinimumWidth = 100;
+            //remove the select all row from the buildingDataGridView
+            buildingDataGridView.RowHeadersVisible = false;
+
+            //hide the first column in the buildingDataGridView
+            buildingDataGridView.Columns[0].Visible = false;
+
+            //allow for multi line text in the buildingDataGridView
+            buildingDataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            //set row heights to be dynamic
+            buildingDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            //strech colums to fill the buildingDataGridView
+            buildingDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            buildingDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            //center headders
+            buildingDataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+
+
+            //add 4 colums to the popDataGridView
+            popDataGridView.Columns.Add("", "");
+            popDataGridView.Columns.Add("Culture", "Culture");
+            popDataGridView.Columns.Add("Size", "Size");
+            popDataGridView.Columns.Add("Type", "Type");       
+            popDataGridView.Columns.Add("Religion", "Religion");
+
+            //set popDataGridView to only select one row at a time
+            popDataGridView.MultiSelect = false;
+            //and highlight the selected row
+            popDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //hide first column
+            popDataGridView.Columns[0].Visible = false;
+
+            //don't allow uncommitted new rows
+            popDataGridView.AllowUserToAddRows = false;
+
+            //disable editing of the popDataGridView
+            popDataGridView.ReadOnly = true;
+
+            //set the popDataGridView colmn widths to auto with a minimum size to fit the borders
+            for (int i = 0; i < popDataGridView.Columns.Count; i++) {
+                popDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                popDataGridView.Columns[i].MinimumWidth = 100;
             }
 
-            //center the text in the popGridView
-            popGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //center the text in the popDataGridView
+            popDataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            //remove the select all row from the popGridView
-            popGridView.RowHeadersVisible = false;
+            //remove the select all row from the popDataGridView
+            popDataGridView.RowHeadersVisible = false;
+
+            //center headders
+            popDataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
 
 
@@ -150,7 +198,8 @@ namespace Vic3MapMaker.Forms
             //set literacyComboBox to nation.literacy
             literacyComboBox.SelectedItem = nation.literacy;
 
-            //add 3 colums to tradeRouteDataGridView target, goods, level, Import/Export
+            
+            //add 5 colums to tradeRouteDataGridView TradeRoute object, target, goods, level, Import/Export
             tradeRouteDataGridView.Columns.Add("", "");
             tradeRouteDataGridView.Columns.Add("Target", "Target");
             tradeRouteDataGridView.Columns.Add("Goods", "Goods");
@@ -162,18 +211,22 @@ namespace Vic3MapMaker.Forms
 
             //disable editing of the tradeRouteDataGridView
             tradeRouteDataGridView.ReadOnly = true;
-
+            /*
             //set the tradeRouteDataGridView colmn widths to auto with a minimum size to fit the borders
             for (int i = 0; i < tradeRouteDataGridView.Columns.Count; i++) {
                 tradeRouteDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 tradeRouteDataGridView.Columns[i].MinimumWidth = 65;
             }
-
+            */
             //center the text in the tradeRouteDataGridView
             tradeRouteDataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             //remove the select all row from the tradeRouteDataGridView
             tradeRouteDataGridView.RowHeadersVisible = false;
+
+            //strech colums to fill the buildingDataGridView
+            tradeRouteDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            tradeRouteDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
             RefreshTradRouteGrid();
 
@@ -184,21 +237,41 @@ namespace Vic3MapMaker.Forms
             //hide first column
             tradeRouteDataGridView.Columns[0].Visible = false;
 
+            //center headders
+            tradeRouteDataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+
 
 
         }
 
+        private void RefreshBuildingGrid() {
+            //clear the buildingDataGridView
+            buildingDataGridView.Rows.Clear();
+            //if subStateComboBox.SelectedIndex is not -1
+            if (subStateComboBox.SelectedIndex != -1) {
+                //get the selected substate from subStateComboBox
+                SubState subState = (SubState)subStateComboBox.SelectedItem;
+                //for each sb in subState.buildings add a row to buildingDataGridView
+                foreach (StateBuilding sb in subState.buildings) {
+                    buildingDataGridView.Rows.Add(sb, sb.building.name, sb.level, sb.reserves, string.Join(Environment.NewLine, sb.activeProductionMethods));
+                }
+            }
+            
+            
+        }
 
         private void SubStateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            //clear the popGridView
-            popGridView.Rows.Clear();
+            //clear the popDataGridView
+            popDataGridView.Rows.Clear();
 
-            //set the popGridView to the substate.pops
+            //set the popDataGridView to the substate.pops
             SubState state = (SubState)subStateComboBox.SelectedItem;
-            //popGridView.DataSource = state.pops;
+            //popDataGridView.DataSource = state.pops;
             //add the values to the columns
             foreach (Pop pop in state.pops) {
-                popGridView.Rows.Add(pop, pop.culture, pop.size, pop.type, pop.religion);
+                popDataGridView.Rows.Add(pop, pop.culture, pop.size, pop.type, pop.religion);
                 Console.WriteLine(pop.culture + " " + pop.size + " " + pop.type + " " + pop.religion);
             }
             Console.WriteLine(state.parentState.name + "\t" + state.pops.Count);
@@ -210,6 +283,8 @@ namespace Vic3MapMaker.Forms
             else {
                 stateTypeComboBox.SelectedItem = state.type;
             }
+
+            RefreshBuildingGrid();
         }
         
 
@@ -225,7 +300,7 @@ namespace Vic3MapMaker.Forms
             if (editPop.DialogResult == DialogResult.OK) {
                 //add the pop to the substate.pops
                 mapOp.AddPop(state, newPop);
-                //after the editPop form is closed, refresh the popGridView
+                //after the editPop form is closed, refresh the popDataGridView
                 SubStateComboBox_SelectedIndexChanged(sender, e);
             }
 
@@ -235,35 +310,35 @@ namespace Vic3MapMaker.Forms
         }
 
         private void EditPopButton_Click(object sender, EventArgs e) {
-            //get the selected pop from the popGridView
+            //get the selected pop from the popDataGridView
             SubState state = (SubState)subStateComboBox.SelectedItem;
             if (state == null) return;
 
-            Pop pop = (Pop)popGridView.SelectedCells[0].Value;
+            Pop pop = (Pop)popDataGridView.SelectedCells[0].Value;
             if (pop == null) return;
 
             //open a editPop form and edit the pop
             EditPop editPop = new EditPop(state, pop, lsu, mapOp, true);
             editPop.ShowDialog();
 
-            //after the editPop form is closed, refresh the popGridView
+            //after the editPop form is closed, refresh the popDataGridView
             SubStateComboBox_SelectedIndexChanged(sender, e);
 
         }
 
         private void DeletePopButton_Click(object sender, EventArgs e) {
             
-            //get the selected pop from the popGridView
+            //get the selected pop from the popDataGridView
             SubState state = (SubState)subStateComboBox.SelectedItem;
             if (state == null) return;          
 
-            Pop pop = (Pop)popGridView.SelectedCells[0].Value;
+            Pop pop = (Pop)popDataGridView.SelectedCells[0].Value;
             if (pop == null) return;
 
             //delete the pop from the substate.pops
             mapOp.RemovePop(state, pop);
 
-            //refresh the popGridView
+            //refresh the popDataGridView
             SubStateComboBox_SelectedIndexChanged(sender, e);
         }
 
@@ -511,6 +586,16 @@ namespace Vic3MapMaker.Forms
             //add all the routes to the tradeRouteDataGridView
             foreach (TradeRoute tradeRoute in nation.tradeRoutes) {
                 tradeRouteDataGridView.Rows.Add(tradeRoute, tradeRoute.target, tradeRoute.goods, tradeRoute.level, tradeRoute.isExport ? "Export" : "Import");
+            }
+        }
+
+        private void newBuildingButton_Click(object sender, EventArgs e) {
+            //go through all substates and print the buildings
+            foreach (SubState substate in nation.subStates) {
+                Console.WriteLine(substate.parentState);
+                foreach (StateBuilding building in substate.buildings) {
+                    Console.WriteLine("\t"+building);
+                }
             }
         }
     }

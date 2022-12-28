@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vic3MapMaker.DataFiles;
 
 namespace Vic3MapMaker.Utilities
 {
@@ -23,7 +24,7 @@ namespace Vic3MapMaker.Utilities
         public List<string> goods = new List<string>();
 
         public List<string> welthLevels = new List<string>() {"","very_low","low", "medium", "high", "very_high" };
-        public List<string> literacyLevels = new List<string>() { "", "very_low", "low", "baseline", "high", "very_high" };
+        public List<string> literacyLevels = new List<string>() { "", "very_low", "low", "middling", "baseline", "high", "very_high" };
 
         public HashSet<State> states = new HashSet<State>();
         public HashSet<Nation> nations = new HashSet<Nation>();
@@ -32,5 +33,7 @@ namespace Vic3MapMaker.Utilities
         //set nationTier lsit to "recognized", "colonial", "unrecognized", and "decentralized"
         public List<string> nationTypes = new List<string>() { "recognized", "colonial", "unrecognized", "decentralized" };
         public List<string> nationTiers  = new List<string>();
+
+        public HashSet<Building> buildings = new HashSet<Building>();
     }
 }

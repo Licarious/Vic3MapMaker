@@ -161,7 +161,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(256, 26);
             this.textBox1.TabIndex = 29;
-            this.textBox1.Text = "Subsistence Building";
+            this.textBox1.Text = "Subsistence StateBuilding";
             // 
             // subsistenceBuildingTextBox
             // 

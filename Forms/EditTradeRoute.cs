@@ -32,6 +32,7 @@ namespace Vic3MapMaker.Forms
             }
 
             //set goodsTextBox to autoComplete from lsu.goods
+            goodsTextBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             goodsTextBox.AutoCompleteCustomSource = new AutoCompleteStringCollection();
             goodsTextBox.AutoCompleteCustomSource.AddRange(lsu.goods.ToArray());
 

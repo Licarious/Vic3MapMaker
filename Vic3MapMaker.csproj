@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFiles\Building.cs" />
+    <Compile Include="DataFiles\StateBuilding.cs" />
     <Compile Include="DataFiles\Culture.cs" />
     <Compile Include="DataFiles\TradeRoute.cs" />
     <Compile Include="Forms\EditPop.cs">

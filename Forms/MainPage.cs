@@ -19,20 +19,21 @@ namespace Vic3MapMaker
         HashSet<Nation> nationSet;
         Bitmap mergedImage;
         MapOperation mapOp = new MapOperation();
-        Vic3ListStorageUnit lsu = new Vic3ListStorageUnit();
+        Vic3ListStorageUnit lsu;
         double imageScale = 1.0;
 
         readonly double maximumZoom = 4.0;
         readonly FileOutputer fo;
 
 
-        public MainPage((HashSet<Region> regionSet, HashSet<Province> provSet, HashSet<Terrain> terrainSet, HashSet<Culture> cultureSet, HashSet<Nation> nationSet, Bitmap mapImage) parssedTupple, string outputDirectory) {
+        public MainPage((HashSet<Region> regionSet, HashSet<Province> provSet, HashSet<Terrain> terrainSet, HashSet<Culture> cultureSet, HashSet<Nation> nationSet, Vic3ListStorageUnit lsu, Bitmap mapImage) parssedTupple, string outputDirectory) {
             this.regionSet = parssedTupple.regionSet;
             this.provSet = parssedTupple.provSet;
             this.terrainSet = parssedTupple.terrainSet;
             this.mergedImage = parssedTupple.mapImage;
             this.cultureSet = parssedTupple.cultureSet;
             this.nationSet = parssedTupple.nationSet;
+            this.lsu = parssedTupple.lsu;
 
             fo = new FileOutputer(outputDirectory);
 
@@ -55,6 +56,7 @@ namespace Vic3MapMaker
 
             //default selection in categoryComboBox to state
             categoryComboBox.SelectedIndex = 1;
+            
 
         }
 
@@ -135,6 +137,7 @@ namespace Vic3MapMaker
                     sideControleTableLayoutPanel.RowStyles[5].Height = 140;
                     //update itemComboBox to show the regions in the regionSet
                     itemComboBox.DataSource = regionSet.OrderBy(r => r.name).ToList();
+                    
                     RefreshMap();
                     break;
                 case "PrimeLand":
@@ -147,8 +150,8 @@ namespace Vic3MapMaker
                     //update itemComboBox to show the terrains in the terrainSet starting with a blank entry
                     List<string> terrainList = new List<string> { "" };
                     terrainList.AddRange(terrainSet.Select(t => t.name).OrderBy(t => t).ToList());
-
                     itemComboBox.DataSource = terrainList;
+                    
                     break;
                 case "Country":
                     nationalPanel.Visible = true;
@@ -157,6 +160,7 @@ namespace Vic3MapMaker
                     sideControleTableLayoutPanel.RowStyles[6].Height = 140;
                     //set other combo box to show all nations
                     itemComboBox.DataSource = nationSet.OrderBy(n => n.tag).ToList();
+                    
                     RefreshMap();
 
                     break;
@@ -1093,10 +1097,20 @@ namespace Vic3MapMaker
                 foreach (TradeRoute tradeRoute in nation.tradeRoutes) {
                     if (!lsu.goods.Contains(tradeRoute.goods)) {
                         lsu.goods.Add(tradeRoute.goods);
+                        Console.WriteLine(tradeRoute.goods);
                     }
                 }
             }
 
+            //literacy and welth
+            foreach (Nation nation in nationSet) {
+                if (!lsu.welthLevels.Contains(nation.wealth)) {
+                    lsu.welthLevels.Add(nation.wealth);
+                }
+                if (!lsu.literacyLevels.Contains(nation.literacy)) {
+                    lsu.literacyLevels.Add(nation.literacy);
+                }
+            }
 
 
         }

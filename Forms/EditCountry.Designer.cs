@@ -30,7 +30,7 @@
             this.tagTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.subStateComboBox = new System.Windows.Forms.ComboBox();
-            this.popGridView = new System.Windows.Forms.DataGridView();
+            this.popDataGridView = new System.Windows.Forms.DataGridView();
             this.newPopButton = new System.Windows.Forms.Button();
             this.editPopButton = new System.Windows.Forms.Button();
             this.stateTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -64,8 +64,13 @@
             this.deleteRouteButton = new System.Windows.Forms.Button();
             this.editRouteButton = new System.Windows.Forms.Button();
             this.newRouteButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.popGridView)).BeginInit();
+            this.buildingDataGridView = new System.Windows.Forms.DataGridView();
+            this.deleteBuildingButton = new System.Windows.Forms.Button();
+            this.editBuildngButton = new System.Windows.Forms.Button();
+            this.newBuildingButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.popDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tradeRouteDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buildingDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tagTB
@@ -116,19 +121,19 @@
             this.subStateComboBox.TabIndex = 2;
             this.subStateComboBox.SelectedIndexChanged += new System.EventHandler(this.SubStateComboBox_SelectedIndexChanged);
             // 
-            // popGridView
+            // popDataGridView
             // 
-            this.popGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.popGridView.Location = new System.Drawing.Point(20, 208);
-            this.popGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.popGridView.Name = "popGridView";
-            this.popGridView.RowHeadersWidth = 62;
-            this.popGridView.Size = new System.Drawing.Size(604, 295);
-            this.popGridView.TabIndex = 3;
+            this.popDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.popDataGridView.Location = new System.Drawing.Point(20, 208);
+            this.popDataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.popDataGridView.Name = "popDataGridView";
+            this.popDataGridView.RowHeadersWidth = 62;
+            this.popDataGridView.Size = new System.Drawing.Size(604, 245);
+            this.popDataGridView.TabIndex = 3;
             // 
             // newPopButton
             // 
-            this.newPopButton.Location = new System.Drawing.Point(20, 513);
+            this.newPopButton.Location = new System.Drawing.Point(20, 463);
             this.newPopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.newPopButton.Name = "newPopButton";
             this.newPopButton.Size = new System.Drawing.Size(112, 35);
@@ -139,7 +144,7 @@
             // 
             // editPopButton
             // 
-            this.editPopButton.Location = new System.Drawing.Point(142, 513);
+            this.editPopButton.Location = new System.Drawing.Point(142, 463);
             this.editPopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPopButton.Name = "editPopButton";
             this.editPopButton.Size = new System.Drawing.Size(112, 35);
@@ -160,7 +165,7 @@
             // 
             // deletePopButton
             // 
-            this.deletePopButton.Location = new System.Drawing.Point(262, 513);
+            this.deletePopButton.Location = new System.Drawing.Point(262, 463);
             this.deletePopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deletePopButton.Name = "deletePopButton";
             this.deletePopButton.Size = new System.Drawing.Size(112, 35);
@@ -171,7 +176,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(1260, 558);
+            this.cancelButton.Location = new System.Drawing.Point(1260, 827);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 40);
@@ -182,7 +187,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(1368, 558);
+            this.saveButton.Location = new System.Drawing.Point(1368, 827);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(100, 40);
@@ -255,9 +260,9 @@
             // 
             // colorButton
             // 
-            this.colorButton.Location = new System.Drawing.Point(953, 12);
+            this.colorButton.Location = new System.Drawing.Point(874, 12);
             this.colorButton.Name = "colorButton";
-            this.colorButton.Size = new System.Drawing.Size(92, 59);
+            this.colorButton.Size = new System.Drawing.Size(171, 59);
             this.colorButton.TabIndex = 16;
             this.colorButton.Text = "Color";
             this.colorButton.UseVisualStyleBackColor = true;
@@ -305,7 +310,7 @@
             // 
             // addCultureButton
             // 
-            this.addCultureButton.Location = new System.Drawing.Point(821, 160);
+            this.addCultureButton.Location = new System.Drawing.Point(820, 299);
             this.addCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addCultureButton.Name = "addCultureButton";
             this.addCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -316,7 +321,7 @@
             // 
             // removeCultureButton
             // 
-            this.removeCultureButton.Location = new System.Drawing.Point(821, 208);
+            this.removeCultureButton.Location = new System.Drawing.Point(820, 347);
             this.removeCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.removeCultureButton.Name = "removeCultureButton";
             this.removeCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -430,12 +435,12 @@
             this.tradeRouteDataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tradeRouteDataGridView.Name = "tradeRouteDataGridView";
             this.tradeRouteDataGridView.RowHeadersWidth = 62;
-            this.tradeRouteDataGridView.Size = new System.Drawing.Size(415, 486);
+            this.tradeRouteDataGridView.Size = new System.Drawing.Size(415, 760);
             this.tradeRouteDataGridView.TabIndex = 32;
             // 
             // deleteRouteButton
             // 
-            this.deleteRouteButton.Location = new System.Drawing.Point(1356, 513);
+            this.deleteRouteButton.Location = new System.Drawing.Point(1356, 782);
             this.deleteRouteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteRouteButton.Name = "deleteRouteButton";
             this.deleteRouteButton.Size = new System.Drawing.Size(112, 35);
@@ -446,7 +451,7 @@
             // 
             // editRouteButton
             // 
-            this.editRouteButton.Location = new System.Drawing.Point(1236, 513);
+            this.editRouteButton.Location = new System.Drawing.Point(1236, 782);
             this.editRouteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editRouteButton.Name = "editRouteButton";
             this.editRouteButton.Size = new System.Drawing.Size(112, 35);
@@ -457,7 +462,7 @@
             // 
             // newRouteButton
             // 
-            this.newRouteButton.Location = new System.Drawing.Point(1114, 513);
+            this.newRouteButton.Location = new System.Drawing.Point(1114, 782);
             this.newRouteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.newRouteButton.Name = "newRouteButton";
             this.newRouteButton.Size = new System.Drawing.Size(112, 35);
@@ -466,11 +471,56 @@
             this.newRouteButton.UseVisualStyleBackColor = true;
             this.newRouteButton.Click += new System.EventHandler(this.NewRouteButton_Click);
             // 
+            // buildingDataGridView
+            // 
+            this.buildingDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.buildingDataGridView.Location = new System.Drawing.Point(20, 508);
+            this.buildingDataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buildingDataGridView.Name = "buildingDataGridView";
+            this.buildingDataGridView.RowHeadersWidth = 62;
+            this.buildingDataGridView.Size = new System.Drawing.Size(1026, 309);
+            this.buildingDataGridView.TabIndex = 36;
+            // 
+            // deleteBuildingButton
+            // 
+            this.deleteBuildingButton.Location = new System.Drawing.Point(262, 832);
+            this.deleteBuildingButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteBuildingButton.Name = "deleteBuildingButton";
+            this.deleteBuildingButton.Size = new System.Drawing.Size(126, 35);
+            this.deleteBuildingButton.TabIndex = 39;
+            this.deleteBuildingButton.Text = "Delete Building";
+            this.deleteBuildingButton.UseVisualStyleBackColor = true;
+            // 
+            // editBuildngButton
+            // 
+            this.editBuildngButton.Location = new System.Drawing.Point(142, 832);
+            this.editBuildngButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.editBuildngButton.Name = "editBuildngButton";
+            this.editBuildngButton.Size = new System.Drawing.Size(112, 35);
+            this.editBuildngButton.TabIndex = 38;
+            this.editBuildngButton.Text = "Edit Building";
+            this.editBuildngButton.UseVisualStyleBackColor = true;
+            // 
+            // newBuildingButton
+            // 
+            this.newBuildingButton.Location = new System.Drawing.Point(20, 832);
+            this.newBuildingButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.newBuildingButton.Name = "newBuildingButton";
+            this.newBuildingButton.Size = new System.Drawing.Size(112, 35);
+            this.newBuildingButton.TabIndex = 37;
+            this.newBuildingButton.Text = "New Building";
+            this.newBuildingButton.UseVisualStyleBackColor = true;
+            this.newBuildingButton.Click += new System.EventHandler(this.newBuildingButton_Click);
+            // 
             // EditCountry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1485, 614);
+            this.ClientSize = new System.Drawing.Size(1493, 877);
+            this.Controls.Add(this.deleteBuildingButton);
+            this.Controls.Add(this.editBuildngButton);
+            this.Controls.Add(this.newBuildingButton);
+            this.Controls.Add(this.buildingDataGridView);
             this.Controls.Add(this.deleteRouteButton);
             this.Controls.Add(this.editRouteButton);
             this.Controls.Add(this.newRouteButton);
@@ -504,7 +554,7 @@
             this.Controls.Add(this.stateTypeComboBox);
             this.Controls.Add(this.editPopButton);
             this.Controls.Add(this.newPopButton);
-            this.Controls.Add(this.popGridView);
+            this.Controls.Add(this.popDataGridView);
             this.Controls.Add(this.subStateComboBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.tagTextBox);
@@ -512,8 +562,9 @@
             this.Controls.Add(this.tagTB);
             this.Name = "EditCountry";
             this.Text = "EditCountry";
-            ((System.ComponentModel.ISupportInitialize)(this.popGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tradeRouteDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buildingDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,7 +577,7 @@
         private System.Windows.Forms.TextBox tagTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.ComboBox subStateComboBox;
-        private System.Windows.Forms.DataGridView popGridView;
+        private System.Windows.Forms.DataGridView popDataGridView;
         private System.Windows.Forms.Button newPopButton;
         private System.Windows.Forms.Button editPopButton;
         private System.Windows.Forms.ComboBox stateTypeComboBox;
@@ -560,5 +611,9 @@
         private System.Windows.Forms.Button deleteRouteButton;
         private System.Windows.Forms.Button editRouteButton;
         private System.Windows.Forms.Button newRouteButton;
+        private System.Windows.Forms.DataGridView buildingDataGridView;
+        private System.Windows.Forms.Button deleteBuildingButton;
+        private System.Windows.Forms.Button editBuildngButton;
+        private System.Windows.Forms.Button newBuildingButton;
     }
 }

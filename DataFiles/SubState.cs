@@ -15,6 +15,7 @@ namespace Vic3MapMaker.DataFiles
         public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
         public HashSet<Pop> pops = new HashSet<Pop>();
         public HashSet<Province> provs = new HashSet<Province>();
+        public HashSet<StateBuilding> buildings = new HashSet<StateBuilding>();
 
         public bool stillExists = true;
 

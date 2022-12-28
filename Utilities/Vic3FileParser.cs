@@ -8,7 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Vic3MapMaker.DataFiles;
+using Vic3MapMaker.Utilities;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static Vic3MapMaker.DataFiles.Building;
 
 namespace Vic3MapMaker
 {
@@ -22,6 +24,7 @@ namespace Vic3MapMaker
         HashSet<Culture> cultureSet = new HashSet<Culture>();
         HashSet<Nation> nationSet = new HashSet<Nation>();
         Bitmap mapImage;
+        Vic3ListStorageUnit lsu = new Vic3ListStorageUnit();
 
         string gameDirectory;
         string modDirectory; //Not used yet
@@ -48,6 +51,8 @@ namespace Vic3MapMaker
             ParseLocal();
             ParseWelthLiteracy();
             ParseTradeRoutes();
+            ParseBuildings();
+            ParseStateBuildings();
 
             sw.Stop();
             Console.WriteLine("Time elapsed: {0}", sw.Elapsed);
@@ -1329,10 +1334,196 @@ namespace Vic3MapMaker
 
         }
 
-        //get data returns regionSet, provSet, terrainSet, and mergedImage
-        public (HashSet<Region>, HashSet<Province>, HashSet<Terrain>, HashSet<Culture>, HashSet<Nation>, Bitmap) GetData() {
+        //parse buildings
+        private void ParseBuildings() {
+            DateTime startTime = DateTime.Now;
 
-            return (regionSet, provSet, terrainSet, cultureSet, nationSet, mapImage);
+            //get all files in game folder +\common\buildings\ .txt
+            string[] buildingFiles = Directory.GetFiles(gameDirectory + @"\common\buildings\", "*.txt", SearchOption.AllDirectories);
+
+            //for each building file
+            foreach(string file in buildingFiles) {
+                string[] lines = File.ReadAllLines(file);
+
+
+                int indentation = 0;
+                Building currentBuilding = null;
+                bool foundProductionMethods = false;
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    if (indentation == 0) {
+                        if (line.Contains("=")) {
+                            currentBuilding = new Building(line.Split('=')[0].Trim());
+                            //if building with same name already exists then replace it
+                            if (lsu.buildings.Any(building => building.name == currentBuilding.name)) {
+                                lsu.buildings.Remove(lsu.buildings.First(building => building.name == currentBuilding.name));
+                            }
+                            lsu.buildings.Add(currentBuilding);
+                        }
+                    }
+                    
+                    if(indentation == 1) {
+                        if(line.StartsWith("building_group"))
+                            currentBuilding.buildingGroup = line.Split('=')[1].Trim();
+                        else if (line.StartsWith("city_type")) {
+                            //set cityType enum value based on string value after =
+                            currentBuilding.cityType = (CityTypes)Enum.Parse(typeof(CityTypes), line.Split('=')[1].Trim());
+                        }
+                        else if (line.StartsWith("production_method_groups")) {
+                            foundProductionMethods = true;
+                        }
+                    }
+
+                    if (foundProductionMethods) {
+                        if (line.StartsWith("pmg")){
+                            currentBuilding.productionMethodGroups.Add(line);
+                        }
+                    }
+                    
+                    if (line.Contains("{") || line.Contains("}")) {
+                        string[] l2 = line.Split();
+                        foreach (string word in l2) {
+                            if (word.Contains("{")) {
+                                indentation++;
+                            }
+                            else if (word.Contains("}")) {
+                                indentation--;
+                                if (indentation == 0) {
+                                    //print building
+                                    //Console.WriteLine("\t"+currentBuilding.ToString());
+                                    currentBuilding = null;
+                                }
+                                else if (indentation == 1) {
+                                    foundProductionMethods = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Parsed buildings in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
+        }
+
+        //parse state buildings
+        private void ParseStateBuildings() {
+            DateTime dateTime = DateTime.Now;
+
+            //get all files in game folder +\common\history\buildings\ .txt
+            string[] stateBuildingFiles = Directory.GetFiles(gameDirectory + @"\common\history\buildings\", "*.txt", SearchOption.AllDirectories);
+
+            //for each state building file
+            foreach(string file in stateBuildingFiles) {
+                string[] lines = File.ReadAllLines(file);
+
+                int indentation = 0;
+                State currentState = null;
+                Nation currentNation = null;
+                StateBuilding currentBuilding = null;
+                SubState currentSubState = null;
+                bool activeProductionMethodsFound = false;
+
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    if (indentation == 1) {
+                        if (line.StartsWith("s:")) {
+                            string stateName = line.Split('=')[0].Split(':')[1].Trim();
+                            //check if stateID is a state in stateSet
+                            currentState = stateSet.FirstOrDefault(state => state.name == stateName);
+                        }
+                    }
+
+                    else if (indentation == 2) {
+                        if (line.StartsWith("region_state:")) {
+                            string nationTag = line.Split(':')[1].Split('=')[0].Trim();
+                            //check if nationTag is a tag in nationSet
+                            currentNation = nationSet.FirstOrDefault(nation => nation.tag == nationTag);
+
+                            //find the substate in currentNation.subStates where substate.parentState == currentState
+                            currentSubState = currentNation.subStates.FirstOrDefault(substate => substate.parentState == currentState);
+                        }
+                    }
+
+                    else if (indentation == 3) {
+                        if (line.StartsWith("create_building")) {
+                            currentBuilding = new StateBuilding();
+                            //if currentSubState is not null then add to currentNation.stateBuildings
+                            if (currentSubState != null) {
+                                currentSubState.buildings.Add(currentBuilding);
+                            }
+                        }
+                    }
+
+                    else if(indentation == 4) {
+                        if (line.StartsWith("building")) {
+                            string buildingName = line.Split('=')[1].Replace("\"","").Trim();
+                            //check if buildingName is a building in lsu.buildings
+                            currentBuilding.building = lsu.buildings.FirstOrDefault(building => building.name == buildingName);
+                        }
+                        else if (line.StartsWith("level")) {
+                            currentBuilding.level = int.Parse(line.Split('=')[1].Trim());
+                        }
+                        else if (line.StartsWith("reserves")){
+                            currentBuilding.reserves = int.Parse(line.Split('=')[1].Trim());
+                        }
+                        else if (line.StartsWith("activate_production_methods")) {
+                            activeProductionMethodsFound = true;
+                        }
+                    }
+
+                    if (activeProductionMethodsFound) {
+                        string[] words = line.Split();
+                        foreach (string word in words) {
+                            if (word.Contains("\"")) {
+                                currentBuilding.activeProductionMethods.Add(word.Replace("\"", ""));
+                            }
+                        }
+                    }
+
+                    if (line.Contains("{") || line.Contains("}")) {
+                        string[] l2 = line.Split();
+                        foreach (string word in l2) {
+                            if (word.Contains("{")) {
+                                indentation++;
+                            }
+                            else if (word.Contains("}")) {
+                                indentation--;
+                                if (indentation == 1) {
+                                    currentState = null;
+                                }
+                                else if (indentation == 2) {
+                                    currentNation = null;
+                                }
+                                else if (indentation == 3) {
+                                    currentBuilding = null;
+                                }
+                                else if (indentation == 4) {
+                                    activeProductionMethodsFound = false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            Console.WriteLine("Parsed state buildings in " + (DateTime.Now - dateTime).TotalSeconds + " seconds");
+        }
+
+        //get data returns regionSet, provSet, terrainSet, and mergedImage
+        public (HashSet<Region>, HashSet<Province>, HashSet<Terrain>, HashSet<Culture>, HashSet<Nation>, Vic3ListStorageUnit, Bitmap) GetData() {
+
+            return (regionSet, provSet, terrainSet, cultureSet, nationSet, lsu, mapImage);
         }
     }
 }

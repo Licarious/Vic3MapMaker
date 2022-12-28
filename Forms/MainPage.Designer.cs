@@ -141,6 +141,7 @@ namespace Vic3MapMaker
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.sideControleTableLayoutPanel.Size = new System.Drawing.Size(387, 1006);
             this.sideControleTableLayoutPanel.TabIndex = 101;
             // 
@@ -294,6 +295,8 @@ namespace Vic3MapMaker
             // 
             // itemComboBox
             // 
+            this.itemComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.itemComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.itemComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemComboBox.FormattingEnabled = true;
