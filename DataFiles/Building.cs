@@ -12,7 +12,7 @@ namespace Vic3MapMaker.DataFiles
         public string buildingGroup = "";
         public enum CityTypes { none, city, port, farm, mine, wood };
         public CityTypes cityType = CityTypes.none;
-        public List<string> productionMethodGroups = new List<string>();
+        public List<ProductionMethondGroups> productionMethodGroups = new List<ProductionMethondGroups>();
 
         public Building() { }
 
@@ -22,7 +22,7 @@ namespace Vic3MapMaker.DataFiles
 
         //toStirng
         public override string ToString() {
-            return name + " " + buildingGroup + " " + cityType + " " + string.Join(", ", productionMethodGroups);
+            return name;
         }
     }
 }

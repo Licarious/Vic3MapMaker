@@ -329,6 +329,10 @@ namespace Vic3MapMaker
             if (!File.Exists(outputDirectory + "\\common\\history\\pops\\")) {
                 Directory.CreateDirectory(outputDirectory + "\\common\\history\\pops\\");
             }
+            //write history\buildings
+            if (!File.Exists(outputDirectory + "\\common\\history\\buildings\\")) {
+                Directory.CreateDirectory(outputDirectory + "\\common\\history\\buildings\\");
+            }
 
             //create a hashset of all substates
             HashSet<SubState> subStates = new HashSet<SubState>();
@@ -435,7 +439,43 @@ namespace Vic3MapMaker
                     sw.WriteLine("}");
                     sw.Close();
                 }
+
+                string path2 = outputDirectory + "\\common\\history\\buildings\\" + superRegion.Key + ".txt";
+                using(StreamWriter sw = File.CreateText(path2)) {
+                    sw.WriteLine("buildings={");
+                    foreach (KeyValuePair<Region, Dictionary<State, List<SubState>>> Region in superRegion.Value) {
+                        sw.WriteLine("\t#" + Region.Key.name);
+                        foreach (KeyValuePair<State, List<SubState>> State in Region.Value) {
+                            sw.WriteLine("\ts:" + State.Key.name + "={");
+                            foreach (SubState substate in State.Value) {
+                                if (substate.buildings.Count == 0) continue;
+
+                                sw.WriteLine("\t\tregion_state:" + substate.owner.tag + "={");
+                                if (substate.buildings.Count == 0) {
+                                    sw.WriteLine("\t\t\t#SubState Found Without Buildings. Add Some!");
+                                    Console.WriteLine("\t\tmissing buildings for" + substate.owner + ": " + substate.parentState);
+                                }
+                                foreach (StateBuilding building in substate.buildings) {
+                                    sw.WriteLine("\t\t\tcreate_building={");
+                                    sw.WriteLine("\t\t\t\tbuilding=\"" + building.building.name + "\"");
+                                    sw.WriteLine("\t\t\t\tlevel=" + building.level);
+                                    sw.WriteLine("\t\t\t\treserves=" + building.reserves);
+                                    //activeProductionMethods join on "\" \"" and wrap in quotes
+                                    sw.WriteLine("\t\t\t\tactive_production_methods={ \"" + string.Join("\" \"", building.activeProductionMethods) + "\" }");
+                                    sw.WriteLine("\t\t\t}");
+                                }
+                                sw.WriteLine("\t\t}");
+
+                            }
+                            sw.WriteLine("\t}");
+                        }
+                    }
+                    sw.WriteLine("}");
+                    sw.Close();
+                }
             }
+
+            
 
 
         }
@@ -549,5 +589,8 @@ namespace Vic3MapMaker
             }
 
         }
+
+        
+        
     }
 }

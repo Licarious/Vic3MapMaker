@@ -84,7 +84,8 @@ namespace Vic3MapMaker.Forms
             //center headders
             buildingDataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-
+            //select whole row
+            buildingDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
 
             //add 4 colums to the popDataGridView
@@ -255,11 +256,14 @@ namespace Vic3MapMaker.Forms
                 SubState subState = (SubState)subStateComboBox.SelectedItem;
                 //for each sb in subState.buildings add a row to buildingDataGridView
                 foreach (StateBuilding sb in subState.buildings) {
-                    buildingDataGridView.Rows.Add(sb, sb.building.name, sb.level, sb.reserves, string.Join(Environment.NewLine, sb.activeProductionMethods));
+                    //for each string in sb.activeProductionMethods run ReadableName with it as name and "pm_" as prefix and join the results with a \n
+                    buildingDataGridView.Rows.Add(sb, ReadableName(sb.building.name,"building_"), sb.level, sb.reserves, string.Join("\n", sb.activeProductionMethods.Select(x => ReadableName(x, "pm_"))));
                 }
             }
-            
-            
+        }
+
+        private string ReadableName(string name, string prefix) {
+            return name.Replace(prefix, "").Replace("_", " ");
         }
 
         private void SubStateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -589,14 +593,60 @@ namespace Vic3MapMaker.Forms
             }
         }
 
-        private void newBuildingButton_Click(object sender, EventArgs e) {
-            //go through all substates and print the buildings
-            foreach (SubState substate in nation.subStates) {
-                Console.WriteLine(substate.parentState);
-                foreach (StateBuilding building in substate.buildings) {
-                    Console.WriteLine("\t"+building);
-                }
+        private void NewBuildingButton_Click(object sender, EventArgs e) {
+            //find the selected substate from the substateComboBox
+            SubState substate = (SubState)subStateComboBox.SelectedItem;
+            //if substate is null then return
+            if (substate == null) return;
+
+            StateBuilding stateBuilding = new StateBuilding();
+            //open a EditStateBuilding
+            EditStateBuilding stateBuildingForm = new EditStateBuilding(stateBuilding, lsu, mapOp);
+
+            //wait to close the form until the dialogResult is OK
+            stateBuildingForm.ShowDialog();
+
+            //if the dialogResult is OK then add the stateBuilding to the nation.stateBuildings and update the stateBuildingDataGridView
+            if (stateBuildingForm.DialogResult == DialogResult.OK) {
+                mapOp.AddStateBuilding(substate, stateBuilding);
+                //clear the stateBuildingDataGridView
+                RefreshBuildingGrid();
             }
+        }
+
+        private void EditBuildngButton_Click(object sender, EventArgs e) {
+            //find the selected stateBuildng from the BuildingDataGridView
+            StateBuilding building = (StateBuilding)buildingDataGridView.SelectedCells[0].Value;
+
+            //if building is null then return
+            if (building == null) return;
+
+            //open a EditStateBuilding
+            EditStateBuilding stateBuildingForm = new EditStateBuilding(building, lsu, mapOp);
+            //wait to close the form until the dialogResult is OK
+            stateBuildingForm.ShowDialog();
+
+            //if the dialogResult is OK then update the buildingDataGridView
+            if (stateBuildingForm.DialogResult == DialogResult.OK) {
+                RefreshBuildingGrid();
+            }
+
+
+        }
+
+        private void deleteBuildingButton_Click(object sender, EventArgs e) {
+            //find the selected stateBuildng from the BuildingDataGridView
+            StateBuilding building = (StateBuilding)buildingDataGridView.SelectedCells[0].Value;
+            if (building == null) return;
+
+            //find the selected substate from the substateComboBox
+            SubState substate = (SubState)subStateComboBox.SelectedItem;
+            if (substate == null) return;
+
+            //remove the building from the substate.stateBuildings
+            mapOp.RemoveStateBuilding(substate, building);
+
+            RefreshBuildingGrid();
         }
     }
 }

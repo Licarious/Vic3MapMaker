@@ -8,8 +8,7 @@ namespace Vic3MapMaker
 {
 
 
-    public class MapOperation
-    {
+    public class MapOperation {
         public Stack<Action> UndoStack { get; } = new Stack<Action>();
         public int StackSize { get; set; } = 0;
         Random rand = new Random();
@@ -361,7 +360,7 @@ namespace Vic3MapMaker
             state.type = type;
         }
         //update nation
-        public void UpdateNation(Nation nation, string tag, string name, string adj, Color color, string tier, string type, string wealth, string literacy,  State capital, bool isNamedFromCapital,  bool undoAble = true) {
+        public void UpdateNation(Nation nation, string tag, string name, string adj, Color color, string tier, string type, string wealth, string literacy, State capital, bool isNamedFromCapital, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
                 UndoStack.Push(() => UpdateNation(nation, nation.tag, nation.name, nation.adj, nation.color, nation.tier, nation.type, nation.wealth, nation.literacy, nation.capital, nation.isNamedFromCapital, false));
@@ -440,18 +439,247 @@ namespace Vic3MapMaker
 
         }
 
+        //merge SubStates
+        public void MergeSubStates(Nation maninNation, SubState mainSubState, Nation subNation, SubState subState, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => SplitSubStates(maninNation, mainSubState, subNation, subState, false));
+            }
+            //remove substate from subnation
+            subNation.subStates.Remove(subState);
+            //go through all pops in subState and check if there is a pop in mainSubState with the same culture, religion and type
+            foreach (Pop pop in subState.pops) {
+                bool found = false;
+                foreach (Pop mainPop in mainSubState.pops) {
+                    if (mainPop.culture == pop.culture && mainPop.religion == pop.religion && mainPop.type == pop.type) {
+                        //if there is a pop with the same culture, religion and type, add the size of the pop to the mainPop
+                        mainPop.size += pop.size;
+                        found = true;
+                        break;
+                    }
+                }
+                //if there is no pop with the same culture, religion and type, add the pop to the mainSubState
+                if (!found) {
+                    mainSubState.pops.Add(pop);
+                }
+            }
+            //go throu all StateBuilding in subState and check if there is a building in mainSubState with the same building type
+            foreach (StateBuilding building in subState.buildings) {
+                bool found = false;
+                foreach (StateBuilding mainBuilding in mainSubState.buildings) {
+                    if (mainBuilding.building == building.building) {
+                        //if there is a building with the same type, add the level of the building to the mainBuilding
+                        mainBuilding.level += building.level;
+                        found = true;
+                        break;
+                    }
+                }
+                //if there is no building with the same type, add the building to the mainSubState
+                if (!found) {
+                    mainSubState.buildings.Add(building);
+                }
+            }
+
+
+
+        }
+
+        //split SubStates (reverses mergeSubStates)
+        private void SplitSubStates(Nation maninNation, SubState mainSubState, Nation subNation, SubState subState, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => MergeSubStates(maninNation, mainSubState, subNation, subState, false));
+            }
+            //add substate to subnation
+            subNation.subStates.Add(subState);
+            //go through all pops in mainSubState and check if there is a pop in subState with the same culture, religion and type and reduce the size of the pop in mainSubState by the size of the pop in subState
+            foreach (Pop pop in mainSubState.pops) {
+                foreach (Pop subPop in subState.pops) {
+                    if (subPop.culture == pop.culture && subPop.religion == pop.religion && subPop.type == pop.type) {
+                        pop.size -= subPop.size;
+                        //if the size of the pop in mainSubState is 0, remove the pop from mainSubState
+                        if (pop.size == 0) {
+                            mainSubState.pops.Remove(pop);
+                        }
+                        break;
+                    }
+                }
+            }
+            //go throu all StateBuilding in mainSubState and check if there is a building in subState with the same building type and reduce the level of the building in mainSubState by the level of the building in subState
+            foreach (StateBuilding building in mainSubState.buildings) {
+                foreach (StateBuilding subBuilding in subState.buildings) {
+                    if (subBuilding.building == building.building) {
+                        building.level -= subBuilding.level;
+                        //if the level of the building in mainSubState is 0, remove the building from mainSubState
+                        if (building.level == 0) {
+                            mainSubState.buildings.Remove(building);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        //merge SubStates multi
+        public void MergeSubStates(Nation mainNation, List<SubState> mainSubStates, Nation subNation, List<SubState> subStates, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                //UndoStack.Push(() => SplitSubStates(mainNation, mainSubStates, subNation, subStates, false));
+            }
+            //remove substates from subnation
+            foreach (SubState subState in subStates) {
+                subNation.subStates.Remove(subState);
+            }
+            //go through all substats and match them with the mainSubStates on the same parrentState
+            for (int i = 0; i < subStates.Count; i++) {
+                SubState subState = subStates[i];
+                SubState mainSubState = mainSubStates[i];
+                //go through all pops in subState and check if there is a pop in mainSubState with the same culture, religion and type
+                foreach (Pop pop in subState.pops) {
+                    bool found = false;
+                    foreach (Pop mainPop in mainSubState.pops) {
+                        if (mainPop.culture == pop.culture && mainPop.religion == pop.religion && mainPop.type == pop.type) {
+                            //if there is a pop with the same culture, religion and type, add the size of the pop to the mainPop
+                            mainPop.size += pop.size;
+                            found = true;
+                            break;
+                        }
+                    }
+                    //if there is no pop with the same culture, religion and type, add the pop to the mainSubState
+                    if (!found) {
+                        mainSubState.pops.Add(pop);
+                    }
+                }
+                //go throu all StateBuilding in subState and check if there is a building in mainSubState with the same building type
+                foreach (StateBuilding building in subState.buildings) {
+                    bool found = false;
+                    foreach (StateBuilding mainBuilding in mainSubState.buildings) {
+                        if (mainBuilding.building == building.building) {
+                            //if there is a building with the same type, add the level of the building to the mainBuilding
+                            mainBuilding.level += building.level;
+                            found = true;
+                            break;
+                        }
+                    }
+                    //if there is no building with the same type, add the building to the mainSubState
+                    if (!found) {
+                        mainSubState.buildings.Add(building);
+                    }
+                }
+            }
+
+        }
+        //split SubStates multi (reverses mergeSubStates multi)
+        private void SplitSubStates(Nation mainNation, List<SubState> mainSubStates, Nation subNation, List<SubState> subStates, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => MergeSubStates(mainNation, mainSubStates, subNation, subStates, false));
+            }
+            //add substates to subnation
+            foreach (SubState subState in subStates) {
+                subNation.subStates.Add(subState);
+            }
+            //go through all substats and match them with the mainSubStates on the same parrentState
+            for (int i = 0; i < subStates.Count; i++) {
+                SubState subState = subStates[i];
+                SubState mainSubState = mainSubStates[i];
+                //go through all pops in mainSubState and check if there is a pop in subState with the same culture, religion and type and reduce the size of the pop in mainSubState by the size of the pop in subState
+                foreach (Pop pop in mainSubState.pops) {
+                    foreach (Pop subPop in subState.pops) {
+                        if (subPop.culture == pop.culture && subPop.religion == pop.religion && subPop.type == pop.type) {
+                            pop.size -= subPop.size;
+                            //if the size of the pop in mainSubState is 0, remove the pop from mainSubState
+                            if (pop.size == 0) {
+                                mainSubState.pops.Remove(pop);
+                            }
+                            break;
+                        }
+                    }
+                }
+                //go throu all StateBuilding in mainSubState and check if there is a building in subState with the same building type and reduce the level of the building in mainSubState by the level of the building in subState
+                foreach (StateBuilding building in mainSubState.buildings) {
+                    foreach (StateBuilding subBuilding in subState.buildings) {
+                        if (subBuilding.building == building.building) {
+                            building.level -= subBuilding.level;
+                            //if the level of the building in mainSubState is 0, remove the building from mainSubState
+                            if (building.level == 0) {
+                                mainSubState.buildings.Remove(building);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //update production Method for StateBuilding
+        public void UpdateProducitonMethond(StateBuilding stateBuilding, string newMethond, string oldMethond, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => UpdateProducitonMethond(stateBuilding, oldMethond, newMethond, false));
+            }
+            //find and replace oldMethond in stateBuilding.activeProductionMethods with newMethond
+            for (int i = 0; i < stateBuilding.activeProductionMethods.Count; i++) {
+                if (stateBuilding.activeProductionMethods[i] == oldMethond) {
+                    stateBuilding.activeProductionMethods[i] = newMethond;
+                    break;
+                }
+            }
+
+        }
+
+        //update StateBuilding
+        public void UpdateStateBuilding(StateBuilding newStateBuilding, StateBuilding oldStateBuilding, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => UpdateStateBuilding(oldStateBuilding, newStateBuilding, false));
+            }
+            //replace oldStateBuilding with newStateBuilding
+            oldStateBuilding.building = newStateBuilding.building;
+            oldStateBuilding.level = newStateBuilding.level;
+            oldStateBuilding.reserves = newStateBuilding.reserves;
+            oldStateBuilding.activeProductionMethods = newStateBuilding.activeProductionMethods;
+        }
+
+        //add StateBuilding
+        public void AddStateBuilding(SubState subState, StateBuilding stateBuilding, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => RemoveStateBuilding(subState, stateBuilding, false));
+            }
+            //add stateBuilding to subState
+            subState.buildings.Add(stateBuilding);
+        }
+
+        //remove StateBuilding
+        public void RemoveStateBuilding(SubState subState, StateBuilding stateBuilding, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => AddStateBuilding(subState, stateBuilding, false));
+            }
+            //remove stateBuilding from subState
+            subState.buildings.Remove(stateBuilding);
+        }
 
         //undo last action
         public string Undo() {
             if (UndoStack.Count > 0) {
                 Action action = UndoStack.Pop();
-                string actionName = action.Method.Name;
+                string actionName = action.Method.Name.Split('>')[0].Replace("<", "");
                 action();
                 StackSize -= 1;
                 Console.WriteLine("Undo: " + actionName);
                 return actionName;
             }
             return "None";
+        }
+        //undo last n actions
+        public string Undo(int amount) {
+            string actionName = "None";
+            for (int i = 0; i < amount; i++) {
+                actionName = Undo();
+            }
+            return actionName;
         }
     }
 }

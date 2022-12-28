@@ -1338,6 +1338,71 @@ namespace Vic3MapMaker
         private void ParseBuildings() {
             DateTime startTime = DateTime.Now;
 
+            //get all files in game folder +\common\production_method_groups\ .txt
+            string[] pmgFiles = Directory.GetFiles(gameDirectory + @"\common\production_method_groups\", "*.txt", SearchOption.AllDirectories);
+            
+            HashSet<ProductionMethondGroups> pmgSet = new HashSet<ProductionMethondGroups>();
+
+            //for each production method group file
+            foreach (string file in pmgFiles) {
+                //open file
+                string[] lines = File.ReadAllLines(file);
+
+                int indentaiton = 0;
+                ProductionMethondGroups currentPMG = null;
+                bool foundMethods = false;
+                //for each line in the file
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    //if line is empty then continue
+                    if (line == "") continue;
+
+                    if (indentaiton == 0) {
+                        if (line.Contains("=")) {
+                            currentPMG = new ProductionMethondGroups(line.Split('=')[0].Trim());
+                            pmgSet.Add(currentPMG);
+                        }
+                    }
+
+                    if(indentaiton == 1) {
+                        if (line.StartsWith("production_methods")) {
+                            foundMethods = true;
+                        }
+                    }
+
+                    if (foundMethods) {
+                        string[] l2 = line.Split();
+                        foreach (string word in l2) {
+                            if (word.StartsWith("pm_")) {
+                                currentPMG.productionMethods.Add(word.Trim());
+                            }
+                        }
+                    }
+
+
+                    if (line.Contains("{") || line.Contains("}")) {
+                        string[] l2 = line.Split();
+                        foreach (string word in l2) {
+                            if (word.Contains("{")) {
+                                indentaiton++;
+                            }
+                            else if (word.Contains("}")) {
+                                indentaiton--;
+                                if (indentaiton == 0) {
+                                    currentPMG = null;
+                                }
+                                else if (indentaiton == 1) {
+                                    foundMethods = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
             //get all files in game folder +\common\buildings\ .txt
             string[] buildingFiles = Directory.GetFiles(gameDirectory + @"\common\buildings\", "*.txt", SearchOption.AllDirectories);
 
@@ -1381,7 +1446,9 @@ namespace Vic3MapMaker
 
                     if (foundProductionMethods) {
                         if (line.StartsWith("pmg")){
-                            currentBuilding.productionMethodGroups.Add(line);
+                            string pmgName = line.Trim();
+                            //find production method group in pmgSet
+                            currentBuilding.productionMethodGroups.Add(pmgSet.FirstOrDefault(p => p.group == pmgName));
                         }
                     }
                     

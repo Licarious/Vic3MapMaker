@@ -80,6 +80,8 @@ namespace Vic3MapMaker
             this.clearUpdateHubButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.undoTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControls_Image)).BeginInit();
             this.splitContainerControls_Image.Panel1.SuspendLayout();
             this.splitContainerControls_Image.Panel2.SuspendLayout();
@@ -93,6 +95,7 @@ namespace Vic3MapMaker
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerControls_Image
@@ -121,13 +124,13 @@ namespace Vic3MapMaker
             this.sideControleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.sideControleTableLayoutPanel.Controls.Add(this.categoryComboBox, 0, 0);
             this.sideControleTableLayoutPanel.Controls.Add(this.regionPannel, 0, 5);
-            this.sideControleTableLayoutPanel.Controls.Add(this.undoButton, 0, 7);
             this.sideControleTableLayoutPanel.Controls.Add(this.nationalPanel, 0, 6);
             this.sideControleTableLayoutPanel.Controls.Add(this.itemComboBox, 0, 2);
             this.sideControleTableLayoutPanel.Controls.Add(this.textBoxCurrentlySelectedMapArea, 0, 1);
             this.sideControleTableLayoutPanel.Controls.Add(this.buttonSave, 0, 8);
             this.sideControleTableLayoutPanel.Controls.Add(this.panel1, 0, 3);
             this.sideControleTableLayoutPanel.Controls.Add(this.statePanel, 0, 4);
+            this.sideControleTableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 7);
             this.sideControleTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.sideControleTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.sideControleTableLayoutPanel.Name = "sideControleTableLayoutPanel";
@@ -225,7 +228,7 @@ namespace Vic3MapMaker
             // 
             // undoButton
             // 
-            this.undoButton.Location = new System.Drawing.Point(3, 908);
+            this.undoButton.Location = new System.Drawing.Point(3, 3);
             this.undoButton.Name = "undoButton";
             this.undoButton.Size = new System.Drawing.Size(87, 44);
             this.undoButton.TabIndex = 20;
@@ -656,6 +659,26 @@ namespace Vic3MapMaker
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.undoButton);
+            this.flowLayoutPanel2.Controls.Add(this.undoTextBox);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 908);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(381, 44);
+            this.flowLayoutPanel2.TabIndex = 101;
+            // 
+            // undoTextBox
+            // 
+            this.undoTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.undoTextBox.Enabled = false;
+            this.undoTextBox.Location = new System.Drawing.Point(96, 3);
+            this.undoTextBox.Name = "undoTextBox";
+            this.undoTextBox.ReadOnly = true;
+            this.undoTextBox.Size = new System.Drawing.Size(279, 26);
+            this.undoTextBox.TabIndex = 21;
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -685,6 +708,8 @@ namespace Vic3MapMaker
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -737,6 +762,8 @@ namespace Vic3MapMaker
         private TableLayoutPanel statePanel;
         private TableLayoutPanel tableLayoutPanel2;
         private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private TextBox undoTextBox;
     }
 }
 

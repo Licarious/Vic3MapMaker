@@ -490,6 +490,7 @@
             this.deleteBuildingButton.TabIndex = 39;
             this.deleteBuildingButton.Text = "Delete Building";
             this.deleteBuildingButton.UseVisualStyleBackColor = true;
+            this.deleteBuildingButton.Click += new System.EventHandler(this.deleteBuildingButton_Click);
             // 
             // editBuildngButton
             // 
@@ -500,6 +501,7 @@
             this.editBuildngButton.TabIndex = 38;
             this.editBuildngButton.Text = "Edit Building";
             this.editBuildngButton.UseVisualStyleBackColor = true;
+            this.editBuildngButton.Click += new System.EventHandler(this.EditBuildngButton_Click);
             // 
             // newBuildingButton
             // 
@@ -510,7 +512,7 @@
             this.newBuildingButton.TabIndex = 37;
             this.newBuildingButton.Text = "New Building";
             this.newBuildingButton.UseVisualStyleBackColor = true;
-            this.newBuildingButton.Click += new System.EventHandler(this.newBuildingButton_Click);
+            this.newBuildingButton.Click += new System.EventHandler(this.NewBuildingButton_Click);
             // 
             // EditCountry
             // 

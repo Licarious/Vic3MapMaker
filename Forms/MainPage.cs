@@ -843,7 +843,7 @@ namespace Vic3MapMaker
         }
 
         private void UndoButton_Click(object sender, EventArgs e) {
-            mapOp.Undo();
+            undoTextBox.Text = mapOp.Undo();
             switch (categoryComboBox.SelectedItem) {
                 //if s is selected from the dropdown box
                 case "State":
