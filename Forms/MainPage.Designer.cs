@@ -43,7 +43,6 @@ namespace Vic3MapMaker
             this.ChangeCapitalRadioButton = new System.Windows.Forms.RadioButton();
             this.regionCapitalTextBox = new System.Windows.Forms.TextBox();
             this.createNewRegionButton = new System.Windows.Forms.Button();
-            this.undoButton = new System.Windows.Forms.Button();
             this.nationalPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.transferProvinceNationalRadioButton = new System.Windows.Forms.RadioButton();
             this.transferStateNationalRadioButton = new System.Windows.Forms.RadioButton();
@@ -78,10 +77,11 @@ namespace Vic3MapMaker
             this.cityHubNameTextBox = new System.Windows.Forms.TextBox();
             this.hubFarmTextBox = new System.Windows.Forms.TextBox();
             this.clearUpdateHubButton = new System.Windows.Forms.Button();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.undoButton = new System.Windows.Forms.Button();
+            this.undoTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.undoTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControls_Image)).BeginInit();
             this.splitContainerControls_Image.Panel1.SuspendLayout();
             this.splitContainerControls_Image.Panel2.SuspendLayout();
@@ -93,9 +93,9 @@ namespace Vic3MapMaker
             this.statePanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerControls_Image
@@ -225,16 +225,6 @@ namespace Vic3MapMaker
             this.createNewRegionButton.Text = "Creat New Region";
             this.createNewRegionButton.UseVisualStyleBackColor = true;
             this.createNewRegionButton.Click += new System.EventHandler(this.CreateNewRegionButton_Click);
-            // 
-            // undoButton
-            // 
-            this.undoButton.Location = new System.Drawing.Point(3, 3);
-            this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(87, 44);
-            this.undoButton.TabIndex = 20;
-            this.undoButton.Text = "Undo";
-            this.undoButton.UseVisualStyleBackColor = true;
-            this.undoButton.Click += new System.EventHandler(this.UndoButton_Click);
             // 
             // nationalPanel
             // 
@@ -650,15 +640,6 @@ namespace Vic3MapMaker
             this.clearUpdateHubButton.UseVisualStyleBackColor = true;
             this.clearUpdateHubButton.Click += new System.EventHandler(this.ClearUpdateHubButton_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(2300, 1395);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
-            // 
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.undoButton);
@@ -669,6 +650,16 @@ namespace Vic3MapMaker
             this.flowLayoutPanel2.Size = new System.Drawing.Size(381, 44);
             this.flowLayoutPanel2.TabIndex = 101;
             // 
+            // undoButton
+            // 
+            this.undoButton.Location = new System.Drawing.Point(3, 3);
+            this.undoButton.Name = "undoButton";
+            this.undoButton.Size = new System.Drawing.Size(87, 44);
+            this.undoButton.TabIndex = 20;
+            this.undoButton.Text = "Undo";
+            this.undoButton.UseVisualStyleBackColor = true;
+            this.undoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            // 
             // undoTextBox
             // 
             this.undoTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -678,6 +669,15 @@ namespace Vic3MapMaker
             this.undoTextBox.ReadOnly = true;
             this.undoTextBox.Size = new System.Drawing.Size(279, 26);
             this.undoTextBox.TabIndex = 21;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(2300, 1395);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
             // MainPage
             // 
@@ -706,10 +706,10 @@ namespace Vic3MapMaker
             this.flowLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }

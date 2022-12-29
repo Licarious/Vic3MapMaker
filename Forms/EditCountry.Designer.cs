@@ -490,7 +490,7 @@
             this.deleteBuildingButton.TabIndex = 39;
             this.deleteBuildingButton.Text = "Delete Building";
             this.deleteBuildingButton.UseVisualStyleBackColor = true;
-            this.deleteBuildingButton.Click += new System.EventHandler(this.deleteBuildingButton_Click);
+            this.deleteBuildingButton.Click += new System.EventHandler(this.DeleteBuildingButton_Click);
             // 
             // editBuildngButton
             // 

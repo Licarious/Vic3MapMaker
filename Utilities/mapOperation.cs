@@ -619,12 +619,13 @@ namespace Vic3MapMaker
                 UndoStack.Push(() => UpdateProducitonMethond(stateBuilding, oldMethond, newMethond, false));
             }
             //find and replace oldMethond in stateBuilding.activeProductionMethods with newMethond
-            for (int i = 0; i < stateBuilding.activeProductionMethods.Count; i++) {
-                if (stateBuilding.activeProductionMethods[i] == oldMethond) {
-                    stateBuilding.activeProductionMethods[i] = newMethond;
-                    break;
-                }
+            //if oldMethond is not in stateBuilding.activeProductionMethods, add newMethond to stateBuilding.activeProductionMethods
+            if (stateBuilding.activeProductionMethods.Contains(oldMethond) && oldMethond != "") {
+                stateBuilding.activeProductionMethods.Remove(oldMethond);
             }
+            //if newMethond is null return
+            if (newMethond == "") return;
+            stateBuilding.activeProductionMethods.Add(newMethond);
 
         }
 

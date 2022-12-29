@@ -73,17 +73,24 @@ namespace Vic3MapMaker.Forms
             ProductionMethondGroups currentPMG = (ProductionMethondGroups)pmgComboBox.SelectedItem;
 
             if (currentPMG != null) {
+                // add a "" to the list to represent no production method
+                pmComboBox.Items.Add("");
                 //add all production methods to the list
                 foreach (string pm in currentPMG.productionMethods) {
                     pmComboBox.Items.Add(pm);
                 }
                 //select the first item that is in the active production methods list
-                for (int i = 0; i < pmComboBox.Items.Count; i++) {
+                bool found = false;
+                for (int i = 1; i < pmComboBox.Items.Count; i++) {
                     if (stateBuilding.activeProductionMethods.Contains((string)pmComboBox.Items[i])) {
                         pmComboBox.SelectedIndex = i;
+                        found = true;
                         break;
                     }
                 }
+                //if no item was found, select the first item
+                if (!found)
+                    pmComboBox.SelectedIndex = 0;
             }
         }
 
@@ -96,18 +103,11 @@ namespace Vic3MapMaker.Forms
             ProductionMethondGroups currentPMG = (ProductionMethondGroups)pmgComboBox.SelectedItem;
             //find the current production method
             string currentPM = (string)pmComboBox.SelectedItem;
-
-            //if currentPM is null or "" return
-            if (currentPM == null || currentPM == "")
-                return;
-
+            
+            
             //if stateBuilding has an active production method from the current production method group replace it with the new one
             string oldPM = stateBuilding.activeProductionMethods.Find(x => currentPMG.productionMethods.Contains(x));
-
-            //if oldPM is null or "" return
-            if (oldPM == null || oldPM == "")
-                return;
-
+            
             mapOp.UpdateProducitonMethond(stateBuilding, currentPM, oldPM);
 
         }
@@ -163,6 +163,10 @@ namespace Vic3MapMaker.Forms
 
 
             mapOp.UpdateStateBuilding(stateBuilding, newStateBuilding);
+
+            //set exit code to ok
+            this.DialogResult = DialogResult.OK;
+            this.Close();
 
         }
     }

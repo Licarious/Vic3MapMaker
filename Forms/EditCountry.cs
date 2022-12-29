@@ -257,13 +257,13 @@ namespace Vic3MapMaker.Forms
                 //for each sb in subState.buildings add a row to buildingDataGridView
                 foreach (StateBuilding sb in subState.buildings) {
                     //for each string in sb.activeProductionMethods run ReadableName with it as name and "pm_" as prefix and join the results with a \n
-                    buildingDataGridView.Rows.Add(sb, ReadableName(sb.building.name,"building_"), sb.level, sb.reserves, string.Join("\n", sb.activeProductionMethods.Select(x => ReadableName(x, "pm_"))));
+                    buildingDataGridView.Rows.Add(sb, ReadableName(sb.building.name, "building_"), sb.level, sb.reserves, string.Join("\n", sb.activeProductionMethods.Select(x => ReadableName(x, "pm_", sb.building.name)).ToArray()));
                 }
             }
         }
 
-        private string ReadableName(string name, string prefix) {
-            return name.Replace(prefix, "").Replace("_", " ");
+        private string ReadableName(string name, string prefix, string suffix = " ") {
+            return name.Replace(prefix, "").Replace(suffix, " ").Replace("_", " ").Trim();
         }
 
         private void SubStateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -634,7 +634,7 @@ namespace Vic3MapMaker.Forms
 
         }
 
-        private void deleteBuildingButton_Click(object sender, EventArgs e) {
+        private void DeleteBuildingButton_Click(object sender, EventArgs e) {
             //find the selected stateBuildng from the BuildingDataGridView
             StateBuilding building = (StateBuilding)buildingDataGridView.SelectedCells[0].Value;
             if (building == null) return;
