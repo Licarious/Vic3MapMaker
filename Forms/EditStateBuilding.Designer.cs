@@ -1,4 +1,6 @@
-﻿namespace Vic3MapMaker.Forms
+﻿using System.Windows.Forms;
+
+namespace Vic3MapMaker.Forms
 {
     partial class EditStateBuilding
     {
@@ -31,14 +33,15 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.buildingComboBox = new System.Windows.Forms.ComboBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.pmgComboBox = new System.Windows.Forms.ComboBox();
-            this.pmComboBox = new System.Windows.Forms.ComboBox();
             this.levelNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.reservesNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.pmDataGridView = new System.Windows.Forms.DataGridView();
+            this.pmgDataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.levelNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reservesNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pmDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pmgDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -73,7 +76,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(400, 175);
+            this.saveButton.Location = new System.Drawing.Point(401, 399);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 40);
             this.saveButton.TabIndex = 7;
@@ -83,7 +86,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(319, 175);
+            this.cancelButton.Location = new System.Drawing.Point(320, 399);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 40);
             this.cancelButton.TabIndex = 8;
@@ -98,44 +101,17 @@
             this.buildingComboBox.Name = "buildingComboBox";
             this.buildingComboBox.Size = new System.Drawing.Size(302, 28);
             this.buildingComboBox.TabIndex = 9;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(13, 109);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(154, 26);
-            this.textBox4.TabIndex = 12;
-            this.textBox4.Text = "Production Groups:";
+            this.buildingComboBox.SelectedIndexChanged += new System.EventHandler(this.BuildingComboBox_SelectedIndexChanged);
             // 
             // textBox5
             // 
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(12, 141);
+            this.textBox5.Location = new System.Drawing.Point(13, 109);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(154, 26);
+            this.textBox5.Size = new System.Drawing.Size(463, 26);
             this.textBox5.TabIndex = 13;
             this.textBox5.Text = "Production Method:";
-            // 
-            // pmgComboBox
-            // 
-            this.pmgComboBox.FormattingEnabled = true;
-            this.pmgComboBox.Location = new System.Drawing.Point(173, 107);
-            this.pmgComboBox.Name = "pmgComboBox";
-            this.pmgComboBox.Size = new System.Drawing.Size(302, 28);
-            this.pmgComboBox.TabIndex = 14;
-            this.pmgComboBox.SelectedIndexChanged += new System.EventHandler(this.PmgComboBox_SelectedIndexChanged);
-            // 
-            // pmComboBox
-            // 
-            this.pmComboBox.FormattingEnabled = true;
-            this.pmComboBox.Location = new System.Drawing.Point(173, 141);
-            this.pmComboBox.Name = "pmComboBox";
-            this.pmComboBox.Size = new System.Drawing.Size(302, 28);
-            this.pmComboBox.TabIndex = 15;
-            this.pmComboBox.SelectedIndexChanged += new System.EventHandler(this.PmComboBox_SelectedIndexChanged);
             // 
             // levelNumericUpDown
             // 
@@ -151,17 +127,38 @@
             this.reservesNumericUpDown.Size = new System.Drawing.Size(302, 26);
             this.reservesNumericUpDown.TabIndex = 17;
             // 
+            // pmDataGridView
+            // 
+            this.pmDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.pmDataGridView.Location = new System.Drawing.Point(245, 141);
+            this.pmDataGridView.Name = "pmDataGridView";
+            this.pmDataGridView.RowHeadersWidth = 62;
+            this.pmDataGridView.RowTemplate.Height = 28;
+            this.pmDataGridView.Size = new System.Drawing.Size(231, 252);
+            this.pmDataGridView.TabIndex = 18;
+            this.pmDataGridView.CellEnter += new DataGridViewCellEventHandler(pmDataGridView_CellEnter); 
+            // 
+            // pmgDataGridView
+            // 
+            this.pmgDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.pmgDataGridView.Location = new System.Drawing.Point(13, 141);
+            this.pmgDataGridView.Name = "pmgDataGridView";
+            this.pmgDataGridView.RowHeadersWidth = 62;
+            this.pmgDataGridView.RowTemplate.Height = 28;
+            this.pmgDataGridView.Size = new System.Drawing.Size(231, 252);
+            this.pmgDataGridView.TabIndex = 19;
+            this.pmgDataGridView.SelectionChanged += new System.EventHandler(this.PmgDataGridView_SelectionChanged);
+            // 
             // EditStateBuilding
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 228);
+            this.ClientSize = new System.Drawing.Size(487, 449);
+            this.Controls.Add(this.pmgDataGridView);
+            this.Controls.Add(this.pmDataGridView);
             this.Controls.Add(this.reservesNumericUpDown);
             this.Controls.Add(this.levelNumericUpDown);
-            this.Controls.Add(this.pmComboBox);
-            this.Controls.Add(this.pmgComboBox);
             this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.buildingComboBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
@@ -172,9 +169,15 @@
             this.Text = "EditStateBuilding";
             ((System.ComponentModel.ISupportInitialize)(this.levelNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reservesNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pmDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pmgDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void PmDataGridView_CellClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e) {
+            throw new System.NotImplementedException();
         }
 
         #endregion
@@ -184,12 +187,11 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.ComboBox pmgComboBox;
-        private System.Windows.Forms.ComboBox pmComboBox;
         private System.Windows.Forms.ComboBox buildingComboBox;
         private System.Windows.Forms.NumericUpDown levelNumericUpDown;
         private System.Windows.Forms.NumericUpDown reservesNumericUpDown;
+        private System.Windows.Forms.DataGridView pmDataGridView;
+        private System.Windows.Forms.DataGridView pmgDataGridView;
     }
 }

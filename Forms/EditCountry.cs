@@ -55,13 +55,6 @@ namespace Vic3MapMaker.Forms
 
             //disable editing of the buildingDataGridView
             buildingDataGridView.ReadOnly = true;
-            /*
-            //set the buildingDataGridView colmn widths to auto with a minimum size to fit the borders
-            for (int i = 0; i < buildingDataGridView.Columns.Count; i++) {
-                buildingDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                buildingDataGridView.Columns[i].MinimumWidth = 65;
-            }
-            */
             //center the text in the buildingDataGridView
             buildingDataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
@@ -212,13 +205,6 @@ namespace Vic3MapMaker.Forms
 
             //disable editing of the tradeRouteDataGridView
             tradeRouteDataGridView.ReadOnly = true;
-            /*
-            //set the tradeRouteDataGridView colmn widths to auto with a minimum size to fit the borders
-            for (int i = 0; i < tradeRouteDataGridView.Columns.Count; i++) {
-                tradeRouteDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                tradeRouteDataGridView.Columns[i].MinimumWidth = 65;
-            }
-            */
             //center the text in the tradeRouteDataGridView
             tradeRouteDataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 

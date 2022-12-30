@@ -630,16 +630,14 @@ namespace Vic3MapMaker
         }
 
         //update StateBuilding
-        public void UpdateStateBuilding(StateBuilding newStateBuilding, StateBuilding oldStateBuilding, bool undoAble = true) {
+        public void UpdateStateBuilding(StateBuilding StateBuilding, Building building, int level, int reserves, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
-                UndoStack.Push(() => UpdateStateBuilding(oldStateBuilding, newStateBuilding, false));
+                UndoStack.Push(() => UpdateStateBuilding(StateBuilding, StateBuilding.building, StateBuilding.level, StateBuilding.reserves, false));
             }
-            //replace oldStateBuilding with newStateBuilding
-            oldStateBuilding.building = newStateBuilding.building;
-            oldStateBuilding.level = newStateBuilding.level;
-            oldStateBuilding.reserves = newStateBuilding.reserves;
-            oldStateBuilding.activeProductionMethods = newStateBuilding.activeProductionMethods;
+            StateBuilding.building = building;
+            StateBuilding.level = level;
+            StateBuilding.reserves = reserves;
         }
 
         //add StateBuilding

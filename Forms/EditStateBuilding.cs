@@ -31,87 +31,181 @@ namespace Vic3MapMaker.Forms
                 buildingComboBox.Items.Add(building);
                 Console.WriteLine("\t" + building);
             }
+
+            //pmDataGridView
+            pmDataGridView.Columns.Add("", "");
+            pmDataGridView.Columns.Add("pm", "Method");
+            //clear selection
+            pmDataGridView.ClearSelection();
+            //dont show the first column
+            pmDataGridView.Columns[0].Visible = false;
+            //have second column fill the whole width
+            pmDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dont allow user to select multiple rows
+            pmDataGridView.MultiSelect = false;
+            //select all rows when user clicks on a row
+            pmDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //dont allow user to add rows
+            pmDataGridView.AllowUserToAddRows = false;
+            //dont allow user to delete rows
+            pmDataGridView.AllowUserToDeleteRows = false;
+            //hide the row headers
+            pmDataGridView.RowHeadersVisible = false;
+            //disable editing
+            pmDataGridView.ReadOnly = true;
+            //dont allow user to resize the columns
+            pmDataGridView.AllowUserToResizeColumns = false;
+            //dont allow user to resize the rows
+            pmDataGridView.AllowUserToResizeRows = false;
+
+
+            //pmgDataGridView
+            pmgDataGridView.Columns.Add("", "");
+            pmgDataGridView.Columns.Add("pmg", "Group");
+            //clear selection
+            pmgDataGridView.ClearSelection();
+            //dont show the first column
+            pmgDataGridView.Columns[0].Visible = false;
+            //have second column fill the whole width
+            pmgDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dont allow user to select multiple rows
+            pmgDataGridView.MultiSelect = false;
+            //select all rows when user clicks on a row
+            pmgDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //dont allow user to add rows
+            pmgDataGridView.AllowUserToAddRows = false;
+            //dont allow user to delete rows
+            pmgDataGridView.AllowUserToDeleteRows = false;
+            //hide the row headers
+            pmgDataGridView.RowHeadersVisible = false;
+            //disable editing
+            pmgDataGridView.ReadOnly = true;
+            //dont allow user to resize the columns
+            pmgDataGridView.AllowUserToResizeColumns = false;
+            //donw allow user to resize the rows
+            pmgDataGridView.AllowUserToResizeRows = false;
+
+
+
             //if building is null, then this is a new building
             if (stateBuilding.building != null) {
                 //set the building combobox to the building
                 buildingComboBox.SelectedItem = stateBuilding.building;
                 //disable the building combobox
                 buildingComboBox.Enabled = false;
-                RefreshpmgComboBox();
+                RefreshpmgDataGridView();
+                RefreshpmDataGridView2();
             }
 
             //set level and reserves
             levelNumericUpDown.Value = stateBuilding.level;
             reservesNumericUpDown.Value = stateBuilding.reserves;
+            
 
-            
-            
         }
 
-        private void RefreshpmgComboBox() {
-            //clear the pmg combobox
-            pmgComboBox.Items.Clear();
+
+        private void RefreshpmgDataGridView() {
+            //clear the pmgDataGridView
+            pmgDataGridView.Rows.Clear();
 
             Building currentBuilding = (Building)buildingComboBox.SelectedItem;
 
             if (currentBuilding != null) {
+                //add blank row to pmgDataGridView
+                pmgDataGridView.Rows.Add(null, "");
+
                 //add all production method groups to the list
                 foreach (ProductionMethondGroups pmg in currentBuilding.productionMethodGroups) {
-                    pmgComboBox.Items.Add(pmg);
+                    pmgDataGridView.Rows.Add(pmg, pmg.group.Replace(currentBuilding.name, "").Replace("pmg_","").Replace("_"," ").Trim());
                 }
-                //select the first item
-                if (pmgComboBox.Items.Count > 0)
-                    pmgComboBox.SelectedIndex = 0;
-                RefreshpmComboBox();
+
+                //select second row
+                pmgDataGridView.Rows[1].Selected = true;
+
+                
+
+
+                //RefreshpmDataGridView();
             }
+
+        }
+
+        private void RefreshpmDataGridView2() {
+            pmDataGridView.Rows.Clear();
+
+            //if nothing is selected in the pmgDataGridView, then return
+            if (pmgDataGridView.SelectedRows.Count == 0) return;
+
+            //see if the selected item in the pmgDataGridView is null return
+            if (pmgDataGridView.SelectedRows[0].Cells[0].Value == null) return;
+
+            //get the selected production method group
+            ProductionMethondGroups pmg = (ProductionMethondGroups)pmgDataGridView.SelectedRows[0].Cells[0].Value;
+
+            //add a null row
+            pmDataGridView.Rows.Add(null, "");
+            
+
+            //add a blank row to the pmDataGridView
+            pmDataGridView.Rows.Add("", "");
+
+            bool found = false;
+            //add all production methods to the list that are in the selected production method group
+            foreach (string pm in pmg.productionMethods) {
+                pmDataGridView.Rows.Add(pm, pm.Replace(pmg.group, "").Replace("pm_", "").Replace("_", " ").Trim());
+                //check if the production method is in the state building active production methods
+                if (stateBuilding.activeProductionMethods.Contains(pm)) {
+                    //if it is, then select the row
+                    pmDataGridView.Rows[pmDataGridView.Rows.Count - 1].Selected = true;
+                    Console.WriteLine("Selected " + pm);
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                //select second row
+                pmDataGridView.Rows[1].Selected = true;
+            }
+
+            //hide the first row
+            pmDataGridView.Rows[0].Visible = false;
         }
         
-        private void RefreshpmComboBox() {
-            //clear the pm combobox
-            pmComboBox.Items.Clear();
 
-            ProductionMethondGroups currentPMG = (ProductionMethondGroups)pmgComboBox.SelectedItem;
-
-            if (currentPMG != null) {
-                // add a "" to the list to represent no production method
-                pmComboBox.Items.Add("");
-                //add all production methods to the list
-                foreach (string pm in currentPMG.productionMethods) {
-                    pmComboBox.Items.Add(pm);
+        private void pmDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex >= 1 && !pmDataGridView.IsCurrentCellInEditMode) {
+                //hide first row
+                pmgDataGridView.Rows[0].Visible = false;
+                
+                string currentPM = pmDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                ProductionMethondGroups currentPMG = null;
+                try {
+                    currentPMG = (ProductionMethondGroups)pmgDataGridView.SelectedRows[0].Cells[0].Value;
                 }
-                //select the first item that is in the active production methods list
-                bool found = false;
-                for (int i = 1; i < pmComboBox.Items.Count; i++) {
-                    if (stateBuilding.activeProductionMethods.Contains((string)pmComboBox.Items[i])) {
-                        pmComboBox.SelectedIndex = i;
-                        found = true;
-                        break;
+                catch (Exception ex) {
+                    Console.WriteLine("pmgDataGridView.SelectedRows[0].Cells[0].Value: " + ex.Message);
+                    return;
+                }
+                Console.WriteLine("\t\tCellChange event: "+currentPM);
+
+                if (currentPM != null && currentPMG != null) {
+                    //old production method
+                    //from the current pmg, find an active production method from the state building
+                    string oldPM = "";
+                    foreach (string pm in currentPMG.productionMethods) {
+                        if (stateBuilding.activeProductionMethods.Contains(pm)) {
+                            oldPM = pm;
+                            break;
+                        }
                     }
+
+                    mapOp.UpdateProducitonMethond(stateBuilding, currentPM, oldPM);
                 }
-                //if no item was found, select the first item
-                if (!found)
-                    pmComboBox.SelectedIndex = 0;
+
             }
-        }
-
-        private void PmgComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            RefreshpmComboBox();
-        }
-
-        private void PmComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            //find the current production method group
-            ProductionMethondGroups currentPMG = (ProductionMethondGroups)pmgComboBox.SelectedItem;
-            //find the current production method
-            string currentPM = (string)pmComboBox.SelectedItem;
             
-            
-            //if stateBuilding has an active production method from the current production method group replace it with the new one
-            string oldPM = stateBuilding.activeProductionMethods.Find(x => currentPMG.productionMethods.Contains(x));
-            
-            mapOp.UpdateProducitonMethond(stateBuilding, currentPM, oldPM);
-
         }
-
         private void CancelButton_Click(object sender, EventArgs e) {
             //undo all changes
             mapOp.Undo(mapOp.StackSize - initialUndoSize);
@@ -123,36 +217,42 @@ namespace Vic3MapMaker.Forms
 
         private void SaveButton_Click(object sender, EventArgs e) {
             List<string> errors = new List<string>();
-            StateBuilding newStateBuilding = new StateBuilding();
             buildingComboBox.BackColor = Color.White;
             levelNumericUpDown.BackColor = Color.White;
             reservesNumericUpDown.BackColor = Color.White;
 
+            Building building = null;
             //check nothing is selected in the building combobox
             if (buildingComboBox.SelectedItem == null) {
                 errors.Add("No building selected");
                 buildingComboBox.BackColor = Color.Pink;
             }
             else {
-                newStateBuilding.building = (Building)buildingComboBox.SelectedItem;
+                building = (Building)buildingComboBox.SelectedItem;
+                if (building == null) {
+                    errors.Add("Building is null");
+                    buildingComboBox.BackColor = Color.Pink;
+                }
             }
 
+            int level = 0;
             //check if level is a positive integers
             if (levelNumericUpDown.Value < 0) {
                 errors.Add("Level must be a positive integer");
                 levelNumericUpDown.BackColor = Color.Pink;
             }
             else {
-                newStateBuilding.level = (int)levelNumericUpDown.Value;
+                level = (int)levelNumericUpDown.Value;
             }
 
+            int reserves = 0;
             //check if reserves is a positive integers
             if (reservesNumericUpDown.Value < 0) {
                 errors.Add("Reserves must be a positive integer");
                 reservesNumericUpDown.BackColor = Color.Pink;
             }
             else {
-                newStateBuilding.reserves = (int)reservesNumericUpDown.Value;
+                reserves = (int)reservesNumericUpDown.Value;
             }
 
             //if there are errors, show them and return
@@ -162,12 +262,40 @@ namespace Vic3MapMaker.Forms
             }
 
 
-            mapOp.UpdateStateBuilding(stateBuilding, newStateBuilding);
+            mapOp.UpdateStateBuilding(stateBuilding, building, level, reserves);
 
+            Console.WriteLine(stateBuilding);
             //set exit code to ok
             this.DialogResult = DialogResult.OK;
             this.Close();
 
         }
+
+
+        //pmgDataGridView cell click
+        private void PmgDataGridView_SelectionChanged(object sender, EventArgs e) {
+            //get the current pmg from pmgDataGridView
+
+            ProductionMethondGroups currentPMG = null;
+            try {
+                currentPMG = (ProductionMethondGroups)pmgDataGridView.SelectedRows[0].Cells[0].Value;
+            }
+            catch (Exception ex) {
+                //Console.WriteLine(ex.Message);
+            }
+            if (currentPMG != null) {
+                Console.WriteLine("pmg: " + pmgDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                RefreshpmDataGridView2();
+            }
+        }
+
+        //pmgDataGridView cell changed event
+
+        private void BuildingComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            RefreshpmgDataGridView();
+        }
+        
+
     }
+
 }
