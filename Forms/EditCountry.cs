@@ -300,6 +300,9 @@ namespace Vic3MapMaker.Forms
         }
 
         private void EditPopButton_Click(object sender, EventArgs e) {
+            //if no row is selected in the popDataGridView, return
+            if (popDataGridView.SelectedRows.Count == 0) return;
+
             //get the selected pop from the popDataGridView
             SubState state = (SubState)subStateComboBox.SelectedItem;
             if (state == null) return;
@@ -438,11 +441,10 @@ namespace Vic3MapMaker.Forms
 
             State capital = null;
             //if capital is a substate
-            if (capitalComboBox.SelectedItem is SubState) {
-                SubState sstemp = (SubState)capitalComboBox.SelectedItem;
+            if (capitalComboBox.SelectedItem is SubState sstemp) {
                 capital = sstemp.parentState;
             }
-            else if(capitalComboBox.SelectedItem is State) {
+            else if (capitalComboBox.SelectedItem is State) {
                 capital = capitalComboBox.SelectedItem as State;
             }
 
@@ -601,6 +603,9 @@ namespace Vic3MapMaker.Forms
         }
 
         private void EditBuildngButton_Click(object sender, EventArgs e) {
+            //if no row is selected then return
+            if (buildingDataGridView.SelectedRows.Count == 0) return;
+
             //find the selected stateBuildng from the BuildingDataGridView
             StateBuilding building = (StateBuilding)buildingDataGridView.SelectedCells[0].Value;
 

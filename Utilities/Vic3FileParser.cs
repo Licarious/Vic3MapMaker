@@ -321,6 +321,8 @@ namespace Vic3MapMaker
                             string[] l2 = line.Split();
                             //for each province in l2 try to turn it into a color by hex
                             foreach (string prov in l2) {
+                                //if prov does not contain an x continue
+                                if (!prov.Contains("x")) continue;
                                 try {
                                     Color c = ColorTranslator.FromHtml("#" + prov.Replace("x", "").Replace("\"", "").Trim());
                                     //if the color is in the provDict add the nation to the ownerList
@@ -329,6 +331,7 @@ namespace Vic3MapMaker
                                     }
                                 }
                                 catch {
+                                    Console.WriteLine("Error parsing province color " + prov);
                                 }
                             }
                         }
@@ -646,7 +649,6 @@ namespace Vic3MapMaker
                     }
                     else {
                         //if prov with that color is in r.states.provinces
-                        bool exitRegion = false;
                         foreach (Region r in regionSet) {
                             foreach (State s in r.states) {
                                 //if color is in provDict
@@ -656,14 +658,11 @@ namespace Vic3MapMaker
                                     //add the coordinate to the province
                                     provinceDict[pixelColor].coordSet.Add((x, y));
                                     //exit the loop
-                                    exitRegion = true;
-                                    break;
+                                    goto exitRegion;
                                 }
                             }
-                            if (exitRegion) {
-                                break;
-                            }
                         }
+                        exitRegion:;
                     }
 
                     //prov border set to black
@@ -995,6 +994,9 @@ namespace Vic3MapMaker
 
             //for each substate file
             foreach (string file in subStateFiles) {
+                //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
+                System.IO.File.Create(outDirectory + @"\common\history\pops\" + Path.GetFileName(file)).Close();
+
                 //open file
                 string[] lines = File.ReadAllLines(file);
 
@@ -1142,15 +1144,15 @@ namespace Vic3MapMaker
                         Nation n = nationSet.FirstOrDefault(nation => nation.tag == potentialTag.Split('_')[0].Trim());
                         if (n != null) {
                             //set country adjective
-                            n.adj = line.Split()[line.Split().Length - 1].Replace("\"", "").Trim();
+                            n.adj = Regex.Match(line, "\"(.*?)\"").Value.Replace("\"", "").Trim();
                         }
                     }
                     else {
                         //check if potentialTag is a tag in nationSet
                         Nation n = nationSet.FirstOrDefault(nation => nation.tag.ToLower() == potentialTag.ToLower());
                         if (n != null) {
-                            //split line on space and take the last element
-                            n.name = line.Split()[line.Split().Length - 1].Replace("\"", "").Trim();
+                            //regex to get a string between quotes
+                            n.name = Regex.Match(line, "\"(.*?)\"").Value.Replace("\"", "").Trim();
                         }
                     }
                 }
@@ -1211,6 +1213,9 @@ namespace Vic3MapMaker
 
             //for each nation file
             foreach (string file in popFiles) {
+                //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
+                System.IO.File.Create(outDirectory + @"\common\history\population\" + Path.GetFileName(file)).Close();
+
                 //open file
                 string[] lines = File.ReadAllLines(file);
                 
@@ -1345,6 +1350,8 @@ namespace Vic3MapMaker
 
             //for each production method group file
             foreach (string file in pmgFiles) {
+                
+
                 //open file
                 string[] lines = File.ReadAllLines(file);
 
@@ -1486,6 +1493,9 @@ namespace Vic3MapMaker
 
             //for each state building file
             foreach(string file in stateBuildingFiles) {
+                //create a new blank txt file of same name to outDirectory + \history\buildings\ using System.IO.File.Create
+                System.IO.File.Create(outDirectory + @"\common\history\buildings\" + Path.GetFileName(file)).Close();
+
                 string[] lines = File.ReadAllLines(file);
 
                 int indentation = 0;
