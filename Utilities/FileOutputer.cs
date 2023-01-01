@@ -97,8 +97,11 @@ namespace Vic3MapMaker
 
                         //for each hub in state.hubList
                         if (state.hubList.Count > 0) {
+                            //sort hubList by first element in tuple (hub name) default order "city", "port", "farm", "mine", "wood"
+                            state.hubList.Sort((x, y) => x.Item1.CompareTo(y.Item1));
+
                             foreach ((string hubName, string provName) in state.hubList) {
-                                sw.WriteLine("\t" + hubName + " = " + provName);
+                                sw.WriteLine("\t" + hubName + " = \"" + provName+"\"");
                             }
                         }
 
@@ -182,12 +185,14 @@ namespace Vic3MapMaker
                             sw.WriteLine("\tgraphical_culture = \"" + region.gfxCulture + "\"");
                         }
                         if (region.capital != null) { 
-                            sw.WriteLine("\tcapital_province = " + region.capital.NameHex());
+                            sw.WriteLine("\tcapital_province = " + region.capital.name+"");
                         }
                         else {
                             Console.WriteLine("region " + region.name + " has no capital set");
                         }
-                        sw.WriteLine("\tcolor = { " + region.color.R + " " + region.color.G + " " + region.color.B + " }");
+                        if (region.color.A != 0) {
+                            sw.WriteLine("\tmap_color = { " + region.color.R + " " + region.color.G + " " + region.color.B + " }");
+                        }
                         sw.WriteLine("\tstates = { " + string.Join(" ", region.states.Select(x => x.name).ToList()) + " }");
                         sw.WriteLine("}");
                     }

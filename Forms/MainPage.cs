@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using Vic3MapMaker.DataFiles;
@@ -18,6 +19,7 @@ namespace Vic3MapMaker
         HashSet<Culture> cultureSet;
         HashSet<Nation> nationSet;
         Bitmap mergedImage;
+        BitmapData mergedImageData;
         MapOperation mapOp = new MapOperation();
         Vic3ListStorageUnit lsu;
         double imageScale = 1.0;
@@ -34,6 +36,7 @@ namespace Vic3MapMaker
             this.cultureSet = parssedTupple.cultureSet;
             this.nationSet = parssedTupple.nationSet;
             this.lsu = parssedTupple.lsu;
+            mergedImageData = mergedImage.LockBits(new Rectangle(0, 0, mergedImage.Width, mergedImage.Height), ImageLockMode.ReadWrite, mergedImage.PixelFormat);
 
             fo = new FileOutputer(outputDirectory);
 
@@ -292,6 +295,8 @@ namespace Vic3MapMaker
         }
 
         private void HighlightState(State state, Color color, bool refresh = true) {
+            if (color.A == 0) return;
+
             //change the color of the pixels in the s to s.color
             foreach (Province province in state.provDict.Values) {
                 //Console.WriteLine(province);
@@ -305,11 +310,11 @@ namespace Vic3MapMaker
         }
         private void HighlightProv(Province province, Color color, bool refresh = true) {
             //change the color of the pixels in the s to s.color
-            foreach ((int, int) coord in province.coordSet) {
+            foreach ((int x, int y) coord in province.coordSet) {
                 //if mergedImage has an alpha value of 250 continue
-                if (mergedImage.GetPixel(coord.Item1, coord.Item2).A == 250) {
-                    continue;
-                }
+                if (mergedImage.GetPixel(coord.x, coord.y).A == 250) continue;
+
+                //int index = coord.y * mergedImage.Stride + coord.x * 4;
 
                 mergedImage.SetPixel(coord.Item1, coord.Item2, color);
             }

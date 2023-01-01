@@ -63,20 +63,24 @@ namespace Vic3MapMaker
             DateTime startTime = DateTime.Now;
 
             //read all files in outputDirectory/_Input/state_regions
-            string[] files = Directory.GetFiles(gameDirectory + "/map_data/state_regions");
+            string[] files = FindFiles("/map_data/state_regions", "*.txt");//Directory.GetFiles(gameDirectory + "/map_data/state_regions");
+            
+            //if directory outDirectory + "/map_data/state_regions/"+ Path.GetFileName(file) does not exist, create it
+            if (!Directory.Exists(outDirectory + "/map_data/state_regions/")) {
+                Directory.CreateDirectory(outDirectory + "/map_data/state_regions/");
+            }
+            
             //for each file
             int count = 0;
             foreach (string file in files) {
-                if (file.EndsWith(".txt")) {
-                    //if directory outDirectory + "/map_data/state_regions/"+ Path.GetFileName(file) does not exist, create it
-                    if (!Directory.Exists(outDirectory + "/map_data/state_regions/")) {
-                        Directory.CreateDirectory(outDirectory + "/map_data/state_regions/");
-                    }
+                if (file.EndsWith(".txt")) {                    
+                    //read file
+                    string[] lines = File.ReadAllLines(file);
+
                     //create a new blank txt file of same name to outDirectory + /map_data/state_regions/ using System.IO.File.Create
                     System.IO.File.Create(outDirectory + "/map_data/state_regions/"+ Path.GetFileName(file)).Close();
 
-                    //read file
-                    string[] lines = File.ReadAllLines(file);
+                    
                     //for each line
                     //Console.WriteLine(file);
                     State s = new State();
@@ -368,8 +372,8 @@ namespace Vic3MapMaker
         //parse all region files
         void ParseRegionFiles() {
             DateTime startTime = DateTime.Now;
-            
-            string[] files = Directory.GetFiles(gameDirectory + "/common/strategic_regions");
+
+            string[] files = FindFiles("/common/strategic_regions", "*.txt");//Directory.GetFiles(gameDirectory + "/common/strategic_regions");
 
             int count = 0;
             foreach (string file in files) {
@@ -467,7 +471,9 @@ namespace Vic3MapMaker
                 }
             }
 
-            string[] lines = File.ReadAllLines(gameDirectory + "/map_data/default.map");
+
+
+            string[] lines = File.ReadAllLines(FindFiles("/map_data/", "default.map")[0]);//File.ReadAllLines(gameDirectory + " / map_data/default.map");
             bool seaStart = false;
             bool lakeStart = false;
             foreach (string line in lines) {
@@ -521,7 +527,7 @@ namespace Vic3MapMaker
         void ParseTerrain() {
             DateTime startTime = DateTime.Now;
 
-            string[] lines = File.ReadAllLines(gameDirectory + "/map_data/province_terrains.txt");
+            string[] lines = File.ReadAllLines(FindFiles("/map_data/", "province_terrains.txt")[0]);
             int internalID = 1;
             foreach (string l1 in lines) {
                 string line = CleanLine(l1);
@@ -559,7 +565,7 @@ namespace Vic3MapMaker
             }
 
             //get a list of all txt files in the common\Terrain folder
-            string[] terrainFiles = Directory.GetFiles(gameDirectory + "/common/Terrain", "*.txt");
+            string[] terrainFiles = FindFiles("/common/Terrain", "*.txt");
 
             //itterate through all Terrain files
             foreach (string file in terrainFiles) {
@@ -632,7 +638,7 @@ namespace Vic3MapMaker
                 region.capital = provSet.Where(p => p.name == region.capitalName).FirstOrDefault();
             }
 
-            mapImage = new Bitmap(gameDirectory + "\\map_data\\provinces.png");
+            mapImage = new Bitmap(FindFiles("\\map_data","provinces.png")[0]);
 
             //create a new image borderImage with the same size as mergedImage and alpha channel set to 0
             Bitmap borderImage = new Bitmap(mapImage.Width, mapImage.Height, PixelFormat.Format32bppArgb);
@@ -807,7 +813,7 @@ namespace Vic3MapMaker
             DateTime startTime = DateTime.Now;
 
             //get the culture files from game folder +\common\cultures
-            string[] cultureFiles = Directory.GetFiles(gameDirectory + @"\common\cultures\", "*.txt");
+            string[] cultureFiles = FindFiles(@"\common\cultures\", "*.txt");
 
             //for each culture file
             foreach (string cultureFile in cultureFiles) {
@@ -892,7 +898,7 @@ namespace Vic3MapMaker
             DateTime startTime = DateTime.Now;
 
             //get all country files from game folder +\common\country_definitions\
-            string[] countryFiles = Directory.GetFiles(gameDirectory + @"\common\country_definitions\", "*.txt");
+            string[] countryFiles = FindFiles( @"\common\country_definitions\", "*.txt");
 
             //for each country file
             foreach (string file in countryFiles) {
@@ -990,16 +996,20 @@ namespace Vic3MapMaker
             HashSet<SubState> subStateSet = new HashSet<SubState>();
             
             //get all substate files in game folder +\common\history\pops\
-            string[] subStateFiles = Directory.GetFiles(gameDirectory + @"\common\history\pops\", "*.txt");
+            string[] subStateFiles = FindFiles( @"\common\history\pops\", "*.txt");
+
+            //if outDirectory + @"\common\history\pops\" does not exist then create it
+            if (!Directory.Exists(outDirectory + @"\common\history\pops\"))
+                Directory.CreateDirectory(outDirectory + @"\common\history\pops\");
 
             //for each substate file
             foreach (string file in subStateFiles) {
-                //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
-                System.IO.File.Create(outDirectory + @"\common\history\pops\" + Path.GetFileName(file)).Close();
-
                 //open file
                 string[] lines = File.ReadAllLines(file);
 
+                //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
+                System.IO.File.Create(outDirectory + @"\common\history\pops\" + Path.GetFileName(file)).Close();
+                
                 int indentation = 0;
                 bool popFound = false;
                 SubState currentSubState = new SubState();
@@ -1123,7 +1133,7 @@ namespace Vic3MapMaker
             string desiredLanguage = "english";
             //country names
             //get all files in game folder +\localization\** that contian countries in their name
-            string[] countryFiles = Directory.GetFiles(gameDirectory + @"\localization\", "*countries*"+ desiredLanguage+".yml", SearchOption.AllDirectories);
+            string[] countryFiles = FindFiles( @"\localization\", "*countries*"+ desiredLanguage+".yml");
 
             //for each country file
             foreach (string file in countryFiles) {
@@ -1160,7 +1170,7 @@ namespace Vic3MapMaker
 
             //hub names
             //get all files in game folder +\localization\** that contian hubs in their name
-            string[] hubFiles = Directory.GetFiles(gameDirectory + @"\localization\", "*hub*name*" + desiredLanguage + ".yml", SearchOption.AllDirectories);
+            string[] hubFiles = FindFiles( @"\localization\", "*hub*name*" + desiredLanguage + ".yml");
 
             //for each hub file
             foreach (string file in hubFiles) {
@@ -1209,17 +1219,21 @@ namespace Vic3MapMaker
             DateTime startTime = DateTime.Now;
 
             //get all files in game folder +\common\history\population\
-            string[] popFiles = Directory.GetFiles(gameDirectory + @"\common\history\population\", "*.txt", SearchOption.AllDirectories);
+            string[] popFiles = FindFiles( @"\common\history\population\", "*.txt");
+
+            //if outDirectory + @"\common\history\population\" does not exist then create it
+            if (!Directory.Exists(outDirectory + @"\common\history\population\")) {
+                Directory.CreateDirectory(outDirectory + @"\common\history\population\");
+            }
 
             //for each nation file
             foreach (string file in popFiles) {
-                //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
-                System.IO.File.Create(outDirectory + @"\common\history\population\" + Path.GetFileName(file)).Close();
-
                 //open file
                 string[] lines = File.ReadAllLines(file);
                 
-
+                //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
+                System.IO.File.Create(outDirectory + @"\common\history\population\" + Path.GetFileName(file)).Close();
+                
                 Nation currentNation = null;
                 //for each line in the file
                 foreach (string l1 in lines) {
@@ -1263,7 +1277,7 @@ namespace Vic3MapMaker
             DateTime dateTime = DateTime.Now;
 
             //get all files in game folder +\common\trade_routes\
-            string[] tradeRouteFiles = Directory.GetFiles(gameDirectory + @"\common\history\trade_routes\", "*.txt", SearchOption.AllDirectories);
+            string[] tradeRouteFiles = FindFiles( @"\common\history\trade_routes\", "*.txt");
 
             //for each trade route file
             foreach (string file in tradeRouteFiles) {
@@ -1344,7 +1358,7 @@ namespace Vic3MapMaker
             DateTime startTime = DateTime.Now;
 
             //get all files in game folder +\common\production_method_groups\ .txt
-            string[] pmgFiles = Directory.GetFiles(gameDirectory + @"\common\production_method_groups\", "*.txt", SearchOption.AllDirectories);
+            string[] pmgFiles = FindFiles( @"\common\production_method_groups\", "*.txt");
             
             HashSet<ProductionMethondGroups> pmgSet = new HashSet<ProductionMethondGroups>();
 
@@ -1411,7 +1425,7 @@ namespace Vic3MapMaker
 
 
             //get all files in game folder +\common\buildings\ .txt
-            string[] buildingFiles = Directory.GetFiles(gameDirectory + @"\common\buildings\", "*.txt", SearchOption.AllDirectories);
+            string[] buildingFiles = FindFiles( @"\common\buildings\", "*.txt");
 
             //for each building file
             foreach(string file in buildingFiles) {
@@ -1468,8 +1482,6 @@ namespace Vic3MapMaker
                             else if (word.Contains("}")) {
                                 indentation--;
                                 if (indentation == 0) {
-                                    //print building
-                                    //Console.WriteLine("\t"+currentBuilding.ToString());
                                     currentBuilding = null;
                                 }
                                 else if (indentation == 1) {
@@ -1489,14 +1501,19 @@ namespace Vic3MapMaker
             DateTime dateTime = DateTime.Now;
 
             //get all files in game folder +\common\history\buildings\ .txt
-            string[] stateBuildingFiles = Directory.GetFiles(gameDirectory + @"\common\history\buildings\", "*.txt", SearchOption.AllDirectories);
+            string[] stateBuildingFiles = FindFiles( @"\common\history\buildings\", "*.txt");
+
+            //if outDirectory + @"\common\history\buildings\" does not exist then create it
+            if (!Directory.Exists(outDirectory + @"\common\history\buildings\")) {
+                Directory.CreateDirectory(outDirectory + @"\common\history\buildings\");
+            }
 
             //for each state building file
-            foreach(string file in stateBuildingFiles) {
+            foreach (string file in stateBuildingFiles) {
+                string[] lines = File.ReadAllLines(file);
+
                 //create a new blank txt file of same name to outDirectory + \history\buildings\ using System.IO.File.Create
                 System.IO.File.Create(outDirectory + @"\common\history\buildings\" + Path.GetFileName(file)).Close();
-
-                string[] lines = File.ReadAllLines(file);
 
                 int indentation = 0;
                 State currentState = null;
@@ -1595,6 +1612,56 @@ namespace Vic3MapMaker
             }
 
             Console.WriteLine("Parsed state buildings in " + (DateTime.Now - dateTime).TotalSeconds + " seconds");
+        }
+
+        //find all files in gameDirectory + string path and modDirectory + string path and return a list of all files found
+        private string[] FindFiles(string path, string fileType) {
+            List<string> gameFiles = new List<string>();
+            gameFiles.AddRange(Directory.GetFiles(gameDirectory + path, fileType, SearchOption.AllDirectories));
+
+            List<string> modFiles = new List<string>();
+            //check if modDirectory + path exists
+            if (Directory.Exists(modDirectory + path)) {
+                modFiles.AddRange(Directory.GetFiles(modDirectory + path, fileType, SearchOption.AllDirectories));
+            }
+
+            List<string> modFilesMulti = new List<string>();
+            //check if modDirectory + \* + path exists
+            if (Directory.Exists(modDirectory + @"\*" + path)) {
+                modFilesMulti.AddRange(Directory.GetFiles(modDirectory + @"\*" + path, fileType, SearchOption.AllDirectories));
+            }
+
+            //if modFilesMulti is not empty use it instead of modFiles
+            if (modFilesMulti.Count > 0) {
+                modFiles = modFilesMulti;
+            }
+
+            List<string> allFiles = new List<string>();
+
+            //if modFiles is not empty then add modFiles to allFiles
+            if (modFiles.Count > 0) {
+                allFiles.AddRange(modFiles);
+            }
+
+            //add gameFiles to allFiles where the file name is not in allFiles
+            foreach (string file in gameFiles) {
+                if (!allFiles.Any(f => Path.GetFileName(f) == Path.GetFileName(file))) {
+                    allFiles.Add(file);
+                }
+            }
+
+            //print total number of files found in path + fileType
+            Console.WriteLine("Found " + allFiles.Count + " " + fileType + " files in " + path);
+
+            //for each file in allFiles print them
+            foreach (string file in allFiles) {
+                Console.WriteLine("\t" + Path.GetFileName(file));
+            }
+
+            //sort allfiles on split on \ and take the last element
+            allFiles.Sort((x, y) => x.Split('\\').Last().CompareTo(y.Split('\\').Last()));
+
+            return allFiles.ToArray();
         }
 
         //get data returns regionSet, provSet, terrainSet, and mergedImage
