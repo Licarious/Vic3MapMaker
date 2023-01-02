@@ -68,6 +68,8 @@
             this.deleteBuildingButton = new System.Windows.Forms.Button();
             this.editBuildngButton = new System.Windows.Forms.Button();
             this.newBuildingButton = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.religionComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.popDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tradeRouteDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buildingDataGridView)).BeginInit();
@@ -272,24 +274,24 @@
             // 
             this.nationCultureListBox.FormattingEnabled = true;
             this.nationCultureListBox.ItemHeight = 20;
-            this.nationCultureListBox.Location = new System.Drawing.Point(631, 139);
+            this.nationCultureListBox.Location = new System.Drawing.Point(631, 170);
             this.nationCultureListBox.Name = "nationCultureListBox";
-            this.nationCultureListBox.Size = new System.Drawing.Size(179, 364);
+            this.nationCultureListBox.Size = new System.Drawing.Size(179, 284);
             this.nationCultureListBox.TabIndex = 17;
             // 
             // allCulturesListBox
             // 
             this.allCulturesListBox.FormattingEnabled = true;
             this.allCulturesListBox.ItemHeight = 20;
-            this.allCulturesListBox.Location = new System.Drawing.Point(867, 134);
+            this.allCulturesListBox.Location = new System.Drawing.Point(867, 165);
             this.allCulturesListBox.Name = "allCulturesListBox";
-            this.allCulturesListBox.Size = new System.Drawing.Size(179, 364);
+            this.allCulturesListBox.Size = new System.Drawing.Size(179, 284);
             this.allCulturesListBox.TabIndex = 18;
             // 
             // textBox5
             // 
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(631, 105);
+            this.textBox5.Location = new System.Drawing.Point(631, 136);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
@@ -300,7 +302,7 @@
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(866, 79);
+            this.textBox6.Location = new System.Drawing.Point(867, 131);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
@@ -310,7 +312,7 @@
             // 
             // addCultureButton
             // 
-            this.addCultureButton.Location = new System.Drawing.Point(820, 299);
+            this.addCultureButton.Location = new System.Drawing.Point(820, 276);
             this.addCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addCultureButton.Name = "addCultureButton";
             this.addCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -321,7 +323,7 @@
             // 
             // removeCultureButton
             // 
-            this.removeCultureButton.Location = new System.Drawing.Point(820, 347);
+            this.removeCultureButton.Location = new System.Drawing.Point(820, 324);
             this.removeCultureButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.removeCultureButton.Name = "removeCultureButton";
             this.removeCultureButton.Size = new System.Drawing.Size(40, 38);
@@ -332,7 +334,7 @@
             // 
             // cultureSearchTextBox
             // 
-            this.cultureSearchTextBox.Location = new System.Drawing.Point(866, 105);
+            this.cultureSearchTextBox.Location = new System.Drawing.Point(867, 98);
             this.cultureSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cultureSearchTextBox.Name = "cultureSearchTextBox";
             this.cultureSearchTextBox.Size = new System.Drawing.Size(179, 26);
@@ -514,11 +516,33 @@
             this.newBuildingButton.UseVisualStyleBackColor = true;
             this.newBuildingButton.Click += new System.EventHandler(this.NewBuildingButton_Click);
             // 
+            // textBox11
+            // 
+            this.textBox11.Enabled = false;
+            this.textBox11.Location = new System.Drawing.Point(632, 60);
+            this.textBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
+            this.textBox11.Size = new System.Drawing.Size(178, 26);
+            this.textBox11.TabIndex = 40;
+            this.textBox11.Text = "Religion:";
+            // 
+            // religionComboBox
+            // 
+            this.religionComboBox.FormattingEnabled = true;
+            this.religionComboBox.Location = new System.Drawing.Point(631, 96);
+            this.religionComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.religionComboBox.Name = "religionComboBox";
+            this.religionComboBox.Size = new System.Drawing.Size(179, 28);
+            this.religionComboBox.TabIndex = 41;
+            // 
             // EditCountry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1493, 877);
+            this.Controls.Add(this.religionComboBox);
+            this.Controls.Add(this.textBox11);
             this.Controls.Add(this.deleteBuildingButton);
             this.Controls.Add(this.editBuildngButton);
             this.Controls.Add(this.newBuildingButton);
@@ -617,5 +641,7 @@
         private System.Windows.Forms.Button deleteBuildingButton;
         private System.Windows.Forms.Button editBuildngButton;
         private System.Windows.Forms.Button newBuildingButton;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.ComboBox religionComboBox;
     }
 }

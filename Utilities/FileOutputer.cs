@@ -246,7 +246,10 @@ namespace Vic3MapMaker
                     sw.WriteLine("\ttier = " + n.tier + "\n");
                     //write all culture names in the culture list to the file
                     sw.WriteLine("\tculture = { " + string.Join(" ", n.cultures) + " }");
-                    if(n.capital != null)
+                    if (n.religion != "") {
+                        sw.WriteLine("\treligion = " + n.religion);
+                    }
+                    if (n.capital != null)
                         sw.WriteLine("\tcapital = " + n.capital.name);
                     else {
                         Console.WriteLine("Nation " + n.tag + " has a null capital");

@@ -16,6 +16,7 @@ namespace Vic3MapMaker
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
         public List<string> cultures = new List<string>();
+        public string religion = "";
         public string type = "";
         public string tier = "";
         public State capital = null;

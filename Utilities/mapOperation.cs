@@ -440,43 +440,48 @@ namespace Vic3MapMaker
         }
 
         //merge SubStates
-        public void MergeSubStates(Nation maninNation, SubState mainSubState, Nation subNation, SubState subState, bool undoAble = true) {
+        public void MergeSubStates(Nation toNation, SubState toSubState, Nation fromNation, SubState fromSubState, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
-                UndoStack.Push(() => SplitSubStates(maninNation, mainSubState, subNation, subState, false));
+                UndoStack.Push(() => SplitSubStates(toNation, toSubState, fromNation, fromSubState, false));
             }
+            Console.WriteLine("Merging " + fromNation.name +" " + fromSubState.parentState.name + "  into  " + toNation.name+ " " + toSubState.parentState.name);
             //remove substate from subnation
-            subNation.subStates.Remove(subState);
-            //go through all pops in subState and check if there is a pop in mainSubState with the same culture, religion and type
-            foreach (Pop pop in subState.pops) {
+            fromNation.subStates.Remove(fromSubState);
+            //go through all pops in fromSubState and check if there is a pop in toSubState with the same culture, religion and type
+            foreach (Pop pop in fromSubState.pops) {
                 bool found = false;
-                foreach (Pop mainPop in mainSubState.pops) {
+                foreach (Pop mainPop in toSubState.pops) {
                     if (mainPop.culture == pop.culture && mainPop.religion == pop.religion && mainPop.type == pop.type) {
                         //if there is a pop with the same culture, religion and type, add the size of the pop to the mainPop
                         mainPop.size += pop.size;
                         found = true;
+                        Console.WriteLine("Found pop with same culture, religion and type, adding size");
                         break;
                     }
                 }
-                //if there is no pop with the same culture, religion and type, add the pop to the mainSubState
+                //if there is no pop with the same culture, religion and type, add the pop to the toSubState
                 if (!found) {
-                    mainSubState.pops.Add(pop);
+                    toSubState.pops.Add(pop);
+                    Console.WriteLine("No pop with same culture, religion and type, adding new pop");
                 }
             }
-            //go throu all StateBuilding in subState and check if there is a building in mainSubState with the same building type
-            foreach (StateBuilding building in subState.buildings) {
+            //go throu all StateBuilding in fromSubState and check if there is a building in toSubState with the same building type
+            foreach (StateBuilding building in fromSubState.buildings) {
                 bool found = false;
-                foreach (StateBuilding mainBuilding in mainSubState.buildings) {
+                foreach (StateBuilding mainBuilding in toSubState.buildings) {
                     if (mainBuilding.building == building.building) {
                         //if there is a building with the same type, add the level of the building to the mainBuilding
                         mainBuilding.level += building.level;
                         found = true;
+                        Console.WriteLine("Found building with same type, adding level");
                         break;
                     }
                 }
-                //if there is no building with the same type, add the building to the mainSubState
+                //if there is no building with the same type, add the building to the toSubState
                 if (!found) {
-                    mainSubState.buildings.Add(building);
+                    Console.WriteLine("No building with same type, adding new building");
+                    toSubState.buildings.Add(building);
                 }
             }
 
@@ -490,14 +495,15 @@ namespace Vic3MapMaker
                 StackSize += 1;
                 UndoStack.Push(() => MergeSubStates(maninNation, mainSubState, subNation, subState, false));
             }
+            
             //add substate to subnation
             subNation.subStates.Add(subState);
-            //go through all pops in mainSubState and check if there is a pop in subState with the same culture, religion and type and reduce the size of the pop in mainSubState by the size of the pop in subState
+            //go through all pops in toSubState and check if there is a pop in fromSubState with the same culture, religion and type and reduce the size of the pop in toSubState by the size of the pop in fromSubState
             foreach (Pop pop in mainSubState.pops) {
                 foreach (Pop subPop in subState.pops) {
                     if (subPop.culture == pop.culture && subPop.religion == pop.religion && subPop.type == pop.type) {
                         pop.size -= subPop.size;
-                        //if the size of the pop in mainSubState is 0, remove the pop from mainSubState
+                        //if the size of the pop in toSubState is 0, remove the pop from toSubState
                         if (pop.size == 0) {
                             mainSubState.pops.Remove(pop);
                         }
@@ -505,12 +511,12 @@ namespace Vic3MapMaker
                     }
                 }
             }
-            //go throu all StateBuilding in mainSubState and check if there is a building in subState with the same building type and reduce the level of the building in mainSubState by the level of the building in subState
+            //go throu all StateBuilding in toSubState and check if there is a building in fromSubState with the same building type and reduce the level of the building in toSubState by the level of the building in fromSubState
             foreach (StateBuilding building in mainSubState.buildings) {
                 foreach (StateBuilding subBuilding in subState.buildings) {
                     if (subBuilding.building == building.building) {
                         building.level -= subBuilding.level;
-                        //if the level of the building in mainSubState is 0, remove the building from mainSubState
+                        //if the level of the building in toSubState is 0, remove the building from toSubState
                         if (building.level == 0) {
                             mainSubState.buildings.Remove(building);
                         }
@@ -521,20 +527,20 @@ namespace Vic3MapMaker
         }
 
         //merge SubStates multi
-        public void MergeSubStates(Nation mainNation, List<SubState> mainSubStates, Nation subNation, List<SubState> subStates, bool undoAble = true) {
+        public void MergeSubStates(Nation toNation, List<SubState> toSubStates, Nation fromNation, List<SubState> fromSubStates, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
-                //UndoStack.Push(() => SplitSubStates(mainNation, mainSubStates, subNation, subStates, false));
+                UndoStack.Push(() => SplitSubStates(toNation, toSubStates, fromNation, fromSubStates, false));
             }
             //remove substates from subnation
-            foreach (SubState subState in subStates) {
-                subNation.subStates.Remove(subState);
+            foreach (SubState subState in fromSubStates) {
+                fromNation.subStates.Remove(subState);
             }
-            //go through all substats and match them with the mainSubStates on the same parrentState
-            for (int i = 0; i < subStates.Count; i++) {
-                SubState subState = subStates[i];
-                SubState mainSubState = mainSubStates[i];
-                //go through all pops in subState and check if there is a pop in mainSubState with the same culture, religion and type
+            //go through all substats and match them with the toSubStates on the same parrentState
+            for (int i = 0; i < fromSubStates.Count; i++) {
+                SubState subState = fromSubStates[i];
+                SubState mainSubState = toSubStates[i];
+                //go through all pops in fromSubState and check if there is a pop in toSubState with the same culture, religion and type
                 foreach (Pop pop in subState.pops) {
                     bool found = false;
                     foreach (Pop mainPop in mainSubState.pops) {
@@ -545,12 +551,12 @@ namespace Vic3MapMaker
                             break;
                         }
                     }
-                    //if there is no pop with the same culture, religion and type, add the pop to the mainSubState
+                    //if there is no pop with the same culture, religion and type, add the pop to the toSubState
                     if (!found) {
                         mainSubState.pops.Add(pop);
                     }
                 }
-                //go throu all StateBuilding in subState and check if there is a building in mainSubState with the same building type
+                //go throu all StateBuilding in fromSubState and check if there is a building in toSubState with the same building type
                 foreach (StateBuilding building in subState.buildings) {
                     bool found = false;
                     foreach (StateBuilding mainBuilding in mainSubState.buildings) {
@@ -561,7 +567,7 @@ namespace Vic3MapMaker
                             break;
                         }
                     }
-                    //if there is no building with the same type, add the building to the mainSubState
+                    //if there is no building with the same type, add the building to the toSubState
                     if (!found) {
                         mainSubState.buildings.Add(building);
                     }
@@ -579,16 +585,16 @@ namespace Vic3MapMaker
             foreach (SubState subState in subStates) {
                 subNation.subStates.Add(subState);
             }
-            //go through all substats and match them with the mainSubStates on the same parrentState
+            //go through all substats and match them with the toSubStates on the same parrentState
             for (int i = 0; i < subStates.Count; i++) {
                 SubState subState = subStates[i];
                 SubState mainSubState = mainSubStates[i];
-                //go through all pops in mainSubState and check if there is a pop in subState with the same culture, religion and type and reduce the size of the pop in mainSubState by the size of the pop in subState
+                //go through all pops in toSubState and check if there is a pop in fromSubState with the same culture, religion and type and reduce the size of the pop in toSubState by the size of the pop in fromSubState
                 foreach (Pop pop in mainSubState.pops) {
                     foreach (Pop subPop in subState.pops) {
                         if (subPop.culture == pop.culture && subPop.religion == pop.religion && subPop.type == pop.type) {
                             pop.size -= subPop.size;
-                            //if the size of the pop in mainSubState is 0, remove the pop from mainSubState
+                            //if the size of the pop in toSubState is 0, remove the pop from toSubState
                             if (pop.size == 0) {
                                 mainSubState.pops.Remove(pop);
                             }
@@ -596,12 +602,12 @@ namespace Vic3MapMaker
                         }
                     }
                 }
-                //go throu all StateBuilding in mainSubState and check if there is a building in subState with the same building type and reduce the level of the building in mainSubState by the level of the building in subState
+                //go throu all StateBuilding in toSubState and check if there is a building in fromSubState with the same building type and reduce the level of the building in toSubState by the level of the building in fromSubState
                 foreach (StateBuilding building in mainSubState.buildings) {
                     foreach (StateBuilding subBuilding in subState.buildings) {
                         if (subBuilding.building == building.building) {
                             building.level -= subBuilding.level;
-                            //if the level of the building in mainSubState is 0, remove the building from mainSubState
+                            //if the level of the building in toSubState is 0, remove the building from toSubState
                             if (building.level == 0) {
                                 mainSubState.buildings.Remove(building);
                             }
@@ -611,6 +617,27 @@ namespace Vic3MapMaker
                 }
             }
         }
+        //transfert SubStates single
+        public void TransferSubStates(Nation toNation, Nation fromNation, SubState subState, bool undoAble = true) {
+            if (undoAble) {
+                TransferSubStates(fromNation, toNation, subState, false);
+            }
+            fromNation.subStates.Remove(subState);
+            toNation.subStates.Add(subState);
+
+            //update religion of pops if toNation and fromNation have different religions and pops religion is ""
+            if (toNation.religion != fromNation.religion) {
+                foreach (Pop pop in subState.pops) {
+                    if(pop.religion == "") {
+                        //change religion of pop to fromNation religion
+                        pop.religion = fromNation.religion;
+                    }
+                }
+            }
+
+
+        }
+
 
         //update production Method for StateBuilding
         public void UpdateProducitonMethond(StateBuilding stateBuilding, string newMethond, string oldMethond, bool undoAble = true) {
@@ -646,7 +673,7 @@ namespace Vic3MapMaker
                 StackSize += 1;
                 UndoStack.Push(() => RemoveStateBuilding(subState, stateBuilding, false));
             }
-            //add stateBuilding to subState
+            //add stateBuilding to fromSubState
             subState.buildings.Add(stateBuilding);
         }
 
@@ -656,7 +683,7 @@ namespace Vic3MapMaker
                 StackSize += 1;
                 UndoStack.Push(() => AddStateBuilding(subState, stateBuilding, false));
             }
-            //remove stateBuilding from subState
+            //remove stateBuilding from fromSubState
             subState.buildings.Remove(stateBuilding);
         }
 

@@ -940,6 +940,9 @@ namespace Vic3MapMaker
                         //culture
                         else if (line.StartsWith("culture"))
                             culturesFound = true;
+                        //religion
+                        else if (line.StartsWith("religion"))
+                            currentCountry.religion = line.Split('=')[1].Trim();
                         //capital
                         else if (line.StartsWith("capital")) {
                             //try to find the state in the state set with the same name as the capital

@@ -36,7 +36,7 @@ namespace Vic3MapMaker
             this.cultureSet = parssedTupple.cultureSet;
             this.nationSet = parssedTupple.nationSet;
             this.lsu = parssedTupple.lsu;
-            mergedImageData = mergedImage.LockBits(new Rectangle(0, 0, mergedImage.Width, mergedImage.Height), ImageLockMode.ReadWrite, mergedImage.PixelFormat);
+            //mergedImageData = mergedImage.LockBits(new Rectangle(0, 0, mergedImage.Width, mergedImage.Height), ImageLockMode.ReadWrite, mergedImage.PixelFormat);
 
             fo = new FileOutputer(outputDirectory);
 
@@ -644,11 +644,29 @@ namespace Vic3MapMaker
                                 }
 
                             }
+                            //check if toNation has a SubState with the parentState as fromState
+                            foreach (SubState subState in toNation.subStates) {
+                                if (subState.parentState == fromState) {
+                                    SubState fromSubState = null;
+                                    foreach (SubState sub in fromNation.subStates) {
+                                        if (sub.parentState == fromState) {
+                                            fromSubState = sub;
+                                            break;
+                                        }
+                                    }
+                                    //MergeSubStates fromNation.subStates and toNation.subStates
+                                    mapOp.MergeSubStates(toNation, subState, fromNation, fromSubState);
+                                }
+                            }
+
                             mapOp.MoveProvince(fromNation, toNation, provList);
                             
                         }
                         else if (transferRegionNationalRadioButton.Checked) {
                             List<Province> provList = new List<Province>();
+                            List<SubState> fromSubStates = new List<SubState>();
+                            List<SubState> toSubStates = new List<SubState>();
+
                             foreach (State s in fromRegion.states) {
                                 foreach (Province p in s.provDict.Values) {
                                     //check if p is in fromNation.provDict
@@ -657,7 +675,32 @@ namespace Vic3MapMaker
                                         HighlightProv(p, toNation.color, false);
                                     }
                                 }
+                                SubState fromSubState = null;
+                                SubState toSubState = null;
+                                //if fromNation and toNation both have a subState with s as a parentState add that substates to fromSubStates and toSubStates
+                                foreach (SubState subState in fromNation.subStates) {
+                                    if (subState.parentState == s) {
+                                        fromSubState = subState;
+                                        break;
+                                    }
+                                }
+                                foreach (SubState subState in toNation.subStates) {
+                                    if (subState.parentState == s) {
+                                        toSubState = subState;
+                                        break;
+                                    }
+                                }
+
+                                //if both are not null then add them to the lists
+                                if (fromSubState != null && toSubState != null) {
+                                    fromSubStates.Add(fromSubState);
+                                    toSubStates.Add(toSubState);
+                                }
+
                             }
+                            //MergeSubStates fromNation.subStates and toNation.subStates multi
+                            mapOp.MergeSubStates(toNation, toSubStates, fromNation, fromSubStates);
+
                             mapOp.MoveProvince(fromNation, toNation, provList);
                         }
                         pictureBox1.Refresh();
