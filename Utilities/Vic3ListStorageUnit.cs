@@ -29,6 +29,8 @@ namespace Vic3MapMaker.Utilities
         public HashSet<State> states = new HashSet<State>();
         public HashSet<Nation> nations = new HashSet<Nation>();
 
+        public List<Culture> cultureObjects = new List<Culture>();
+        public List<Religion> religionObjects = new List<Religion>();
 
         //set nationTier lsit to "recognized", "colonial", "unrecognized", and "decentralized"
         public List<string> nationTypes = new List<string>() { "recognized", "colonial", "unrecognized", "decentralized" };

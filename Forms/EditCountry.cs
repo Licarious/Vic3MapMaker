@@ -261,8 +261,8 @@ namespace Vic3MapMaker.Forms
             //popDataGridView.DataSource = state.pops;
             //add the values to the columns
             foreach (Pop pop in state.pops) {
-                popDataGridView.Rows.Add(pop, pop.culture, pop.size, pop.type, pop.religion);
-                Console.WriteLine(pop.culture + " " + pop.size + " " + pop.type + " " + pop.religion);
+                popDataGridView.Rows.Add(pop, pop.cultureString, pop.size, pop.type, pop.religion);
+                Console.WriteLine(pop.cultureString + " " + pop.size + " " + pop.type + " " + pop.religion);
             }
             Console.WriteLine(state.parentState.name + "\t" + state.pops.Count);
 
@@ -408,7 +408,7 @@ namespace Vic3MapMaker.Forms
             }
             //if there are no cultures in the nation.cultures
             if (nation.cultures.Count == 0) {
-                errors.Add("Nation needs atleast one culture");
+                errors.Add("Nation needs atleast one cultureString");
                 nationCultureListBox.BackColor = Color.Pink;
             }
 
@@ -466,32 +466,32 @@ namespace Vic3MapMaker.Forms
         }
 
         private void AddCultureButton_Click(object sender, EventArgs e) {
-            //get the selected culture from the allCulturesListBox
+            //get the selected cultureString from the allCulturesListBox
             string culture = (string)allCulturesListBox.SelectedItem;
             if (culture == null) return;
 
-            //add the culture to the nation.cultures
+            //add the cultureString to the nation.cultures
             mapOp.AddNationCulture(nation, culture);
 
-            //remove the culture from the allCulturesListBox
+            //remove the cultureString from the allCulturesListBox
             allCulturesListBox.Items.Remove(culture);
 
-            //add the culture to the nationCultureListBox
+            //add the cultureString to the nationCultureListBox
             nationCultureListBox.Items.Add(culture);
         }
 
         private void RemoveCultureButton_Click(object sender, EventArgs e) {
-            //get the selected culture from the nationCultureListBox
+            //get the selected cultureString from the nationCultureListBox
             string culture = (string)nationCultureListBox.SelectedItem;
             if (culture == null) return;
 
-            //remove the culture from the nation.cultures
+            //remove the cultureString from the nation.cultures
             mapOp.RemoveNationCulture(nation, culture);
 
-            //remove the culture from the nationCultureListBox
+            //remove the cultureString from the nationCultureListBox
             nationCultureListBox.Items.Remove(culture);
 
-            //add the culture to the allCulturesListBox
+            //add the cultureString to the allCulturesListBox
             allCulturesListBox.Items.Add(culture);
         }
 

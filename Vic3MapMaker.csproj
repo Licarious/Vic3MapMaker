@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="DataFiles\Building.cs" />
     <Compile Include="DataFiles\ProductionMethondGroups.cs" />
+    <Compile Include="DataFiles\Religion.cs" />
     <Compile Include="DataFiles\StateBuilding.cs" />
     <Compile Include="DataFiles\Culture.cs" />
     <Compile Include="DataFiles\TradeRoute.cs" />

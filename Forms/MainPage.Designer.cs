@@ -82,6 +82,7 @@ namespace Vic3MapMaker
             this.undoTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.saveImageButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControls_Image)).BeginInit();
             this.splitContainerControls_Image.Panel1.SuspendLayout();
             this.splitContainerControls_Image.Panel2.SuspendLayout();
@@ -122,6 +123,7 @@ namespace Vic3MapMaker
             this.sideControleTableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.sideControleTableLayoutPanel.ColumnCount = 1;
             this.sideControleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.sideControleTableLayoutPanel.Controls.Add(this.saveImageButton, 0, 9);
             this.sideControleTableLayoutPanel.Controls.Add(this.categoryComboBox, 0, 0);
             this.sideControleTableLayoutPanel.Controls.Add(this.regionPannel, 0, 5);
             this.sideControleTableLayoutPanel.Controls.Add(this.nationalPanel, 0, 6);
@@ -132,9 +134,10 @@ namespace Vic3MapMaker
             this.sideControleTableLayoutPanel.Controls.Add(this.statePanel, 0, 4);
             this.sideControleTableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 7);
             this.sideControleTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sideControleTableLayoutPanel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.sideControleTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.sideControleTableLayoutPanel.Name = "sideControleTableLayoutPanel";
-            this.sideControleTableLayoutPanel.RowCount = 9;
+            this.sideControleTableLayoutPanel.RowCount = 10;
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -143,9 +146,9 @@ namespace Vic3MapMaker
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.sideControleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.sideControleTableLayoutPanel.Size = new System.Drawing.Size(387, 1006);
+            this.sideControleTableLayoutPanel.Size = new System.Drawing.Size(387, 1056);
             this.sideControleTableLayoutPanel.TabIndex = 101;
             // 
             // categoryComboBox
@@ -316,7 +319,7 @@ namespace Vic3MapMaker
             this.buttonSave.Location = new System.Drawing.Point(3, 958);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonSave.Size = new System.Drawing.Size(87, 45);
+            this.buttonSave.Size = new System.Drawing.Size(87, 44);
             this.buttonSave.TabIndex = 22;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -679,6 +682,17 @@ namespace Vic3MapMaker
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
+            // saveImageButton
+            // 
+            this.saveImageButton.Location = new System.Drawing.Point(3, 1008);
+            this.saveImageButton.Name = "saveImageButton";
+            this.saveImageButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.saveImageButton.Size = new System.Drawing.Size(142, 45);
+            this.saveImageButton.TabIndex = 102;
+            this.saveImageButton.Text = "Save Image";
+            this.saveImageButton.UseVisualStyleBackColor = true;
+            this.saveImageButton.Click += new System.EventHandler(this.SaveImageButton_Click);
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -764,6 +778,7 @@ namespace Vic3MapMaker
         private FlowLayoutPanel flowLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel2;
         private TextBox undoTextBox;
+        private Button saveImageButton;
     }
 }
 

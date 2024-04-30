@@ -13,6 +13,7 @@ namespace Vic3MapMaker
     internal class FileOutputer
     {
         public string outputDirectory;
+        public static string homelandCulturalIdentifer = "cu:";
 
         public FileOutputer(string outputDirectory) {
             this.outputDirectory = outputDirectory;
@@ -244,7 +245,7 @@ namespace Vic3MapMaker
                     sw.WriteLine("\tcolor = { " + n.color.R + " " + n.color.G + " " + n.color.B + " }\n");
                     sw.WriteLine("\tcountry_type = " + n.type + "\n");
                     sw.WriteLine("\ttier = " + n.tier + "\n");
-                    //write all culture names in the culture list to the file
+                    //write all cultureString names in the cultureString list to the file
                     sw.WriteLine("\tculture = { " + string.Join(" ", n.cultures) + " }");
                     if (n.religion != "") {
                         sw.WriteLine("\treligion = " + n.religion);
@@ -319,7 +320,7 @@ namespace Vic3MapMaker
                     //if key has any homeland, write them
                     if (entry.Key.homeLandList.Count > 0) {
                         foreach (string homeland in entry.Key.homeLandList) {
-                            sw.WriteLine("\t\tadd_homeland = " + homeland);
+                            sw.WriteLine("\t\tadd_homeland = "+ homelandCulturalIdentifer + homeland);
                         }
                     }
 
@@ -429,8 +430,8 @@ namespace Vic3MapMaker
 
                                 foreach (Pop pop in substate.pops) {
                                     sw.WriteLine("\t\t\tcreate_pop = {");
-                                    if(pop.culture != "")
-                                        sw.WriteLine("\t\t\t\tculture = " + pop.culture);
+                                    if(pop.cultureString != "")
+                                        sw.WriteLine("\t\t\t\tculture = " + pop.cultureString);
                                     if (pop.size > 0)
                                         sw.WriteLine("\t\t\t\tsize = " + pop.size);
                                     if (pop.type != "")
@@ -550,7 +551,7 @@ namespace Vic3MapMaker
                 string path = outputDirectory + "\\common\\history\\population\\" + nation.tag.ToLower()+ " - " + nation.name.ToLower() + ".txt";
                 using (StreamWriter sw = File.CreateText(path)) {
                     sw.WriteLine("POPULATION = {");
-                    sw.WriteLine("\tc:" + nation.tag + " = {");
+                    sw.WriteLine("\tc:" + nation.tag + " ?= {");
                     sw.WriteLine("\t\teffect_starting_pop_wealth_" + nation.wealth + " = yes");
                     sw.WriteLine("\t\teffect_starting_pop_literacy_" + nation.literacy + " = yes");
                     sw.WriteLine("\t}");
@@ -579,7 +580,7 @@ namespace Vic3MapMaker
                 foreach (Nation nation in nationsList) {
                     if (nation.tradeRoutes.Count > 0) {
                         sw.WriteLine("\t# " + nation.name);
-                        sw.WriteLine("\tc:" + nation.tag + " = {");
+                        sw.WriteLine("\tc:" + nation.tag + " ?= {");
                         foreach (TradeRoute tradeRoute in nation.tradeRoutes) {
                             sw.WriteLine("\t\tcreate_trade_route = {");
                             sw.WriteLine("\t\t\tgoods = " + tradeRoute.goods);

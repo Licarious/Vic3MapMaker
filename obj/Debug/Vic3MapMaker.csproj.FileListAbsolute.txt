@@ -2,7 +2,6 @@ C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\bin\Debug\Vic3Map
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\bin\Debug\Vic3MapMaker.exe
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\bin\Debug\Vic3MapMaker.pdb
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.csproj.AssemblyReference.cache
-C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.csproj.SuggestedBindingRedirects.cache
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.Properties.Resources.resources
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.csproj.GenerateResource.cache
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapMaker\Vic3MapMaker\obj\Debug\Vic3MapMaker.csproj.CoreCompileInputs.cache

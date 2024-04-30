@@ -27,7 +27,7 @@ namespace Vic3MapMaker.DataFiles
 
             InitializeComponent();
 
-            //set the culture text box to auto complete from the lsu.cultures list
+            //set the cultureString text box to auto complete from the lsu.cultures list
             cultureTextBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cultureTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             AutoCompleteStringCollection cultures = new AutoCompleteStringCollection();
@@ -55,7 +55,7 @@ namespace Vic3MapMaker.DataFiles
             typeTextBox.AutoCompleteCustomSource = types;
 
             //set text boxes to pop values
-            cultureTextBox.Text = pop.culture;
+            cultureTextBox.Text = pop.cultureString;
             sizeTextBox.Text = pop.size.ToString();
             typeTextBox.Text = pop.type;
             religionTextBox.Text = pop.religion;
@@ -89,7 +89,7 @@ namespace Vic3MapMaker.DataFiles
 
 
             Pop newPop = new Pop {
-                culture = cultureTextBox.Text,
+                cultureString = cultureTextBox.Text,
                 religion = religionTextBox.Text,
                 size = int.Parse(sizeTextBox.Text),
                 type = typeTextBox.Text

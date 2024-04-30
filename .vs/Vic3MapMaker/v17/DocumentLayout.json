@@ -1,0 +1,184 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|c:\\users\\fligh\\onedrive\\desktop\\vic3\\vic3mapmaker\\vic3mapmaker\\utilities\\fileoutputer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:utilities\\fileoutputer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|c:\\users\\fligh\\onedrive\\desktop\\vic3\\vic3mapmaker\\vic3mapmaker\\utilities\\vic3fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:utilities\\vic3fileparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\forms\\editcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:forms\\editcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|c:\\users\\fligh\\onedrive\\desktop\\vic3\\vic3mapmaker\\vic3mapmaker\\datafiles\\province.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:datafiles\\province.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\datafiles\\substate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:datafiles\\substate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\forms\\editcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:forms\\editcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\datafiles\\pop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:datafiles\\pop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\forms\\editpop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:forms\\editpop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\utilities\\mapoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:utilities\\mapoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\forms\\mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14419F31-5B1E-4410-A23C-03FBC01C3AAB}|Vic3MapMaker.csproj|solutionrelative:forms\\mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FileOutputer.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Utilities\\FileOutputer.cs",
+              "RelativeDocumentMoniker": "Utilities\\FileOutputer.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Utilities\\FileOutputer.cs",
+              "RelativeToolTip": "Utilities\\FileOutputer.cs",
+              "ViewState": "AQIAAOUBAAAAAAAAAAAUwCkCAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-30T23:49:23.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Province.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\DataFiles\\Province.cs",
+              "RelativeDocumentMoniker": "DataFiles\\Province.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\DataFiles\\Province.cs",
+              "RelativeToolTip": "DataFiles\\Province.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAA1wCUAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-30T23:24:38.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SubState.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\DataFiles\\SubState.cs",
+              "RelativeDocumentMoniker": "DataFiles\\SubState.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\DataFiles\\SubState.cs",
+              "RelativeToolTip": "DataFiles\\SubState.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABgAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T21:43:30.463Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Vic3FileParser.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Utilities\\Vic3FileParser.cs",
+              "RelativeDocumentMoniker": "Utilities\\Vic3FileParser.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Utilities\\Vic3FileParser.cs",
+              "RelativeToolTip": "Utilities\\Vic3FileParser.cs",
+              "ViewState": "AQIAAMIEAAAAAAAAAAAUwOUEAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T21:43:30.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "mapOperation.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Utilities\\mapOperation.cs",
+              "RelativeDocumentMoniker": "Utilities\\mapOperation.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Utilities\\mapOperation.cs",
+              "RelativeToolTip": "Utilities\\mapOperation.cs",
+              "ViewState": "AQIAADYBAAAAAAAAAAAqwE8BAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T21:43:30.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EditPop.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\EditPop.cs",
+              "RelativeDocumentMoniker": "Forms\\EditPop.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\EditPop.cs",
+              "RelativeToolTip": "Forms\\EditPop.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAADsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2023-11-10T21:43:30.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Pop.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\DataFiles\\Pop.cs",
+              "RelativeDocumentMoniker": "DataFiles\\Pop.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\DataFiles\\Pop.cs",
+              "RelativeToolTip": "DataFiles\\Pop.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T21:43:30.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EditCountry.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\EditCountry.cs",
+              "RelativeDocumentMoniker": "Forms\\EditCountry.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\EditCountry.cs",
+              "RelativeToolTip": "Forms\\EditCountry.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAhwC8AAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T21:43:30.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EditCountry.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\EditCountry.cs",
+              "RelativeDocumentMoniker": "Forms\\EditCountry.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\EditCountry.cs [Design]",
+              "RelativeToolTip": "Forms\\EditCountry.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T21:43:30.793Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainPage.cs",
+              "DocumentMoniker": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\MainPage.cs",
+              "RelativeDocumentMoniker": "Forms\\MainPage.cs",
+              "ToolTip": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapMaker\\Vic3MapMaker\\Forms\\MainPage.cs",
+              "RelativeToolTip": "Forms\\MainPage.cs",
+              "ViewState": "AQIAALoCAAAAAAAAAIAwwMACAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2023-11-10T21:43:30.794Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

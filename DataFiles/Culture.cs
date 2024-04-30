@@ -10,7 +10,7 @@ namespace Vic3MapMaker.DataFiles
         public string name;
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public string religionName = "";
-        //public Religion religion; //TODO add religion class
+        public Religion religion = null;
         public List<string> traits = new List<string>();
         public string graphics = "";
 

@@ -30,7 +30,7 @@ namespace Vic3MapMaker
 
         public Province(string name) {
             this.name = name;
-            this.color = ColorTranslator.FromHtml("#" + name.Replace("x", ""));
+            color = ColorTranslator.FromHtml("#" + name.Replace("x", ""));
         }
         public Province(string name, Color color) {
             this.name = name;
@@ -39,7 +39,7 @@ namespace Vic3MapMaker
         public Province(Color color) {
             this.color = color;
             //convert color to hexidecimal
-            this.name = "x"+color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            name = "x"+color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
         }
 
         //tostring

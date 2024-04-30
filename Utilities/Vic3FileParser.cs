@@ -16,20 +16,18 @@ namespace Vic3MapMaker
 {
     internal class Vic3FileParser
     {
-
-        HashSet<Region> regionSet = new HashSet<Region>();
-        HashSet<State> stateSet = new HashSet<State>();
+        readonly HashSet<Region> regionSet = new HashSet<Region>();
+        readonly HashSet<State> stateSet = new HashSet<State>();
         HashSet<Province> provSet = new HashSet<Province>();
-        HashSet<Terrain> terrainSet = new HashSet<Terrain>();
-        HashSet<Culture> cultureSet = new HashSet<Culture>();
-        HashSet<Nation> nationSet = new HashSet<Nation>();
+        readonly HashSet<Terrain> terrainSet = new HashSet<Terrain>();
+        readonly HashSet<Culture> cultureSet = new HashSet<Culture>();
+        readonly HashSet<Nation> nationSet = new HashSet<Nation>();
         Bitmap mapImage;
-        Vic3ListStorageUnit lsu = new Vic3ListStorageUnit();
-
-        string gameDirectory;
-        string modDirectory; //Not used yet
-        string outDirectory;
-        Stopwatch sw = new Stopwatch();
+        readonly Vic3ListStorageUnit lsu = new Vic3ListStorageUnit();
+        readonly string gameDirectory;
+        readonly string modDirectory;
+        readonly string outDirectory;
+        readonly Stopwatch sw = new Stopwatch();
 
         public Vic3FileParser(string gameDirectory, string modDirectory, string outDirectory) {
             this.gameDirectory = gameDirectory;
@@ -53,6 +51,7 @@ namespace Vic3MapMaker
             ParseTradeRoutes();
             ParseBuildings();
             ParseStateBuildings();
+            //ParseReligion();
 
             sw.Stop();
             Console.WriteLine("Time elapsed: {0}", sw.Elapsed);
@@ -117,7 +116,7 @@ namespace Vic3MapMaker
 
                         //get provinces
                         if (line.TrimStart().StartsWith("provinces")) {
-                            string[] l2 = line.Split('=')[1].Split(' ');
+                            string[] l2 = line.Split('=')[1].Split();
                             for (int i = 0; i < l2.Length; i++) {
                                 if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                     string n = l2[i].Replace("\"", "").Replace("x", "");
@@ -128,7 +127,7 @@ namespace Vic3MapMaker
                         }
                         //get impassable colors
                         if (line.TrimStart().StartsWith("impassable")) {
-                            string[] l2 = line.Split('=')[1].Split(' ');
+                            string[] l2 = line.Split('=')[1].Split();
                             for (int i = 0; i < l2.Length; i++) {
                                 if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                     string n = l2[i].Replace("\"", "").Replace("x", "");
@@ -143,7 +142,7 @@ namespace Vic3MapMaker
                         }
                         //get prime_land colors
                         if (line.TrimStart().StartsWith("prime_land")) {
-                            string[] l2 = line.Split('=')[1].Split(' ');
+                            string[] l2 = line.Split('=')[1].Split();
                             for (int i = 0; i < l2.Length; i++) {
                                 if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                     string n = l2[i].Replace("\"", "").Replace("x", "");
@@ -161,7 +160,7 @@ namespace Vic3MapMaker
                             traitsfound = true;
                         }
                         if (traitsfound) {
-                            string[] l2 = line.Split(' ');
+                            string[] l2 = line.Split();
                             for (int i = 0; i < l2.Length; i++) {
                                 if (l2[i].StartsWith("\"")) {
                                     s.traits.Add(l2[i].Replace("\"", ""));
@@ -300,7 +299,13 @@ namespace Vic3MapMaker
                         if (indintation == 2) {
                             //homeland
                             if (line.StartsWith("add_homeland")) {
-                                currentState.homeLandList.Add(line.Split('=')[1].Trim());
+                                //if line contains cu: then split it and add the nation to the state
+                                if (line.Contains("cu:")) {
+                                    currentState.homeLandList.Add(line.Split(':')[1].Trim());
+                                }
+                                else {
+                                    currentState.homeLandList.Add(line.Split('=')[1].Trim());
+                                }
                             }
                             //external cores
                             if (line.StartsWith("add_claim")) {
@@ -484,7 +489,7 @@ namespace Vic3MapMaker
                     lakeStart = true;
                 }
                 if (seaStart || lakeStart) {
-                    string[] l2 = line.Trim().Split(' ');
+                    string[] l2 = line.Trim().Split();
                     for (int i = 0; i < l2.Length; i++) {
                         if (l2[i].StartsWith("#")) {
                             break;
@@ -715,7 +720,7 @@ namespace Vic3MapMaker
 
         private Color GetColor(string line) {
             //split on space and add the 3 values to the color list
-            string[] l2 = line.Split(' ');
+            string[] l2 = line.Split();
             List<double> colorList = new List<double>();
             //if l2 is a doubel then add it to colorList
             foreach (string s in l2) {
@@ -774,7 +779,7 @@ namespace Vic3MapMaker
             return ColorRGB(colorList);
         }
         private Color ColorFromHSV360(double v1, double v2, double v3) {
-            //converts hsv360 to rgb
+            //converts hsv360 to hsv
             return ColorFromHSV(v1 / 360, v2 / 100, v3 / 100);
         }
         private Color ColorRGB(List<double> colorList) {
@@ -812,31 +817,32 @@ namespace Vic3MapMaker
             //start time
             DateTime startTime = DateTime.Now;
 
-            //get the culture files from game folder +\common\cultures
+            //get the cultureString files from game folder +\common\cultures
             string[] cultureFiles = FindFiles(@"\common\cultures\", "*.txt");
 
-            //for each culture file
+            //for each cultureString file
             foreach (string cultureFile in cultureFiles) {
                 string[] lines = File.ReadAllLines(cultureFile);
                 int indentation = 0;
                 bool traitsFound = false;
                 Culture currentCulture = new Culture();
-                //for each line in the culture file
+                //for each line in the cultureString file
                 foreach (string l1 in lines) {
                     string line = CleanLine(l1);
                     //if line is empty then continue
                     if (line == "") continue;
 
                     if (indentation == 0) {
-                        //if line contains = then it is a culture
+                        //if line contains = then it is a cultureString
                         if (line.Contains("=")) {
-                            //create a new culture
+                            //create a new cultureString
                             currentCulture = new Culture(line.Split('=')[0].Trim());
-                            //if there is a culture in the set with the same name then delete it and add the new one
+                            //if there is a cultureString in the set with the same name then delete it and add the new one
                             if (cultureSet.Any(c => c.name == currentCulture.name)) {
                                 cultureSet.Remove(cultureSet.First(c => c.name == currentCulture.name));
                             }
                             cultureSet.Add(currentCulture);
+                            lsu.cultureObjects.Add(currentCulture);
                         }
                     }
                     else if (indentation == 1) {
@@ -860,7 +866,7 @@ namespace Vic3MapMaker
                     }
 
 
-                    //if traits are found then add the traits to the culture
+                    //if traits are found then add the traits to the cultureString
                     if (traitsFound) {
                         string[] l2;
                         if (line.Contains("="))
@@ -937,8 +943,8 @@ namespace Vic3MapMaker
                         //tier
                         else if (line.StartsWith("tier"))
                             currentCountry.tier = line.Split('=')[1].Trim();
-                        //culture
-                        else if (line.StartsWith("culture"))
+                        //cultureString
+                        else if (line.StartsWith("cultureString"))
                             culturesFound = true;
                         //religion
                         else if (line.StartsWith("religion"))
@@ -1011,7 +1017,7 @@ namespace Vic3MapMaker
                 string[] lines = File.ReadAllLines(file);
 
                 //create a new blank txt file of same name to outDirectory + \history\population\ using System.IO.File.Create
-                System.IO.File.Create(outDirectory + @"\common\history\pops\" + Path.GetFileName(file)).Close();
+                File.Create(outDirectory + @"\common\history\pops\" + Path.GetFileName(file)).Close();
                 
                 int indentation = 0;
                 bool popFound = false;
@@ -1049,10 +1055,10 @@ namespace Vic3MapMaker
                                     nation.subStates.Add(currentSubState);
 
                                     //check stateTypeList tupple list for nation.tag
-                                    foreach ((string tag, string type) t in currentState.stateTypeList) {
-                                        if (t.tag == nation.tag) {
+                                    foreach ((string tag, string type) in currentState.stateTypeList) {
+                                        if (tag == nation.tag) {
                                             //set state type
-                                            currentSubState.type = t.type;
+                                            currentSubState.type = type;
                                             break;
                                         }
                                     }
@@ -1074,8 +1080,8 @@ namespace Vic3MapMaker
 
 
                         if (popFound) {
-                            if (line.StartsWith("culture"))
-                                currentPop.culture = line.Split('=')[1].Trim();
+                            if (line.StartsWith("cultureString"))
+                                currentPop.cultureString = line.Split('=')[1].Trim();
                             else if (line.StartsWith("size"))
                                 currentPop.size = int.Parse(line.Split('=')[1].Trim());
                             else if (line.StartsWith("type"))
@@ -1109,8 +1115,7 @@ namespace Vic3MapMaker
             //give each substate to its owner
             foreach (SubState s in subStateSet) {
                 Nation n = nationSet.FirstOrDefault(nation => nation.tag == s.owner.tag);
-                if (n != null)
-                    n.subStates.Add(s);
+                n?.subStates.Add(s);
             }
 
             //add prov to substate where the prov is in both its state provDict and its owner provDict
@@ -1246,6 +1251,7 @@ namespace Vic3MapMaker
                     if (line == "") continue;
 
                     if (line.StartsWith("c:")) {
+                        line = line.Replace('?', ' ');
                         string potentialTag = line.Split(':')[1].Split('=')[0].Trim();
                         //check if potentialTag is a tag in nationSet
                         currentNation = nationSet.FirstOrDefault(nation => nation.tag == potentialTag);
@@ -1300,7 +1306,8 @@ namespace Vic3MapMaker
 
                     if (indentation == 1) {
                         if (line.StartsWith("c:")) {
-                            string potentialTag = line.Split(':')[1].Split('=')[0].Trim();
+                            line = line.Replace('?', ' ');
+                            string potentialTag = line.Split(':')[1].Split()[0].Trim();
                             //check if potentialTag is a tag in nationSet
                             currentNation = nationSet.FirstOrDefault(nation => nation.tag == potentialTag);
                         }
@@ -1555,9 +1562,7 @@ namespace Vic3MapMaker
                         if (line.StartsWith("create_building")) {
                             currentBuilding = new StateBuilding();
                             //if currentSubState is not null then add to currentNation.stateBuildings
-                            if (currentSubState != null) {
-                                currentSubState.buildings.Add(currentBuilding);
-                            }
+                            currentSubState?.buildings.Add(currentBuilding);
                         }
                     }
 
@@ -1615,6 +1620,99 @@ namespace Vic3MapMaker
             }
 
             Console.WriteLine("Parsed state buildings in " + (DateTime.Now - dateTime).TotalSeconds + " seconds");
+        }
+
+        //parse religion files
+        private void ParseReligion() {
+            DateTime dateTime = DateTime.Now;
+
+            //get all files in game folder +\common\history\buildings\ .txt
+            string[] stateBuildingFiles = FindFiles(@"\common\religions\", "*.txt");
+
+            foreach(string file in stateBuildingFiles) {
+                string[] lines = File.ReadAllLines(file);
+
+                int indentation = 0;
+                Religion currentReligion = null;
+                bool foundTraits = false;
+                bool foundTaboos = false;
+
+                foreach (string l1 in lines) {
+                    string line = CleanLine(l1);
+
+                    if (line == "") continue;
+
+                    if (indentation == 0) {
+                        if (line.Contains("=")){
+                            string religionName = line.Split('=')[0].Trim();
+                            lsu.religionObjects.Add(new Religion(religionName));
+                        }
+                    }
+                    else if (indentation == 1) {
+                        if (line.StartsWith("traits")) {
+                            foundTraits = true;
+                        }
+                        else if (line.StartsWith("taboos")) {
+                            foundTaboos = true;
+                        }
+                        else if (line.StartsWith("color")) {
+                            currentReligion.color = GetColor(line);
+                        }
+                    }
+
+                    else if(indentation == 2) {
+                        if (foundTraits) {
+                            string[] l2 = line.Split();
+                            foreach (string word in l2) {
+                                //if not blank add it to currentReligion.traits
+                                if (word.Trim() != "") {
+                                    currentReligion.traits.Add(word);
+                                }
+                            }
+                        }
+                        else if (foundTaboos) { 
+                            string[] l2 = line.Split();
+                            foreach (string word in l2) {
+                                //if not blank add it to currentReligion.taboos
+                                if (word.Trim() != "") {
+                                    currentReligion.taboos.Add(word);
+                                }
+                            }
+                        }
+                    }
+
+
+                    //change indentation
+                    if (line.Contains("{") || line.Contains("}")) {
+                        string[] l2 = line.Split();
+                        foreach (string word in l2) {
+                            if (word.Contains("{")) {
+                                indentation++;
+                            }
+                            else if (word.Contains("}")) {
+                                indentation--;
+                                if (indentation == 0) {
+                                    currentReligion = null;
+                                }
+                                else if (indentation == 1) {
+                                    foundTraits = false;
+                                    foundTaboos = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //match religion objects to religion names in lsu.cultures
+            foreach(Culture culture in lsu.cultureObjects) {
+                //set culture.religon to religion culture.religionName is in lsu.religionObjects.name
+                culture.religion = lsu.religionObjects.FirstOrDefault(religion => religion.name == culture.religionName);
+                Console.WriteLine(culture.name + " " + culture.religion);
+            }
+
+
+            Console.WriteLine("Parsed religions in " + (DateTime.Now - dateTime).TotalSeconds + " seconds");
         }
 
         //find all files in gameDirectory + string path and modDirectory + string path and return a list of all files found

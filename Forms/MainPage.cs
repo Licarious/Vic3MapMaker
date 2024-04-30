@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Vic3MapMaker.DataFiles;
@@ -19,9 +20,9 @@ namespace Vic3MapMaker
         HashSet<Culture> cultureSet;
         HashSet<Nation> nationSet;
         Bitmap mergedImage;
-        BitmapData mergedImageData;
         MapOperation mapOp = new MapOperation();
         Vic3ListStorageUnit lsu;
+        string outputDirectory;
         double imageScale = 1.0;
 
         readonly double maximumZoom = 4.0;
@@ -36,7 +37,7 @@ namespace Vic3MapMaker
             this.cultureSet = parssedTupple.cultureSet;
             this.nationSet = parssedTupple.nationSet;
             this.lsu = parssedTupple.lsu;
-            //mergedImageData = mergedImage.LockBits(new Rectangle(0, 0, mergedImage.Width, mergedImage.Height), ImageLockMode.ReadWrite, mergedImage.PixelFormat);
+            this.outputDirectory = outputDirectory;
 
             fo = new FileOutputer(outputDirectory);
 
@@ -313,8 +314,6 @@ namespace Vic3MapMaker
             foreach ((int x, int y) coord in province.coordSet) {
                 //if mergedImage has an alpha value of 250 continue
                 if (mergedImage.GetPixel(coord.x, coord.y).A == 250) continue;
-
-                //int index = coord.y * mergedImage.Stride + coord.x * 4;
 
                 mergedImage.SetPixel(coord.Item1, coord.Item2, color);
             }
@@ -642,21 +641,28 @@ namespace Vic3MapMaker
                                     provList.Add(p);
                                     HighlightProv(p, toNation.color, false);
                                 }
-
+                                
                             }
+                            bool mergedSubStates = false;
+                            SubState subState = null;
                             //check if toNation has a SubState with the parentState as fromState
-                            foreach (SubState subState in toNation.subStates) {
-                                if (subState.parentState == fromState) {
-                                    SubState fromSubState = null;
-                                    foreach (SubState sub in fromNation.subStates) {
-                                        if (sub.parentState == fromState) {
-                                            fromSubState = sub;
+                            foreach (SubState toSubState in toNation.subStates) {
+                                if (toSubState.parentState == fromState) {
+                                    subState = toSubState;
+                                    foreach (SubState fromSubState in fromNation.subStates) {
+                                        if (fromSubState.parentState == fromState) {
+                                            //MergeSubStates fromNation.subStates and toNation.subStates
+                                            mapOp.MergeSubStates(toNation, toSubState, fromNation, fromSubState);
+                                            mergedSubStates = true;
                                             break;
                                         }
                                     }
-                                    //MergeSubStates fromNation.subStates and toNation.subStates
-                                    mapOp.MergeSubStates(toNation, subState, fromNation, fromSubState);
+                                    
                                 }
+                            }
+                            //if not merged and subState is not null transfer substate
+                            if (!mergedSubStates && subState != null) {
+                                mapOp.TransferSubStates(fromNation, toNation, subState);
                             }
 
                             mapOp.MoveProvince(fromNation, toNation, provList);
@@ -664,8 +670,9 @@ namespace Vic3MapMaker
                         }
                         else if (transferRegionNationalRadioButton.Checked) {
                             List<Province> provList = new List<Province>();
-                            List<SubState> fromSubStates = new List<SubState>();
-                            List<SubState> toSubStates = new List<SubState>();
+                            List<SubState> fromSubStatesMerge = new List<SubState>();
+                            List<SubState> toSubStatesMerge = new List<SubState>();
+                            List<SubState> fromSubStatesTransfer = new List<SubState>();
 
                             foreach (State s in fromRegion.states) {
                                 foreach (Province p in s.provDict.Values) {
@@ -677,7 +684,7 @@ namespace Vic3MapMaker
                                 }
                                 SubState fromSubState = null;
                                 SubState toSubState = null;
-                                //if fromNation and toNation both have a subState with s as a parentState add that substates to fromSubStates and toSubStates
+                                //if fromNation and toNation both have a toSubState with s as a parentState add that substates to fromSubStatesMerge and toSubStatesMerge
                                 foreach (SubState subState in fromNation.subStates) {
                                     if (subState.parentState == s) {
                                         fromSubState = subState;
@@ -693,13 +700,22 @@ namespace Vic3MapMaker
 
                                 //if both are not null then add them to the lists
                                 if (fromSubState != null && toSubState != null) {
-                                    fromSubStates.Add(fromSubState);
-                                    toSubStates.Add(toSubState);
+                                    fromSubStatesMerge.Add(fromSubState);
+                                    toSubStatesMerge.Add(toSubState);
+                                }
+                                //if only fromSubState is not null then add it to the fromSubStatesTransfer list
+                                else if (fromSubState != null) {
+                                    fromSubStatesTransfer.Add(fromSubState);
                                 }
 
                             }
                             //MergeSubStates fromNation.subStates and toNation.subStates multi
-                            mapOp.MergeSubStates(toNation, toSubStates, fromNation, fromSubStates);
+                            if (fromSubStatesMerge.Count > 0 && toSubStatesMerge.Count > 0) {
+                                mapOp.MergeSubStates(toNation, toSubStatesMerge, fromNation, fromSubStatesMerge);
+                            }
+                            if (fromSubStatesTransfer.Count > 0) {
+                                mapOp.TransferSubStates(toNation, fromNation, fromSubStatesTransfer);
+                            }
 
                             mapOp.MoveProvince(fromNation, toNation, provList);
                         }
@@ -824,10 +840,10 @@ namespace Vic3MapMaker
                         if (!found) {
                             //create a new substate
                             SubState subState = new SubState(state, nation);
-                            //if nation has any cultures create a single pop with that culture
+                            //if nation has any cultures create a single pop with that cultureString
                             if (nation.cultures.Count > 0) {
                                 subState.pops.Add(new Pop(nation.cultures[0], 1));
-                                Console.WriteLine("\tnew substate created for " + nation.tag + " in" + state.name + " adding a single pop of " + nation.cultures[0] + " culture to it.");
+                                Console.WriteLine("\tnew substate created for " + nation.tag + " in" + state.name + " adding a single pop of " + nation.cultures[0] + " cultureString to it.");
                             }
                             nation.subStates.Add(subState);
                         }
@@ -1232,6 +1248,17 @@ namespace Vic3MapMaker
             }
 
         }
-        
+
+        private void SaveImageButton_Click(object sender, EventArgs e) {
+            //check if outputDirectory + /images/ folder exists, if not create it
+            if (!Directory.Exists(outputDirectory + "/images/")) {
+                Directory.CreateDirectory(outputDirectory + "/images/");
+            }
+
+            //save mergedMap to outputDirectory + /images/mergedMap.png
+            mergedImage.Save(outputDirectory + "/images/" + categoryComboBox.Text + ".png");
+
+
+        }
     }
 }

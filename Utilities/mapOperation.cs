@@ -301,7 +301,7 @@ namespace Vic3MapMaker
             }
             state.homeLandList.Add(culture);
         }
-        //remove culture homeland from state
+        //remove cultureString homeland from state
         public void RemoveCulturalHomeLand(State state, string culture, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
@@ -392,7 +392,7 @@ namespace Vic3MapMaker
             }
             nationSet.Remove(nation);
         }
-        //add nation culture
+        //add nation cultureString
         public void AddNationCulture(Nation nation, string culture, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
@@ -400,7 +400,7 @@ namespace Vic3MapMaker
             }
             nation.cultures.Add(culture);
         }
-        //remove nation culture
+        //remove nation cultureString
         public void RemoveNationCulture(Nation nation, string culture, bool undoAble = true) {
             if (undoAble) {
                 StackSize += 1;
@@ -448,22 +448,22 @@ namespace Vic3MapMaker
             Console.WriteLine("Merging " + fromNation.name +" " + fromSubState.parentState.name + "  into  " + toNation.name+ " " + toSubState.parentState.name);
             //remove substate from subnation
             fromNation.subStates.Remove(fromSubState);
-            //go through all pops in fromSubState and check if there is a pop in toSubState with the same culture, religion and type
+            //go through all pops in fromSubState and check if there is a pop in toSubState with the same cultureString, religion and type
             foreach (Pop pop in fromSubState.pops) {
                 bool found = false;
                 foreach (Pop mainPop in toSubState.pops) {
-                    if (mainPop.culture == pop.culture && mainPop.religion == pop.religion && mainPop.type == pop.type) {
-                        //if there is a pop with the same culture, religion and type, add the size of the pop to the mainPop
+                    if (mainPop.cultureString == pop.cultureString && mainPop.religion == pop.religion && mainPop.type == pop.type) {
+                        //if there is a pop with the same cultureString, religion and type, add the size of the pop to the mainPop
                         mainPop.size += pop.size;
                         found = true;
-                        Console.WriteLine("Found pop with same culture, religion and type, adding size");
+                        Console.WriteLine("Found pop with same cultureString, religion and type, adding size");
                         break;
                     }
                 }
-                //if there is no pop with the same culture, religion and type, add the pop to the toSubState
+                //if there is no pop with the same cultureString, religion and type, add the pop to the toSubState
                 if (!found) {
                     toSubState.pops.Add(pop);
-                    Console.WriteLine("No pop with same culture, religion and type, adding new pop");
+                    Console.WriteLine("No pop with same cultureString, religion and type, adding new pop");
                 }
             }
             //go throu all StateBuilding in fromSubState and check if there is a building in toSubState with the same building type
@@ -498,10 +498,10 @@ namespace Vic3MapMaker
             
             //add substate to subnation
             subNation.subStates.Add(subState);
-            //go through all pops in toSubState and check if there is a pop in fromSubState with the same culture, religion and type and reduce the size of the pop in toSubState by the size of the pop in fromSubState
+            //go through all pops in toSubState and check if there is a pop in fromSubState with the same cultureString, religion and type and reduce the size of the pop in toSubState by the size of the pop in fromSubState
             foreach (Pop pop in mainSubState.pops) {
                 foreach (Pop subPop in subState.pops) {
-                    if (subPop.culture == pop.culture && subPop.religion == pop.religion && subPop.type == pop.type) {
+                    if (subPop.cultureString == pop.cultureString && subPop.religion == pop.religion && subPop.type == pop.type) {
                         pop.size -= subPop.size;
                         //if the size of the pop in toSubState is 0, remove the pop from toSubState
                         if (pop.size == 0) {
@@ -540,18 +540,18 @@ namespace Vic3MapMaker
             for (int i = 0; i < fromSubStates.Count; i++) {
                 SubState subState = fromSubStates[i];
                 SubState mainSubState = toSubStates[i];
-                //go through all pops in fromSubState and check if there is a pop in toSubState with the same culture, religion and type
+                //go through all pops in fromSubState and check if there is a pop in toSubState with the same cultureString, religion and type
                 foreach (Pop pop in subState.pops) {
                     bool found = false;
                     foreach (Pop mainPop in mainSubState.pops) {
-                        if (mainPop.culture == pop.culture && mainPop.religion == pop.religion && mainPop.type == pop.type) {
-                            //if there is a pop with the same culture, religion and type, add the size of the pop to the mainPop
+                        if (mainPop.cultureString == pop.cultureString && mainPop.religion == pop.religion && mainPop.type == pop.type) {
+                            //if there is a pop with the same cultureString, religion and type, add the size of the pop to the mainPop
                             mainPop.size += pop.size;
                             found = true;
                             break;
                         }
                     }
-                    //if there is no pop with the same culture, religion and type, add the pop to the toSubState
+                    //if there is no pop with the same cultureString, religion and type, add the pop to the toSubState
                     if (!found) {
                         mainSubState.pops.Add(pop);
                     }
@@ -589,10 +589,10 @@ namespace Vic3MapMaker
             for (int i = 0; i < subStates.Count; i++) {
                 SubState subState = subStates[i];
                 SubState mainSubState = mainSubStates[i];
-                //go through all pops in toSubState and check if there is a pop in fromSubState with the same culture, religion and type and reduce the size of the pop in toSubState by the size of the pop in fromSubState
+                //go through all pops in toSubState and check if there is a pop in fromSubState with the same cultureString, religion and type and reduce the size of the pop in toSubState by the size of the pop in fromSubState
                 foreach (Pop pop in mainSubState.pops) {
                     foreach (Pop subPop in subState.pops) {
-                        if (subPop.culture == pop.culture && subPop.religion == pop.religion && subPop.type == pop.type) {
+                        if (subPop.cultureString == pop.cultureString && subPop.religion == pop.religion && subPop.type == pop.type) {
                             pop.size -= subPop.size;
                             //if the size of the pop in toSubState is 0, remove the pop from toSubState
                             if (pop.size == 0) {
@@ -624,6 +624,9 @@ namespace Vic3MapMaker
             }
             fromNation.subStates.Remove(subState);
             toNation.subStates.Add(subState);
+            //set owner of substate to toNation
+            subState.owner = toNation;
+            Console.WriteLine("Transferted substate " + subState.parentState.name + " from " + fromNation.name + " to " + toNation.name);
 
             //update religion of pops if toNation and fromNation have different religions and pops religion is ""
             if (toNation.religion != fromNation.religion) {
@@ -631,13 +634,40 @@ namespace Vic3MapMaker
                     if(pop.religion == "") {
                         //change religion of pop to fromNation religion
                         pop.religion = fromNation.religion;
+                        Console.WriteLine("Changed religion of pop " + pop + " in " + subState.parentState.name + " from " + fromNation.religion + " to " + toNation.religion + " to maintain religion of the pop when moved");
                     }
                 }
             }
-
-
         }
 
+        //transfert SubStates multi
+        public void TransferSubStates(Nation toNation, Nation fromNation, List<SubState> subStates, bool undoAble = true) {
+            if (undoAble) {
+                StackSize += 1;
+                UndoStack.Push(() => TransferSubStates(fromNation, toNation, subStates, false));
+            }
+            //remove substates from subnation
+            foreach (SubState subState in subStates) {
+                fromNation.subStates.Remove(subState);
+            }
+            //add substates to mainnation
+            foreach (SubState subState in subStates) {
+                toNation.subStates.Add(subState);
+                //set owner of substate tonation
+                subState.owner = toNation;
+            }
+            //update religion of pops if toNation and fromNation have different religions and pops religion is ""
+            if (toNation.religion != fromNation.religion) {
+                foreach (SubState subState in subStates) {
+                    foreach (Pop pop in subState.pops) {
+                        if (pop.religion == "") {
+                            //change religion of pop to fromNation religion
+                            pop.religion = fromNation.religion;
+                        }
+                    }
+                }
+            }
+        }
 
         //update production Method for StateBuilding
         public void UpdateProducitonMethond(StateBuilding stateBuilding, string newMethond, string oldMethond, bool undoAble = true) {

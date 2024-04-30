@@ -72,7 +72,7 @@ namespace Vic3MapMaker
             //Culutre homeland
             //set homeLandListBox to state.cultureHomeland
             homeLandListBox.Items.AddRange(state.homeLandList.ToArray());
-            //set unused culture list to allCulturesList - state.cultureHomeland
+            //set unused cultureString list to allCulturesList - state.cultureHomeland
             foreach (string culture in lsu.cultures) {
                 if (!state.homeLandList.Contains(culture)) {
                     unusedCultureList.Add(culture);
